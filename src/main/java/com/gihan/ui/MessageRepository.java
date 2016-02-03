@@ -18,10 +18,10 @@ package com.gihan.ui;
  */
 public interface MessageRepository {
 
-	Iterable<Message> findAll();
+    Iterable<Message> findAll();
 
-	Message save(Message message);
+    Message save(Message message);
 
-	Message findMessage(Long id);
+    Message findMessage(Long id);
 
 }
