@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package com.gihan.ui;
+package com.gihan.repository;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
+
+import com.gihan.model.Message;
 
 /**
  * @author Dave Syer

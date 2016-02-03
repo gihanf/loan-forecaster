@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gihan.ui;
+package com.gihan.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -23,9 +23,13 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 
+import com.gihan.repository.InMemoryMessageRespository;
+import com.gihan.model.Message;
+import com.gihan.repository.MessageRepository;
+
 @Configuration
 @EnableAutoConfiguration
-@ComponentScan
+@ComponentScan(basePackages = "com.gihan")
 public class SampleWebUiApplication {
 
     @Bean

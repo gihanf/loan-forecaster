@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.gihan.ui;
+package com.gihan.controller;
 
 import java.util.regex.Pattern;
 
@@ -37,6 +37,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import com.gihan.application.SampleWebUiApplication;
 
 /**
  * A Basic Spring MVC Test for the Sample Controller"

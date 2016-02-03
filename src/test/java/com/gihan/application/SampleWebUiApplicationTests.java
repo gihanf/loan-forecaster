@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.gihan.ui;
+package com.gihan.application;
+
+import static org.junit.Assert.*;
 
 import java.net.URI;
 
@@ -31,10 +33,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Basic integration tests for demo application.

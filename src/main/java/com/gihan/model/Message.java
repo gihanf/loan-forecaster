@@ -11,7 +11,7 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.gihan.ui;
+package com.gihan.model;
 
 import java.util.Calendar;
 

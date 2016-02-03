@@ -11,7 +11,7 @@
  * specific language governing permissions and limitations under the License.
  */
 
-package com.gihan.ui.mvc;
+package com.gihan.controller;
 
 import javax.validation.Valid;
 
@@ -25,8 +25,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gihan.ui.Message;
-import com.gihan.ui.MessageRepository;
+import com.gihan.model.Message;
+import com.gihan.repository.MessageRepository;
 
 /**
  * @author Rob Winch
