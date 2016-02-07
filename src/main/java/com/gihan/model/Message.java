@@ -15,13 +15,21 @@ package com.gihan.model;
 
 import java.util.Calendar;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  * @author Rob Winch
  */
+@Entity
 public class Message {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotEmpty(message = "Message is required.")
@@ -62,5 +70,15 @@ public class Message {
 
     public void setSummary(String summary) {
         this.summary = summary;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", text='" + text + '\'' +
+                ", summary='" + summary + '\'' +
+                ", created=" + created +
+                '}';
     }
 }

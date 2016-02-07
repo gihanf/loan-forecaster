@@ -15,6 +15,8 @@ package com.gihan.controller;
 
 import javax.validation.Valid;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -34,12 +36,10 @@ import com.gihan.repository.MessageRepository;
 @Controller
 @RequestMapping("/")
 public class MessageController {
-    private final MessageRepository messageRepository;
+    private static final Log LOG = LogFactory.getLog(MessageController.class);
 
     @Autowired
-    public MessageController(MessageRepository messageRepository) {
-        this.messageRepository = messageRepository;
-    }
+    private MessageRepository messageRepository;
 
     @RequestMapping
     public ModelAndView list() {
@@ -63,14 +63,10 @@ public class MessageController {
         if (result.hasErrors()) {
             return new ModelAndView("messages/form", "formErrors", result.getAllErrors());
         }
-        message = this.messageRepository.save(message);
+        message = this.messageRepository.saveAndFlush(message);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new message");
-        return new ModelAndView("redirect:/{message.id}", "message.id", message.getId());
-    }
-
-    @RequestMapping("foo")
-    public String foo() {
-        throw new RuntimeException("Expected exception in controller");
+        Long id = message.getId();
+        return new ModelAndView(String.format("redirect:/%s", id), "message.id", id);
     }
 
 }

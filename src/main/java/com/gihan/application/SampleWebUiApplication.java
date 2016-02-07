@@ -16,6 +16,7 @@
 
 package com.gihan.application;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +24,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 
-import com.gihan.repository.InMemoryMessageRespository;
 import com.gihan.model.Message;
 import com.gihan.repository.MessageRepository;
 
@@ -32,17 +32,15 @@ import com.gihan.repository.MessageRepository;
 @ComponentScan(basePackages = "com.gihan")
 public class SampleWebUiApplication {
 
-    @Bean
-    public MessageRepository messageRepository() {
-        return new InMemoryMessageRespository();
-    }
+    @Autowired
+    private MessageRepository messageRepository;
 
     @Bean
     public Converter<String, Message> messageConverter() {
         return new Converter<String, Message>() {
             @Override
             public Message convert(String id) {
-                return messageRepository().findMessage(Long.valueOf(id));
+                return messageRepository.findOne(Long.valueOf(id));
             }
         };
     }
