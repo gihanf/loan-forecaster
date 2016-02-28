@@ -1,5 +1,6 @@
 package com.gihan.config;
 
+import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -7,10 +8,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
@@ -34,7 +37,7 @@ public class DatabaseConfig {
     private String HIBERNATE_DIALECT;
 
     @Value("${hibernate.show_sql}")
-    private String HIBERNATE_SHOW_SQL;
+    private Boolean HIBERNATE_SHOW_SQL;
 
     @Value("${hibernate.hbm2ddl.auto}")
     private String HIBERNATE_HBM2DDL_AUTO;
@@ -56,10 +59,9 @@ public class DatabaseConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource datasource, JpaVendorAdapter jpaVendorAdapter) {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(jpaVendorAdapter);
-        factory.setPackagesToScan("com.gihan.model");
+        factory.setPackagesToScan(ENTITYMANAGER_PACKAGES_TO_SCAN);
         factory.setDataSource(datasource);
         factory.afterPropertiesSet();
-
         return factory;
     }
 
@@ -67,18 +69,15 @@ public class DatabaseConfig {
     public JpaVendorAdapter jpaVendorAdapter() {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         vendorAdapter.setDatabase(Database.MYSQL);
-        vendorAdapter.setShowSql(true);
+        vendorAdapter.setShowSql(HIBERNATE_SHOW_SQL);
         vendorAdapter.setGenerateDdl(true);
         vendorAdapter.setDatabasePlatform(HIBERNATE_DIALECT);
         return vendorAdapter;
     }
 
-//    @Bean
-//    public PlatformTransactionManager transactionManager() {
-//
-//        JpaTransactionManager txManager = new JpaTransactionManager();
-//        txManager.setEntityManagerFactory((EntityManagerFactory) entityManagerFactory(dataSource(), jpaVendorAdapter()));
-//        return txManager;
-//    }
+    @Bean
+    public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) throws Exception {
+        return new JpaTransactionManager(entityManagerFactory);
+    }
 
 } // class DatabaseConfig

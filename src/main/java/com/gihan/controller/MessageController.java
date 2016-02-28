@@ -19,6 +19,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,13 +58,15 @@ public class MessageController {
         return "messages/form";
     }
 
+    // TODO: Figure out how this should be transactional
+    @Transactional
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView create(@Valid Message message, BindingResult result,
                                RedirectAttributes redirect) {
         if (result.hasErrors()) {
             return new ModelAndView("messages/form", "formErrors", result.getAllErrors());
         }
-        message = this.messageRepository.saveAndFlush(message);
+        message = this.messageRepository.save(message);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new message");
         Long id = message.getId();
         return new ModelAndView(String.format("redirect:/%s", id), "message.id", id);

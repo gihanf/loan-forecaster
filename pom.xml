@@ -44,6 +44,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>4.1.6.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
@@ -57,6 +63,9 @@
                         <version>1.1.5.RELEASE</version>
                     </dependency>
                 </dependencies>
+                <!--<configuration>-->
+                    <!--<noverify>false</noverify>-->
+                <!--</configuration>-->
             </plugin>
         </plugins>
     </build>

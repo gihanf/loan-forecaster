@@ -16,6 +16,11 @@
 
 package com.gihan.controller;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import java.util.regex.Pattern;
 
 import org.hamcrest.Description;
@@ -24,19 +29,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.boot.test.SpringApplicationConfiguration;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import static org.hamcrest.Matchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.gihan.application.SampleWebUiApplication;
 
@@ -48,7 +47,12 @@ import com.gihan.application.SampleWebUiApplication;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = SampleWebUiApplication.class)
+
+// TODO: Does this need to be springApplicationConfiguration
+@SpringApplicationConfiguration(classes = SampleWebUiApplication.class)
+//@ContextConfiguration(classes = SampleWebUiApplication.class)
+//@ComponentScan(basePackages = "com.gihan.controller")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class MessageControllerWebTests {
 
     @Autowired
