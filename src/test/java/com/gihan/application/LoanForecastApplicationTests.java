@@ -44,14 +44,14 @@ import org.springframework.util.MultiValueMap;
  * @author Dave Syer
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = SampleWebUiApplication.class)
+@SpringApplicationConfiguration(classes = LoanForecastApplication.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:9999")
 @Transactional(propagation = Propagation.NEVER)
 @TransactionConfiguration(defaultRollback = true, transactionManager = "transactionManager")
 @DirtiesContext
 //@TestExecutionListeners(listeners = TransactionalTestExecutionListener.class)
-public class SampleWebUiApplicationTests {
+public class LoanForecastApplicationTests {
 
     @Value("${server.port}")
     private int port;
@@ -74,6 +74,7 @@ public class SampleWebUiApplicationTests {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         map.set("text", "FOO text");
         map.set("summary", "FOO");
+        map.set("amount", "3.00");
         URI location = new TestRestTemplate().postForLocation("http://localhost:"+ this.port, map);
         assertTrue("Wrong location:\n" + location, location.toString().contains("localhost:" + this.port));
     }

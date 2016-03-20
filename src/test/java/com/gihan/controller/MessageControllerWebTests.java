@@ -37,7 +37,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.gihan.application.SampleWebUiApplication;
+import com.gihan.application.LoanForecastApplication;
 
 /**
  * A Basic Spring MVC Test for the Sample Controller"
@@ -49,7 +49,7 @@ import com.gihan.application.SampleWebUiApplication;
 @WebAppConfiguration
 
 // TODO: Does this need to be springApplicationConfiguration
-@SpringApplicationConfiguration(classes = SampleWebUiApplication.class)
+@SpringApplicationConfiguration(classes = LoanForecastApplication.class)
 //@ContextConfiguration(classes = SampleWebUiApplication.class)
 //@ComponentScan(basePackages = "com.gihan.controller")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)

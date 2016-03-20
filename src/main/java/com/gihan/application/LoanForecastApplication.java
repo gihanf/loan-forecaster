@@ -30,7 +30,7 @@ import com.gihan.repository.MessageRepository;
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan(basePackages = "com.gihan")
-public class SampleWebUiApplication {
+public class LoanForecastApplication {
 
     @Autowired
     private MessageRepository messageRepository;
@@ -46,7 +46,7 @@ public class SampleWebUiApplication {
     }
 
     public static void main(String[] args) throws Exception {
-        SpringApplication.run(SampleWebUiApplication.class, args);
+        SpringApplication.run(LoanForecastApplication.class, args);
     }
 
 }
