@@ -24,7 +24,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 
-import com.gihan.model.Message;
+import com.gihan.model.Expense;
 import com.gihan.repository.MessageRepository;
 
 @Configuration
@@ -36,10 +36,10 @@ public class SampleWebUiApplication {
     private MessageRepository messageRepository;
 
     @Bean
-    public Converter<String, Message> messageConverter() {
-        return new Converter<String, Message>() {
+    public Converter<String, Expense> messageConverter() {
+        return new Converter<String, Expense>() {
             @Override
-            public Message convert(String id) {
+            public Expense convert(String id) {
                 return messageRepository.findOne(Long.valueOf(id));
             }
         };

@@ -2,14 +2,13 @@ package com.gihan.repository;
 
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.gihan.model.Message;
+import com.gihan.model.Expense;
 
 @Transactional
-public interface MessageRepository extends CrudRepository<Message, Long> {
+public interface MessageRepository extends CrudRepository<Expense, Long> {
 
-    List<Message> findByText(String lastName);
+    List<Expense> findByText(String lastName);
 }

@@ -13,12 +13,15 @@
 
 package com.gihan.model;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
@@ -26,17 +29,21 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @author Rob Winch
  */
 @Entity
-public class Message {
+public class Expense {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty(message = "Message is required.")
+    @NotEmpty(message = "Expense is required.")
     private String text;
 
     @NotEmpty(message = "Summary is required.")
     private String summary;
+
+    @Min(value = 0)
+    @NotNull(message = "An amount must be entered")
+    private BigDecimal amount;
 
     private Calendar created = Calendar.getInstance();
 
@@ -72,13 +79,22 @@ public class Message {
         this.summary = summary;
     }
 
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
     @Override
     public String toString() {
-        return "Message{" +
+        return "Expense{" +
                 "id=" + id +
                 ", text='" + text + '\'' +
                 ", summary='" + summary + '\'' +
-                ", created=" + created +
+                ", created=" + created + '\'' +
+                ", amount=" + amount +
                 '}';
     }
 }

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gihan.model.Message;
+import com.gihan.model.Expense;
 import com.gihan.repository.MessageRepository;
 
 /**
@@ -44,31 +44,31 @@ public class MessageController {
 
     @RequestMapping
     public ModelAndView list() {
-        Iterable<Message> messages = this.messageRepository.findAll();
-        return new ModelAndView("messages/list", "messages", messages);
+        Iterable<Expense> expenses = this.messageRepository.findAll();
+        return new ModelAndView("expenses/list", "expenses", expenses);
     }
 
     @RequestMapping("{id}")
-    public ModelAndView view(@PathVariable("id") Message message) {
-        return new ModelAndView("messages/view", "message", message);
+    public ModelAndView view(@PathVariable("id") Expense expense) {
+        return new ModelAndView("expenses/view", "expense", expense);
     }
 
     @RequestMapping(params = "form", method = RequestMethod.GET)
-    public String createForm(@ModelAttribute Message message) {
-        return "messages/form";
+    public String createForm(@ModelAttribute Expense expense) {
+        return "expenses/form";
     }
 
     // TODO: Figure out how this should be transactional
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView create(@Valid Message message, BindingResult result,
+    public ModelAndView create(@Valid Expense expense, BindingResult result,
                                RedirectAttributes redirect) {
         if (result.hasErrors()) {
-            return new ModelAndView("messages/form", "formErrors", result.getAllErrors());
+            return new ModelAndView("expenses/form", "formErrors", result.getAllErrors());
         }
-        message = this.messageRepository.save(message);
-        redirect.addFlashAttribute("globalMessage", "Successfully created a new message");
-        Long id = message.getId();
+        expense = this.messageRepository.save(expense);
+        redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
+        Long id = expense.getId();
         return new ModelAndView(String.format("redirect:/%s", id), "message.id", id);
     }
 

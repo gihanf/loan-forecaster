@@ -62,7 +62,7 @@ public class SampleWebUiApplicationTests {
                 "http://localhost:" + this.port, String.class);
         assertEquals(HttpStatus.OK, entity.getStatusCode());
         assertTrue("Wrong body (title doesn't match):\n" + entity.getBody(), entity
-                .getBody().contains("<title>Messages"));
+                .getBody().contains("<title>Expenses"));
         assertFalse("Wrong body (found layout:fragment):\n" + entity.getBody(), entity
                 .getBody().contains("layout:fragment"));
     }
