@@ -19,11 +19,12 @@
             <td>Created</td>
             <td>Summary</td>
             <td>Amount</td>
+            <td>Frequency</td>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${expenses.empty}">
-            <td colspan="4">
+            <td colspan="5">
                 No expenses
             </td>
         </tr>
@@ -40,6 +41,7 @@
                 </a>
             </td>
             <td th:text="${'$' + expense.amount}"></td>
+            <td th:text="${expense.frequency}"></td>
         </tr>
         </tbody>
     </table>

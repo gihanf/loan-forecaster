@@ -13,6 +13,9 @@
 
 package com.gihan.controller;
 
+import java.util.Arrays;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
@@ -29,6 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gihan.model.Expense;
+import com.gihan.model.Frequency;
 import com.gihan.repository.MessageRepository;
 
 /**
@@ -46,6 +50,11 @@ public class MessageController {
     public ModelAndView list() {
         Iterable<Expense> expenses = this.messageRepository.findAll();
         return new ModelAndView("expenses/list", "expenses", expenses);
+    }
+
+    @ModelAttribute("allFrequencies")
+    public List<Frequency> populateTypes() {
+        return Arrays.asList(Frequency.values());
     }
 
     @RequestMapping("{id}")

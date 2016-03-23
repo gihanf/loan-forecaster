@@ -40,6 +40,13 @@
                th:field="*{amount}"
                th:class="${#fields.hasErrors('amount')} ? 'field-error'"/>
 
+        <label for="frequency">Frequency</label>
+        <select th:field="*{frequency}">
+            <option th:each="option : ${allFrequencies}"
+                    th:value="${option.name()}"
+                    th:text="${option.toString()}"></option>
+        </select>
+
         <div class="form-actions">
             <input type="submit" value="Create"/>
         </div>

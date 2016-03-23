@@ -47,6 +47,8 @@ public class Expense {
 
     private Calendar created = Calendar.getInstance();
 
+    private Frequency frequency;
+
     public Long getId() {
         return this.id;
     }
@@ -96,5 +98,13 @@ public class Expense {
                 ", created=" + created + '\'' +
                 ", amount=" + amount +
                 '}';
+    }
+
+    public Frequency getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(Frequency frequency) {
+        this.frequency = frequency;
     }
 }
