@@ -20,6 +20,7 @@ import static org.junit.Assert.*;
 
 import java.net.URI;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -80,11 +81,19 @@ public class LoanForecastApplicationTests {
     }
 
     @Test
-    public void testCss() throws Exception {
+    public void testBootStrapCss() throws Exception {
         ResponseEntity<String> entity = new TestRestTemplate().getForEntity(
                 "http://localhost:" + this.port + "/css/bootstrap.min.css", String.class);
         assertEquals(HttpStatus.OK, entity.getStatusCode());
         assertTrue("Wrong body:\n" + entity.getBody(), entity.getBody().contains("body"));
+    }
+
+    @Test
+    public void testCustomCss() throws Exception {
+        ResponseEntity<String> entity = new TestRestTemplate().getForEntity(
+                "http://localhost:" + this.port + "/css/loan.css", String.class);
+        assertEquals(HttpStatus.OK, entity.getStatusCode());
+        assertTrue("Wrong body:\n" + entity.getBody(), entity.getBody().contains("incurredTime"));
     }
 
 }

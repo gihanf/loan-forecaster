@@ -47,6 +47,16 @@
                     th:text="${option.toString()}"></option>
         </select>
 
+        <label for="incurredTime"></label>
+
+        <div>
+            <ul>
+                <li th:each="option : ${paymentScheduleOptions}">
+                    <input type="radio" th:field="*{expenseSchedule}" th:value="${option}"/>
+                    <label id="incurredTime" th:text="${option.toString()}"></label>
+                </li>
+            </ul>
+        </div>
         <div class="form-actions">
             <input type="submit" value="Create"/>
         </div>

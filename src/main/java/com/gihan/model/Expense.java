@@ -49,6 +49,8 @@ public class Expense {
 
     private Frequency frequency;
 
+    private PaymentSchedule expenseSchedule;
+
     public Long getId() {
         return this.id;
     }
@@ -89,6 +91,22 @@ public class Expense {
         this.amount = amount;
     }
 
+    public Frequency getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(Frequency frequency) {
+        this.frequency = frequency;
+    }
+
+    public PaymentSchedule getExpenseSchedule() {
+        return expenseSchedule;
+    }
+
+    public void setExpenseSchedule(PaymentSchedule expenseSchedule) {
+        this.expenseSchedule = expenseSchedule;
+    }
+
     @Override
     public String toString() {
         return "Expense{" +
@@ -96,15 +114,8 @@ public class Expense {
                 ", text='" + text + '\'' +
                 ", summary='" + summary + '\'' +
                 ", created=" + created + '\'' +
-                ", amount=" + amount +
+                ", amount=" + amount + '\'' +
+                ", expenseSchedule=" + expenseSchedule +
                 '}';
-    }
-
-    public Frequency getFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(Frequency frequency) {
-        this.frequency = frequency;
     }
 }
