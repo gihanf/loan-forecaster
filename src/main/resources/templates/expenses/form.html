@@ -36,23 +36,26 @@
                 th:field="*{text}"
                 th:class="${#fields.hasErrors('text')} ? 'field-error'"></textarea>
         <label for="amount">Amount</label>
-        <input type="text"
+        <!--TODO Ensure field only accepts digits and positive numbers -->
+        <input type="number"
                th:field="*{amount}"
                th:class="${#fields.hasErrors('amount')} ? 'field-error'"/>
 
-        <label for="frequency">Frequency</label>
-        <select th:field="*{frequency}">
-            <option th:each="option : ${allFrequencies}"
-                    th:value="${option.name()}"
-                    th:text="${option.toString()}"></option>
-        </select>
+        <!--<label for="frequency">Frequency</label>-->
+        <!--<select th:field="*{paymentSchedule.frequency}">-->
+            <!--<option th:each="option : ${allFrequencies}"-->
+                    <!--th:value="${option.name()}"-->
+                    <!--th:text="${option.toString()}"></option>-->
+        <!--</select>-->
 
         <label for="incurredTime"></label>
 
         <div>
             <ul>
                 <li th:each="option : ${paymentScheduleOptions}">
-                    <input type="radio" th:field="*{expenseSchedule}" th:value="${option}"/>
+                    <!--Trying to set a default value to be checked -->
+                    <!--th:checked="${option == option.NOW} ? 'checked' : null "-->
+                    <input type="radio" th:field="*{expenseSchedule}" th:value="${option.name()}"/>
                     <label id="incurredTime" th:text="${option.toString()}"></label>
                 </li>
             </ul>

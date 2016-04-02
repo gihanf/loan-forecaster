@@ -41,7 +41,7 @@
                 </a>
             </td>
             <td th:text="${'$' + expense.amount}"></td>
-            <td th:text="${expense.frequency}"></td>
+            <td th:text="${expense.getExpenseSchedule()}"></td>
         </tr>
         </tbody>
     </table>

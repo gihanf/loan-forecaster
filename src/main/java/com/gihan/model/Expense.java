@@ -16,10 +16,8 @@ package com.gihan.model;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -43,13 +41,17 @@ public class Expense {
 
     @Min(value = 0)
     @NotNull(message = "An amount must be entered")
+    @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
     private BigDecimal amount;
 
     private Calendar created = Calendar.getInstance();
 
     private Frequency frequency;
 
-    private PaymentSchedule expenseSchedule;
+    @Enumerated(EnumType.STRING)
+    private PaymentScheduleOption expenseSchedule;
+
+//    private PaymentSchedule paymentSchedule;
 
     public Long getId() {
         return this.id;
@@ -99,13 +101,21 @@ public class Expense {
         this.frequency = frequency;
     }
 
-    public PaymentSchedule getExpenseSchedule() {
+    public PaymentScheduleOption getExpenseSchedule() {
         return expenseSchedule;
     }
 
-    public void setExpenseSchedule(PaymentSchedule expenseSchedule) {
+    public void setExpenseSchedule(PaymentScheduleOption expenseSchedule) {
         this.expenseSchedule = expenseSchedule;
     }
+
+//    public PaymentSchedule getPaymentSchedule() {
+//        return paymentSchedule;
+//    }
+//
+//    public void setPaymentSchedule(PaymentSchedule paymentSchedule) {
+//        this.paymentSchedule = paymentSchedule;
+//    }
 
     @Override
     public String toString() {

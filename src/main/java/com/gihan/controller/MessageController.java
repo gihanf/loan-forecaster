@@ -33,7 +33,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gihan.model.Expense;
 import com.gihan.model.Frequency;
-import com.gihan.model.PaymentSchedule;
+import com.gihan.model.PaymentScheduleOption;
 import com.gihan.repository.MessageRepository;
 
 /**
@@ -59,8 +59,8 @@ public class MessageController {
     }
 
     @ModelAttribute("paymentScheduleOptions")
-    public List<PaymentSchedule> populateIncurredOptions() {
-        return Arrays.asList(PaymentSchedule.values());
+    public List<PaymentScheduleOption> populateIncurredOptions() {
+        return Arrays.asList(PaymentScheduleOption.values());
     }
 
     @RequestMapping("{id}")

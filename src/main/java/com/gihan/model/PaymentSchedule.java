@@ -1,26 +1,42 @@
 package com.gihan.model;
 
-public enum PaymentSchedule {
-    NOW ("Now"),
-    LATER ("Later"),
-    RECURRING ("Recurring");
 
-    private final String name;
+import org.joda.time.LocalDateTime;
 
-    private PaymentSchedule(String s) {
-        name = s;
+public class PaymentSchedule {
+
+    private PaymentScheduleOption scheduleOption;
+    private Frequency frequency;
+    private LocalDateTime firstPaymentDate;
+
+    public PaymentSchedule(PaymentScheduleOption scheduleOption, Frequency frequency, LocalDateTime firstPaymentDate) {
+        this.scheduleOption = scheduleOption;
+        this.frequency = frequency;
+        this.firstPaymentDate = firstPaymentDate;
     }
 
-    public boolean equalsName(String otherName) {
-        return (otherName == null) ? false : name.equals(otherName);
+    public PaymentScheduleOption getScheduleOption() {
+        return scheduleOption;
     }
 
-    public String toString() {
-        switch (this) {
-            case NOW: return NOW.name;
-            case LATER: return LATER.name;
-            case RECURRING: return RECURRING.name;
-            default: throw new IllegalArgumentException();
-        }
+    public void setScheduleOption(PaymentScheduleOption scheduleOption) {
+        this.scheduleOption = scheduleOption;
     }
+
+    public Frequency getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(Frequency frequency) {
+        this.frequency = frequency;
+    }
+
+    public LocalDateTime getFirstPaymentDate() {
+        return firstPaymentDate;
+    }
+
+    public void setFirstPaymentDate(LocalDateTime firstPaymentDate) {
+        this.firstPaymentDate = firstPaymentDate;
+    }
+
 }
