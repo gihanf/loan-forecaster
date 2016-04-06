@@ -17,7 +17,7 @@
         <tr>
             <td>ID</td>
             <td>Created</td>
-            <td>Summary</td>
+            <td>Description</td>
             <td>Amount</td>
             <td>Frequency</td>
         </tr>
@@ -36,8 +36,8 @@
             <td>
                 <a href="view.html"
                    th:href="@{'/' + ${expense.id}}"
-                   th:text="${expense.summary}">
-                    The summary
+                   th:text="${expense.description}">
+                    The description
                 </a>
             </td>
             <td th:text="${'$' + expense.amount}"></td>

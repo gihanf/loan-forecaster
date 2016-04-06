@@ -27,14 +27,11 @@
                 Expenses
             </a>
         </div>
-        <label for="summary">Summary</label>
+        <label for="description">Summary</label>
         <input type="text"
-               th:field="*{summary}"
-               th:class="${#fields.hasErrors('summary')} ? 'field-error'"/>
-        <label for="text">Message</label>
-        <textarea
-                th:field="*{text}"
-                th:class="${#fields.hasErrors('text')} ? 'field-error'"></textarea>
+               th:field="*{description}"
+               th:class="${#fields.hasErrors('description')} ? 'field-error'"/>
+
         <label for="amount">Amount</label>
         <!--TODO Ensure field only accepts digits and positive numbers -->
         <input type="number"

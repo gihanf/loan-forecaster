@@ -33,11 +33,8 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty(message = "Expense is required.")
-    private String text;
-
     @NotEmpty(message = "Summary is required.")
-    private String summary;
+    private String description;
 
     @Min(value = 0)
     @NotNull(message = "An amount must be entered")
@@ -69,20 +66,12 @@ public class Expense {
         this.created = created;
     }
 
-    public String getText() {
-        return this.text;
+    public String getDescription() {
+        return this.description;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getSummary() {
-        return this.summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public BigDecimal getAmount() {
@@ -121,8 +110,7 @@ public class Expense {
     public String toString() {
         return "Expense{" +
                 "id=" + id +
-                ", text='" + text + '\'' +
-                ", summary='" + summary + '\'' +
+                ", description='" + description + '\'' +
                 ", created=" + created + '\'' +
                 ", amount=" + amount + '\'' +
                 ", expenseSchedule=" + expenseSchedule +
