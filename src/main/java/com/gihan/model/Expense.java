@@ -22,6 +22,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.DateTime;
 
 /**
  * @author Rob Winch
@@ -47,6 +48,8 @@ public class Expense {
 
     @Enumerated(EnumType.STRING)
     private PaymentScheduleOption expenseSchedule;
+
+    private DateTime effectiveDate;
 
 //    private PaymentSchedule paymentSchedule;
 

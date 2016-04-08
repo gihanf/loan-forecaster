@@ -1,26 +1,16 @@
 package com.gihan.model;
 
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.LocalDate;
 
 public class PaymentSchedule {
 
-    private PaymentScheduleOption scheduleOption;
     private Frequency frequency;
-    private LocalDateTime firstPaymentDate;
+    private LocalDate firstPaymentDate;
 
-    public PaymentSchedule(PaymentScheduleOption scheduleOption, Frequency frequency, LocalDateTime firstPaymentDate) {
-        this.scheduleOption = scheduleOption;
+    public PaymentSchedule(Frequency frequency, LocalDate firstPaymentDate) {
         this.frequency = frequency;
         this.firstPaymentDate = firstPaymentDate;
-    }
-
-    public PaymentScheduleOption getScheduleOption() {
-        return scheduleOption;
-    }
-
-    public void setScheduleOption(PaymentScheduleOption scheduleOption) {
-        this.scheduleOption = scheduleOption;
     }
 
     public Frequency getFrequency() {
@@ -31,11 +21,11 @@ public class PaymentSchedule {
         this.frequency = frequency;
     }
 
-    public LocalDateTime getFirstPaymentDate() {
+    public LocalDate getFirstPaymentDate() {
         return firstPaymentDate;
     }
 
-    public void setFirstPaymentDate(LocalDateTime firstPaymentDate) {
+    public void setFirstPaymentDate(LocalDate firstPaymentDate) {
         this.firstPaymentDate = firstPaymentDate;
     }
 
