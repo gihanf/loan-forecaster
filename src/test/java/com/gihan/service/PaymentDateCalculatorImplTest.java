@@ -6,8 +6,6 @@ import static org.junit.Assert.assertThat;
 import java.util.List;
 
 import org.joda.time.LocalDate;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,7 +15,6 @@ import com.gihan.model.PaymentSchedule;
 public class PaymentDateCalculatorImplTest {
 
     private PaymentDateCalculator calculator;
-    private final static DateTimeFormatter DATETIME_FORMATTER = DateTimeFormat.forPattern("dd/mm/yyyy");
 
     @Before
     public void setup() throws Exception {
@@ -41,20 +38,51 @@ public class PaymentDateCalculatorImplTest {
     }
 
     @Test
-    public void shouldReturn6Dates_WhenFrequencyIsMonthly_AndEntireScheduleFitsInSearchRange() throws Exception {
-        LocalDate firstPaymentDate = DATETIME_FORMATTER.parseLocalDate("02/01/2016");
-        LocalDate startDateRange = DATETIME_FORMATTER.parseLocalDate("01/01/2016");
-//        LocalDate endDateRange = DATETIME_FORMATTER.parseLocalDate("01/02/2016");
-        LocalDate endDateRange = LocalDate.parse("1/02/2016");
-        System.out.println("startDateRange = " + startDateRange);
-        System.out.println("endDateRange = " + endDateRange);
+    public void shouldReturnOneDate_WhenFrequencyIsMonthly_AndFirstPaymentFromSchedule_FitsInSearchRange() throws Exception {
+        LocalDate firstPaymentDate = new LocalDate("2016-01-02");
+        LocalDate rangeStartDate = new LocalDate("2016-01-01");
+        LocalDate rangeEndDate = new LocalDate("2016-02-01");
 
         PaymentSchedule paymentSchedule = new PaymentSchedule(Frequency.MONTHLY, firstPaymentDate);
-        List<LocalDate> localDates = calculator.calculatePaymentDates(startDateRange, endDateRange, paymentSchedule);
+        List<LocalDate> localDates = calculator.calculatePaymentDates(rangeStartDate, rangeEndDate, paymentSchedule);
 
-        assertThat(localDates.size(), is(1));
+        assertThat("Did not calculate correct number of payments within range", localDates.size(), is(1));
     }
 
+    @Test
+    public void shouldReturnTwoDates_WhenFrequencyIsMonthly_AndPaymentIsOnLastDayOfMonth() throws Exception {
+        LocalDate firstPaymentDate = new LocalDate("2015-12-31");
+        LocalDate rangeStartDate = new LocalDate("2016-01-01");
+        LocalDate rangeEndDate = new LocalDate("2016-03-01");
 
+        PaymentSchedule paymentSchedule = new PaymentSchedule(Frequency.MONTHLY, firstPaymentDate);
+        List<LocalDate> localDates = calculator.calculatePaymentDates(rangeStartDate, rangeEndDate, paymentSchedule);
+
+        assertThat("Did not calculate correct number of payments within range", localDates.size(), is(2));
+    }
+
+    @Test
+    public void shouldReturnFourDates_WhenFrequencyIs_Weekly_AndRangeIsAMonth() throws Exception {
+        LocalDate firstPaymentDate = new LocalDate("2016-01-01");
+        LocalDate rangeStartDate = new LocalDate("2016-01-01");
+        LocalDate rangeEndDate = new LocalDate("2016-02-01");
+
+        PaymentSchedule paymentSchedule = new PaymentSchedule(Frequency.WEEKLY, firstPaymentDate);
+        List<LocalDate> localDates = calculator.calculatePaymentDates(rangeStartDate, rangeEndDate, paymentSchedule);
+
+        assertThat("Did not calculate correct number of payments within range", localDates.size(), is(5));
+    }
+
+    @Test
+    public void shouldReturnTwoDates_WhenFrequencyIs_Yearly_AndPaymentDateLandsOn_EndDate_And_StartDate() throws Exception {
+        LocalDate firstPaymentDate = new LocalDate("2016-01-01");
+        LocalDate rangeStartDate = new LocalDate("2016-01-01");
+        LocalDate rangeEndDate = new LocalDate("2017-01-01");
+
+        PaymentSchedule paymentSchedule = new PaymentSchedule(Frequency.YEARLY, firstPaymentDate);
+        List<LocalDate> localDates = calculator.calculatePaymentDates(rangeStartDate, rangeEndDate, paymentSchedule);
+
+        assertThat("Did not calculate correct number of payments within range", localDates.size(), is(2));
+    }
 
 }
