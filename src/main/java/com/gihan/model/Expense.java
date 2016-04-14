@@ -22,11 +22,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
-/**
- * @author Rob Winch
- */
 @Entity
 public class Expense {
 
@@ -49,7 +47,8 @@ public class Expense {
     @Enumerated(EnumType.STRING)
     private PaymentScheduleOption expenseSchedule;
 
-    private DateTime effectiveDate;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate effectiveDate;
 
 //    private PaymentSchedule paymentSchedule;
 
@@ -108,6 +107,14 @@ public class Expense {
 //    public void setPaymentSchedule(PaymentSchedule paymentSchedule) {
 //        this.paymentSchedule = paymentSchedule;
 //    }
+
+    public LocalDate getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(LocalDate effectiveDate) {
+        this.effectiveDate = effectiveDate;
+    }
 
     @Override
     public String toString() {

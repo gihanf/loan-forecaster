@@ -20,11 +20,12 @@
             <td>Description</td>
             <td>Amount</td>
             <td>Frequency</td>
+            <td>Payment Date</td>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${expenses.empty}">
-            <td colspan="5">
+            <td colspan="6">
                 No expenses
             </td>
         </tr>
@@ -42,6 +43,7 @@
             </td>
             <td th:text="${'$' + expense.amount}"></td>
             <td th:text="${expense.getExpenseSchedule()}"></td>
+            <td th:text="${expense.getEffectiveDate()}"></td>
         </tr>
         </tbody>
     </table>
