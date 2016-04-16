@@ -31,6 +31,24 @@ public class PaymentDateCalculatorImplTest {
     }
 
     @Test
+    public void shouldReturnDate_WhenFrequencyIsOnceOff_AndDateEqualsStartDateRange() throws Exception {
+        LocalDate expectedDate = LocalDate.now();
+        PaymentSchedule paymentSchedule = new PaymentSchedule(Frequency.ONCE_OFF, expectedDate);
+        List<LocalDate> localDates = calculator.calculatePaymentDates(LocalDate.now(), LocalDate.now().plusMonths(6), paymentSchedule);
+        assertThat(localDates.size(), is(1));
+        assertThat(localDates.get(0), is(expectedDate));
+    }
+
+    @Test
+    public void shouldReturnDate_WhenFrequencyIsOnceOff_AndDateEqualsEndDateRange() throws Exception {
+        LocalDate expectedDate = LocalDate.now().plusMonths(6);
+        PaymentSchedule paymentSchedule = new PaymentSchedule(Frequency.ONCE_OFF, expectedDate);
+        List<LocalDate> localDates = calculator.calculatePaymentDates(LocalDate.now(), LocalDate.now().plusMonths(6), paymentSchedule);
+        assertThat(localDates.size(), is(1));
+        assertThat(localDates.get(0), is(expectedDate));
+    }
+
+    @Test
     public void shouldReturnEmptyList_WhenFrequencyIsOnceOff_AndDateIsNotInSearchRange() throws Exception {
         PaymentSchedule paymentSchedule = new PaymentSchedule(Frequency.ONCE_OFF, LocalDate.now().minusMonths(1));
         List<LocalDate> localDates = calculator.calculatePaymentDates(LocalDate.now(), LocalDate.now().plusMonths(6), paymentSchedule);

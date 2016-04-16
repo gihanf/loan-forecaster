@@ -20,7 +20,7 @@ public class PaymentDateCalculatorImpl implements PaymentDateCalculator {
         LocalDate firstPaymentDate = paymentSchedule.getFirstPaymentDate();
 
         if (paymentSchedule.getFrequency() == Frequency.ONCE_OFF) {
-            if (firstPaymentDate.isAfter(startDate) && firstPaymentDate.isBefore(endDate)) {
+            if (isDateInRange(firstPaymentDate, endDate, startDate)) {
                 paymentDates.add(firstPaymentDate);
             }
             return paymentDates;
@@ -28,15 +28,18 @@ public class PaymentDateCalculatorImpl implements PaymentDateCalculator {
 
         LocalDate currentDate = firstPaymentDate;
         while (currentDate.isBefore(endDate) || currentDate.compareTo(endDate) == 0) {
-            if ((currentDate.isAfter(startDate) || currentDate.compareTo(startDate) == 0)
-                    && (currentDate.isBefore(endDate) || currentDate.compareTo(endDate) == 0)) {
+            if (isDateInRange(currentDate, endDate, startDate)) {
                 paymentDates.add(firstPaymentDate);
-                System.out.println("paymentDate = " + currentDate);
             }
             currentDate = getNextDateInSchedule(currentDate, paymentSchedule);
         }
 
         return paymentDates;
+    }
+
+    private boolean isDateInRange(LocalDate currentDate, LocalDate endDate, LocalDate startDate) {
+        return (currentDate.isAfter(startDate) || currentDate.compareTo(startDate) == 0)
+                && (currentDate.isBefore(endDate) || currentDate.compareTo(endDate) == 0);
     }
 
     private LocalDate getNextDateInSchedule(LocalDate startDate, PaymentSchedule schedule) {
