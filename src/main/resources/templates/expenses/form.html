@@ -10,7 +10,7 @@
     <script>
         $(function() {
             $( "#datepicker" ).datepicker({
-                dateFormat: "yy-mm-dd"
+                dateFormat: "dd-mm-yy"
             });
         });
     </script>
@@ -67,7 +67,14 @@
                 </li>
             </ul>
         </div>
-        <p>Date: <input type="text" id="datepicker" th:field="*{effectiveDate}" /></p>
+        <!--<label for="effectiveDate">First Payment Date</label>-->
+        <!--<input type="text" id="datepicker" th:field="*{effectiveDate}" />-->
+        <!--<div class="form-actions">-->
+            <!--<input type="submit" value="Create"/>-->
+        <!--</div>-->
+
+        <label for="newDate">First Payment Java 8 Date</label>
+        <input type="text" id="datepicker" th:field="*{newDate}" />
         <div class="form-actions">
             <input type="submit" value="Create"/>
         </div>

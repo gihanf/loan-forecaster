@@ -40,8 +40,6 @@ public class Expense {
     @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
     private BigDecimal amount;
 
-    private Calendar created = Calendar.getInstance();
-
     private Frequency frequency;
 
     @Enumerated(EnumType.STRING)
@@ -50,7 +48,12 @@ public class Expense {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate effectiveDate;
 
-//    private PaymentSchedule paymentSchedule;
+    private Calendar created = Calendar.getInstance();
+
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    private java.time.LocalDate newDate;
+
+    private PaymentSchedule paymentSchedule;
 
     public Long getId() {
         return this.id;
@@ -100,13 +103,13 @@ public class Expense {
         this.expenseSchedule = expenseSchedule;
     }
 
-//    public PaymentSchedule getPaymentSchedule() {
-//        return paymentSchedule;
-//    }
-//
-//    public void setPaymentSchedule(PaymentSchedule paymentSchedule) {
-//        this.paymentSchedule = paymentSchedule;
-//    }
+    public PaymentSchedule getPaymentSchedule() {
+        return paymentSchedule;
+    }
+
+    public void setPaymentSchedule(PaymentSchedule paymentSchedule) {
+        this.paymentSchedule = paymentSchedule;
+    }
 
     public LocalDate getEffectiveDate() {
         return effectiveDate;
@@ -125,5 +128,13 @@ public class Expense {
                 ", amount=" + amount + '\'' +
                 ", expenseSchedule=" + expenseSchedule +
                 '}';
+    }
+
+    public java.time.LocalDate getNewDate() {
+        return newDate;
+    }
+
+    public void setNewDate(java.time.LocalDate newDate) {
+        this.newDate = newDate;
     }
 }
