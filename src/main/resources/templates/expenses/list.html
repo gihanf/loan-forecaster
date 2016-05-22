@@ -20,7 +20,6 @@
             <td>Amount</td>
             <td>Frequency</td>
             <td>Payment Date</td>
-            <td>Payment Date Java 8</td>
         </tr>
         </thead>
         <tbody>
@@ -39,10 +38,17 @@
                 </a>
             </td>
             <td th:text="${'$' + expense.amount}"></td>
-            <td th:text="${expense.getExpenseSchedule()}"></td>
+
+            <!-- Frequency -->
+            <td th:text="Monthly"></td>
+            <!--<td th:text="${expense.getExpenseSchedule()}"></td>-->
+
+            <!-- Next Payment Date -->
+            <td th:text="22-05-2016"></td>
             <!--<td th:text="${expense.getEffectiveDate()} + ${expense.getExpenseSchedule() == ONCE_OFF ? '' : ' ' + expense.getExpenseSchedule()}"></td>-->
-            <td th:text="${expense.getEffectiveDate()}"></td>
-            <td th:text="${expense.getNewDate()}"></td>
+
+            <!--<td th:text="${expense.getEffectiveDate()}"></td>-->
+            <!--<td th:text="${expense.getNewDate()}"></td>-->
         </tr>
         </tbody>
     </table>

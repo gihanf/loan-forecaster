@@ -36,9 +36,6 @@ import com.gihan.model.Frequency;
 import com.gihan.model.PaymentScheduleOption;
 import com.gihan.repository.MessageRepository;
 
-/**
- * @author Rob Winch
- */
 @Controller
 @RequestMapping("/")
 public class MessageController {

@@ -4,7 +4,7 @@
       layout:decorator="layout">
 <head>
     <title>Expenses : Create</title>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script>
@@ -13,6 +13,7 @@
                 dateFormat: "dd-mm-yy"
             });
         });
+
     </script>
 </head>
 <body>
@@ -37,44 +38,46 @@
                 Expenses
             </a>
         </div>
-        <label for="description">Summary</label>
-        <input type="text"
+        <label for="description">Description</label>
+        <input id="description" type="text"
                th:field="*{description}"
                th:class="${#fields.hasErrors('description')} ? 'field-error'"/>
 
         <label for="amount">Amount</label>
         <!--TODO Ensure field only accepts digits and positive numbers -->
-        <input type="number"
+        <input id="amount" type="number"
                th:field="*{amount}"
                th:class="${#fields.hasErrors('amount')} ? 'field-error'"/>
 
         <!--<label for="frequency">Frequency</label>-->
-        <!--<select th:field="*{paymentSchedule.frequency}">-->
+        <!--<select id="frequency" th:field="*{paymentSchedule.frequency}">-->
             <!--<option th:each="option : ${allFrequencies}"-->
                     <!--th:value="${option.name()}"-->
                     <!--th:text="${option.toString()}"></option>-->
         <!--</select>-->
 
-        <label for="incurredTime"></label>
+        <!--<label for="incurredTime"></label>-->
 
         <div>
             <ul>
-                <li th:each="option : ${paymentScheduleOptions}">
-                    <!--Trying to set a default value to be checked -->
-                    <!--th:checked="${option == option.NOW} ? 'checked' : null "-->
-                    <input type="radio" th:field="*{expenseSchedule}" th:value="${option.name()}"/>
-                    <label id="incurredTime" th:text="${option.toString()}"></label>
-                </li>
+                <!--<li th:each="option : ${paymentScheduleOptions}">-->
+                <!--&lt;!&ndash;Trying to set a default value to be checked &ndash;&gt;-->
+                <!--&lt;!&ndash;th:checked="${option == option.NOW} ? 'checked' : null "&ndash;&gt;-->
+                <!--<input type="radio" th:field="*{expenseSchedule}" th:value="${option.name()}"/>-->
+                <!--<label id="incurredTime" th:text="${option.toString()}"></label>-->
+                <!--</li>-->
             </ul>
         </div>
+
+
         <!--<label for="effectiveDate">First Payment Date</label>-->
         <!--<input type="text" id="datepicker" th:field="*{effectiveDate}" />-->
         <!--<div class="form-actions">-->
-            <!--<input type="submit" value="Create"/>-->
+        <!--<input type="submit" value="Create"/>-->
         <!--</div>-->
 
-        <label for="newDate">First Payment Java 8 Date</label>
-        <input type="text" id="datepicker" th:field="*{newDate}" />
+        <!--<label for="newDate">First Payment Java 8 Date</label>-->
+        <!--<input type="text" id="datepicker" th:field="*{newDate}" />-->
         <div class="form-actions">
             <input type="submit" value="Create"/>
         </div>
