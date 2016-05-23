@@ -36,7 +36,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gihan.model.Expense;
 import com.gihan.model.Frequency;
 import com.gihan.model.PaymentScheduleOption;
-import com.gihan.repository.MessageRepository;
+import com.gihan.repository.ExpenseRepository;
 
 @Controller
 @RequestMapping("/")
@@ -44,14 +44,14 @@ public class MessageController {
     private static final Log LOG = LogFactory.getLog(MessageController.class);
 
     @Autowired
-    private MessageRepository messageRepository;
+    private ExpenseRepository expenseRepository;
 
     @Autowired
     private ExpenseCreatorService expenseCreatorService;
 
     @RequestMapping
     public ModelAndView list() {
-        Iterable<Expense> expenses = this.messageRepository.findAll();
+        Iterable<Expense> expenses = this.expenseRepository.findAll();
         return new ModelAndView("expenses/list", "expenses", expenses);
     }
 
@@ -83,7 +83,7 @@ public class MessageController {
         if (result.hasErrors()) {
             return new ModelAndView("expenses/form", "formErrors", result.getAllErrors());
         }
-//        expense = this.messageRepository.save(expense);
+//        expense = this.expenseRepository.save(expense);
         long id = expenseCreatorService.createExpense(expenseDTO);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
 //        Long id = expense.getId();

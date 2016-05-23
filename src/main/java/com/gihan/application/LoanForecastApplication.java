@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 
 import com.gihan.model.Expense;
-import com.gihan.repository.MessageRepository;
+import com.gihan.repository.ExpenseRepository;
 
 @Configuration
 @EnableAutoConfiguration
@@ -33,14 +33,14 @@ import com.gihan.repository.MessageRepository;
 public class LoanForecastApplication {
 
     @Autowired
-    private MessageRepository messageRepository;
+    private ExpenseRepository expenseRepository;
 
     @Bean
     public Converter<String, Expense> messageConverter() {
         return new Converter<String, Expense>() {
             @Override
             public Expense convert(String id) {
-                return messageRepository.findOne(Long.valueOf(id));
+                return expenseRepository.findOne(Long.valueOf(id));
             }
         };
     }
