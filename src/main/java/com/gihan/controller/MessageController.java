@@ -18,6 +18,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import com.gihan.service.ExpenseCreatorService;
+import com.gihan.service.ExpenseDTO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +46,9 @@ public class MessageController {
     @Autowired
     private MessageRepository messageRepository;
 
+    @Autowired
+    private ExpenseCreatorService expenseCreatorService;
+
     @RequestMapping
     public ModelAndView list() {
         Iterable<Expense> expenses = this.messageRepository.findAll();
@@ -66,21 +71,22 @@ public class MessageController {
     }
 
     @RequestMapping(params = "form", method = RequestMethod.GET)
-    public String createForm(@ModelAttribute Expense expense) {
+    public String createForm(@ModelAttribute ExpenseDTO expense) {
         return "expenses/form";
     }
 
     // TODO: Figure out how this should be transactional
     @Transactional
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView create(@Valid Expense expense, BindingResult result,
+    public ModelAndView create(@Valid ExpenseDTO expenseDTO, BindingResult result,
                                RedirectAttributes redirect) {
         if (result.hasErrors()) {
             return new ModelAndView("expenses/form", "formErrors", result.getAllErrors());
         }
-        expense = this.messageRepository.save(expense);
+//        expense = this.messageRepository.save(expense);
+        long id = expenseCreatorService.createExpense(expenseDTO);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
-        Long id = expense.getId();
+//        Long id = expense.getId();
         return new ModelAndView(String.format("redirect:/%s", id), "message.id", id);
     }
 

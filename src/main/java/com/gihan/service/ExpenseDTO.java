@@ -1,6 +1,6 @@
 package com.gihan.service;
 
-import com.gihan.model.PaymentSchedule;
+import com.gihan.model.Frequency;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Digits;
@@ -18,7 +18,7 @@ public class ExpenseDTO {
     @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
     private BigDecimal amount;
 
-//    private Frequency frequency;
+    private Frequency frequency;
 
 //    @Enumerated(EnumType.STRING)
 //    private PaymentScheduleOption expenseSchedule;
@@ -57,13 +57,13 @@ public class ExpenseDTO {
         this.amount = amount;
     }
 
-//    public Frequency getFrequency() {
-//        return frequency;
-//    }
-//
-//    public void setFrequency(Frequency frequency) {
-//        this.frequency = frequency;
-//    }
+    public Frequency getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(Frequency frequency) {
+        this.frequency = frequency;
+    }
 
 //    public PaymentScheduleOption getExpenseSchedule() {
 //        return expenseSchedule;
