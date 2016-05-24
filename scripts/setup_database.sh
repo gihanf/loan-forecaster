@@ -1,10 +1,7 @@
 #!/bin/bash
 
-echo "Hello there"
-echo `whoami`
-
-#mysql -h "localhost" -u "root" -p "paymenow" < filename.sql
-
+echo "Dropping and recreating database..."
 mysql -uroot -ppaymenow << EOF
-drop database forecaster_db;
+drop database if exists forecaster_db;
+create database forecaster_db;
 EOF
