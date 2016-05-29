@@ -1,6 +1,5 @@
-package com.gihan.service;
+package com.gihan.model;
 
-import com.gihan.model.Frequency;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.constraints.Digits;
@@ -20,7 +19,19 @@ public class ExpenseDTO {
 
     private Frequency frequency;
 
-//    @Enumerated(EnumType.STRING)
+    public ExpenseDTO(String description, BigDecimal amount, Frequency frequency) {
+        this.description = description;
+        this.amount = amount;
+        this.frequency = frequency;
+    }
+
+    public ExpenseDTO(String description, BigDecimal amount) {
+        this.description = description;
+        this.amount = amount;
+    }
+
+
+    //    @Enumerated(EnumType.STRING)
 //    private PaymentScheduleOption expenseSchedule;
 
 //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -47,10 +58,6 @@ public class ExpenseDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public BigDecimal getAmount() {
-        return amount;
     }
 
     public void setAmount(BigDecimal amount) {
@@ -90,4 +97,10 @@ public class ExpenseDTO {
 //                ", expenseSchedule=" + expenseSchedule +
                 '}';
     }
+
+    public BigDecimal getAmount() {
+        return amount;
+    }
+
+
 }

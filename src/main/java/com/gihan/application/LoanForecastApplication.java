@@ -40,7 +40,7 @@ public class LoanForecastApplication {
         return new Converter<String, Expense>() {
             @Override
             public Expense convert(String id) {
-                return expenseRepository.findOne(Long.valueOf(id));
+                return expenseRepository.findOne(Integer.valueOf(id));
             }
         };
     }

@@ -19,7 +19,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import com.gihan.service.ExpenseCreatorService;
-import com.gihan.service.ExpenseDTO;
+import com.gihan.model.ExpenseDTO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
