@@ -36,11 +36,11 @@
           th:text="${'$' + #numbers.formatDecimal(expense.amount, 0, 'COMMA', 2, 'POINT')}">
           An amount for the expense.
         </dd>
-        <!--<dt>Frequency</dt>-->
-        <!--<dd id="frequency"-->
-          <!--th:text="${expense.frequency.toString()}">-->
-          <!--The frequency of the expense.-->
-        <!--</dd>-->
+        <dt>Frequency</dt>
+        <dd id="frequency"
+          th:text="${expense.paymentSchedule.frequency.toString()}">
+          The frequency of the expense.
+        </dd>
         <!--<dt>Payment Date</dt>-->
         <!--<dd id="effectiveDate"-->
           <!--th:text="${expense.expenseSchedule.toString()}">-->

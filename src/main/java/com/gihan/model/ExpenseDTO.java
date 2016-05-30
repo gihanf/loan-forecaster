@@ -19,6 +19,9 @@ public class ExpenseDTO {
 
     private Frequency frequency;
 
+    public ExpenseDTO() {
+    }
+
     public ExpenseDTO(String description, BigDecimal amount, Frequency frequency) {
         this.description = description;
         this.amount = amount;

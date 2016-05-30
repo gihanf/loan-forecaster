@@ -90,6 +90,17 @@ public class Expense implements Serializable{
                 '}';
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Expense)) {
+            return false;
+        }
+        Expense expense = (Expense) obj;
+        return expense.getDescription().equals(this.description)
+                && expense.getAmount().equals(this.getAmount())
+                && expense.getPaymentSchedule().equals(this.getPaymentSchedule());
+    }
+
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "expense")
     public PaymentSchedule getPaymentSchedule() {
         return paymentSchedule;
