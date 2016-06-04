@@ -36,7 +36,6 @@ public class Expense implements Serializable{
     @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
     private BigDecimal amount;
 
-//    @Type(type = )
     private PaymentSchedule paymentSchedule;
 
     public Expense() {}

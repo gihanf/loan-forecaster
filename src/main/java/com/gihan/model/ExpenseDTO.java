@@ -1,6 +1,7 @@
 package com.gihan.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.LocalDate;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
@@ -19,6 +20,8 @@ public class ExpenseDTO {
 
     private Frequency frequency;
 
+    private LocalDate firstPaymentDate;
+
     public ExpenseDTO() {
     }
 
@@ -28,14 +31,17 @@ public class ExpenseDTO {
         this.frequency = frequency;
     }
 
+    public ExpenseDTO(String description, BigDecimal amount, Frequency frequency, LocalDate firstPaymentDate) {
+        this.description = description;
+        this.amount = amount;
+        this.frequency = frequency;
+        this.firstPaymentDate = firstPaymentDate;
+    }
+
     public ExpenseDTO(String description, BigDecimal amount) {
         this.description = description;
         this.amount = amount;
     }
-
-
-    //    @Enumerated(EnumType.STRING)
-//    private PaymentScheduleOption expenseSchedule;
 
 //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 //    private LocalDate effectiveDate;
@@ -45,7 +51,6 @@ public class ExpenseDTO {
     //    @DateTimeFormat(pattern = "dd-MM-yyyy")
 //    private java.time.LocalDate newDate;
 //
-//    private PaymentSchedule paymentSchedule;
 
 //    public Calendar getCreated() {
 //        return this.created;
@@ -75,22 +80,6 @@ public class ExpenseDTO {
         this.frequency = frequency;
     }
 
-//    public PaymentScheduleOption getExpenseSchedule() {
-//        return expenseSchedule;
-//    }
-//
-//    public void setExpenseSchedule(PaymentScheduleOption expenseSchedule) {
-//        this.expenseSchedule = expenseSchedule;
-//    }
-
-//    public PaymentSchedule getPaymentSchedule() {
-//        return paymentSchedule;
-//    }
-//
-//    public void setPaymentSchedule(PaymentSchedule paymentSchedule) {
-//        this.paymentSchedule = paymentSchedule;
-//    }
-
     @Override
     public String toString() {
         return "Expense{" +
@@ -105,5 +94,11 @@ public class ExpenseDTO {
         return amount;
     }
 
+    public LocalDate getFirstPaymentDate() {
+        return firstPaymentDate;
+    }
 
+    public void setFirstPaymentDate(LocalDate firstPaymentDate) {
+        this.firstPaymentDate = firstPaymentDate;
+    }
 }

@@ -23,6 +23,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.regex.Pattern;
 
+import javax.transaction.Transactional;
+
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Before;
@@ -53,6 +55,7 @@ import com.gihan.application.LoanForecastApplication;
 //@ContextConfiguration(classes = SampleWebUiApplication.class)
 //@ComponentScan(basePackages = "com.gihan.controller")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
+@Transactional
 public class MessageControllerWebTests {
 
     @Autowired

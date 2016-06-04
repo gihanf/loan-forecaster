@@ -17,7 +17,7 @@ public class ExpenseCreator implements ExpenseCreatorService {
     @Override
     @Transactional
     public long createExpense(ExpenseDTO dto) {
-        Expense expense = new Expense(dto.getDescription(), dto.getAmount(), new PaymentSchedule(dto.getFrequency()));
+        Expense expense = new Expense(dto.getDescription(), dto.getAmount(), new PaymentSchedule(dto.getFrequency(), dto.getFirstPaymentDate()));
         return expenseRepository.save(expense).getId();
     }
 }

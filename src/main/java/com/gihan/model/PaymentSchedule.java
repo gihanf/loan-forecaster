@@ -1,30 +1,19 @@
 package com.gihan.model;
 
 import java.io.Serializable;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
 
 import javax.persistence.*;
 
-import org.hibernate.HibernateException;
-import org.hibernate.engine.spi.SessionImplementor;
-import org.hibernate.usertype.UserType;
 import org.joda.time.LocalDate;
 
 @Entity
 public class PaymentSchedule implements Serializable{
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    private Long id;
-
     @Enumerated(EnumType.STRING)
     private Frequency frequency;
 
-//    @Column
-//    private LocalDate firstPaymentDate;
+    @Column
+    private LocalDate firstPaymentDate;
 
     private Expense expense;
 
@@ -32,12 +21,11 @@ public class PaymentSchedule implements Serializable{
 
     public PaymentSchedule(Frequency frequency, LocalDate firstPaymentDate) {
         this.frequency = frequency;
-//        this.firstPaymentDate = firstPaymentDate;
+        this.firstPaymentDate = firstPaymentDate;
     }
 
     public PaymentSchedule(Frequency frequency) {
         this.frequency = frequency;
-//        this.firstPaymentDate = LocalDate.now();
     }
 
     public Frequency getFrequency() {
@@ -48,13 +36,13 @@ public class PaymentSchedule implements Serializable{
         this.frequency = frequency;
     }
 
-//    public LocalDate getFirstPaymentDate() {
-//        return firstPaymentDate;
-//    }
-//
-//    public void setFirstPaymentDate(LocalDate firstPaymentDate) {
-//        this.firstPaymentDate = firstPaymentDate;
-//    }
+    public LocalDate getFirstPaymentDate() {
+        return firstPaymentDate;
+    }
+
+    public void setFirstPaymentDate(LocalDate firstPaymentDate) {
+        this.firstPaymentDate = firstPaymentDate;
+    }
 
     @Override
     public String toString() {

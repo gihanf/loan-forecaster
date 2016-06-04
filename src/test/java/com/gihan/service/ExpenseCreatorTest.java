@@ -6,6 +6,8 @@ import com.gihan.model.ExpenseDTO;
 import com.gihan.model.Frequency;
 import com.gihan.model.PaymentSchedule;
 import com.gihan.repository.ExpenseRepository;
+
+import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,5 +44,16 @@ public class ExpenseCreatorTest {
         assertThat(actualExpense.getAmount(), is(new BigDecimal(24)));
         assertThat(actualExpense.getDescription(), is("description"));
         assertThat(actualExpense.getPaymentSchedule().getFrequency(), is(Frequency.YEARLY));
+    }
+
+    @Test
+    public void shouldCreateExpenseWith_FirstPaymentDate() {
+        LocalDate expectedFirstPaymentDate = new LocalDate(2016, 2, 26);
+        expenseCreatorService.createExpense(
+                new ExpenseDTO("description", new BigDecimal(24), Frequency.YEARLY, expectedFirstPaymentDate));
+        List<Expense> expenses = expenseRepository.findAll();
+        assertThat(expenses.size(), is(1));
+        Expense actualExpense = expenses.get(0);
+        assertThat(actualExpense.getPaymentSchedule().getFirstPaymentDate(), is(expectedFirstPaymentDate));
     }
 }

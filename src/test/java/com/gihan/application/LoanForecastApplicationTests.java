@@ -20,7 +20,6 @@ import static org.junit.Assert.*;
 
 import java.net.URI;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,11 +29,9 @@ import org.springframework.boot.test.TestRestTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -48,9 +45,9 @@ import org.springframework.util.MultiValueMap;
 @SpringApplicationConfiguration(classes = LoanForecastApplication.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:9999")
-@Transactional(propagation = Propagation.NEVER)
 @TransactionConfiguration(defaultRollback = true, transactionManager = "transactionManager")
 @DirtiesContext
+@Transactional
 //@TestExecutionListeners(listeners = TransactionalTestExecutionListener.class)
 public class LoanForecastApplicationTests {
 
@@ -70,7 +67,6 @@ public class LoanForecastApplicationTests {
 
     // TODO: Figoure out how to make this rollback.. Keeps writing to the db for test
     @Test
-    @Rollback
     public void testCreate() throws Exception {
         MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
         map.set("description", "FOO");

@@ -17,8 +17,7 @@ public class PaymentDateCalculatorImpl implements PaymentDateCalculator {
     @Override
     public List<LocalDate> calculatePaymentDates(LocalDate startDate, LocalDate endDate, PaymentSchedule paymentSchedule) {
         List<LocalDate> paymentDates = new ArrayList<LocalDate>();
-//        LocalDate firstPaymentDate = paymentSchedule.getFirstPaymentDate();
-        LocalDate firstPaymentDate = LocalDate.now();
+        LocalDate firstPaymentDate = paymentSchedule.getFirstPaymentDate();
 
         if (paymentSchedule.getFrequency() == Frequency.ONCE_OFF) {
             if (isDateInRange(firstPaymentDate, endDate, startDate)) {
