@@ -41,11 +41,11 @@
           th:text="${expense.paymentSchedule.frequency.toString()}">
           The frequency of the expense.
         </dd>
-        <!--<dt>Payment Date</dt>-->
-        <!--<dd id="effectiveDate"-->
-          <!--th:text="${expense.expenseSchedule.toString()}">-->
-          <!--The first payment date.-->
-        <!--</dd>-->
+        <dt>First Payment Date</dt>
+        <dd id="firstPaymentDate"
+          th:text="${expense.paymentSchedule.firstPaymentDate}">
+          The first payment date.
+        </dd>
         <!--<dt>Payment Date Java 8</dt>-->
         <!--<dd id="newDate"-->
           <!--th:text="${expense.expenseSchedule.toString()}">-->

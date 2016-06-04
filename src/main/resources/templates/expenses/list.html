@@ -42,11 +42,9 @@
             <td th:text="${expense.getPaymentSchedule().getFrequency()}"></td>
 
             <!-- Next Payment Date -->
-            <td th:text="22-05-2016"></td>
-            <!--<td th:text="${expense.getEffectiveDate()} + ${expense.getExpenseSchedule() == ONCE_OFF ? '' : ' ' + expense.getExpenseSchedule()}"></td>-->
-
-            <!--<td th:text="${expense.getEffectiveDate()}"></td>-->
-            <!--<td th:text="${expense.getNewDate()}"></td>-->
+            <!--<td th:text="22-05-2016"></td>-->
+            <td th:text="${expense.getPaymentSchedule().getFirstPaymentDate()}"> </td>
+            <!--<td th:text="${expense.getPaymentSchedule().getFirstPaymentDate()} </td> + ${expense.getExpenseSchedule() == ONCE_OFF ? '' : ' ' + expense.getExpenseSchedule()}"></td>-->
         </tr>
         </tbody>
     </table>
