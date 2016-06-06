@@ -18,13 +18,10 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import com.gihan.service.ExpenseCreatorService;
-import com.gihan.model.ExpenseDTO;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,9 +31,11 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.gihan.model.Expense;
+import com.gihan.model.ExpenseDTO;
 import com.gihan.model.Frequency;
 import com.gihan.model.PaymentScheduleOption;
 import com.gihan.repository.ExpenseRepository;
+import com.gihan.service.ExpenseCreatorService;
 
 @Controller
 @RequestMapping("/")
@@ -76,17 +75,14 @@ public class MessageController {
     }
 
     // TODO: Figure out how this should be transactional
-    @Transactional
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView create(@Valid ExpenseDTO expenseDTO, BindingResult result,
                                RedirectAttributes redirect) {
         if (result.hasErrors()) {
             return new ModelAndView("expenses/form", "formErrors", result.getAllErrors());
         }
-//        expense = this.expenseRepository.save(expense);
         long id = expenseCreatorService.createExpense(expenseDTO);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
-//        Long id = expense.getId();
         return new ModelAndView(String.format("redirect:/%s", id), "message.id", id);
     }
 
