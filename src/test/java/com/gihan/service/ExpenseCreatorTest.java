@@ -6,12 +6,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import java.math.BigDecimal;
 import java.util.List;
 
-import javax.validation.ConstraintViolationException;
-
 import org.joda.time.LocalDate;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -36,9 +32,6 @@ public class ExpenseCreatorTest {
     @Autowired
     private ExpenseRepository expenseRepository;
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
     @Test
     public void shouldCreateExpenseWith_AllExpenseFields() {
         expenseCreatorService.createExpense(new ExpenseDTO("description", new BigDecimal(2.12), Frequency.YEARLY));
@@ -48,18 +41,6 @@ public class ExpenseCreatorTest {
         assertThat(expenses.size(), is(1));
         Expense actualExpense = expenses.get(0);
         assertThat(actualExpense, is(firstExpense));
-    }
-
-    @Test
-    public void shouldThrowException_WhenExpenseHasScaleGreaterThanTwo() throws Exception {
-        expectedException.expect(ConstraintViolationException.class);
-        expenseCreatorService.createExpense(new ExpenseDTO("asdsa", new BigDecimal(1.12312312), Frequency.MONTHLY));
-
-    }
-
-    @Test
-    public void shouldThrowException_WhenDescriptionIsNotProvided() throws Exception {
-        expenseCreatorService.createExpense(new ExpenseDTO("", new BigDecimal(1.12), Frequency.MONTHLY));
     }
 
     @Test

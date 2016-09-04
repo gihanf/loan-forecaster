@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
@@ -32,6 +33,7 @@ public class Expense implements Serializable{
 
     @Min(value = 0)
     @NotNull(message = "An amount must be entered")
+    @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
     private BigDecimal amount;
 
     private PaymentSchedule paymentSchedule;
