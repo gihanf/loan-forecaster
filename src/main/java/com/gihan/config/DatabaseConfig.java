@@ -37,7 +37,7 @@ public class DatabaseConfig {
     private String HIBERNATE_DIALECT;
 
     @Value("${hibernate.show_sql}")
-    private Boolean HIBERNATE_SHOW_SQL;
+    private boolean HIBERNATE_SHOW_SQL;
 
     @Value("${hibernate.hbm2ddl.auto}")
     private String HIBERNATE_HBM2DDL_AUTO;

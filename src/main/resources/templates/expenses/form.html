@@ -5,8 +5,12 @@
 <head>
     <title>Expenses : Create</title>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
+    <link rel="stylesheet" href="/static/external/bootstrap/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="/static/external/bootstrap/css/bootstrap.min.css"/>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="/static/external/bootstrap/js/bootstrap.min.js"></script>
+
     <script>
         $(function() {
             $( "#datepicker" ).datepicker({
@@ -45,7 +49,7 @@
 
         <label for="amount">Amount</label>
         <!--TODO Ensure field only accepts digits and positive numbers -->
-        <input id="amount" type="number"
+        <input id="amount" type="text"
                th:field="*{amount}"
                th:class="${#fields.hasErrors('amount')} ? 'field-error'"/>
 

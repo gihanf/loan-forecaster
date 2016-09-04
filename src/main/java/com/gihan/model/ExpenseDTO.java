@@ -1,13 +1,16 @@
 package com.gihan.model;
 
-import org.hibernate.validator.constraints.NotEmpty;
-import org.joda.time.LocalDate;
-
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.LocalDate;
+import org.springframework.validation.annotation.Validated;
+
+@Validated
 public class ExpenseDTO {
 
     @NotEmpty(message = "Summary is required.")
@@ -15,7 +18,7 @@ public class ExpenseDTO {
 
     @Min(value = 0)
     @NotNull(message = "An amount must be entered")
-    @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
+    @Pattern(regexp = "(0|[1-9]{1}\\d{0,8})(\\.{1}\\d{1,2}){0,1}")
     private BigDecimal amount;
 
     private Frequency frequency;

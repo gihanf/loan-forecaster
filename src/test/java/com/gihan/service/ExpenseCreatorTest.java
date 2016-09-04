@@ -1,25 +1,29 @@
 package com.gihan.service;
 
-import com.gihan.application.LoanForecastApplication;
-import com.gihan.model.Expense;
-import com.gihan.model.ExpenseDTO;
-import com.gihan.model.Frequency;
-import com.gihan.model.PaymentSchedule;
-import com.gihan.repository.ExpenseRepository;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+import javax.validation.ConstraintViolationException;
 
 import org.joda.time.LocalDate;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.util.List;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
+import com.gihan.application.LoanForecastApplication;
+import com.gihan.model.Expense;
+import com.gihan.model.ExpenseDTO;
+import com.gihan.model.Frequency;
+import com.gihan.model.PaymentSchedule;
+import com.gihan.repository.ExpenseRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = LoanForecastApplication.class)
@@ -32,18 +36,30 @@ public class ExpenseCreatorTest {
     @Autowired
     private ExpenseRepository expenseRepository;
 
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+
     @Test
     public void shouldCreateExpenseWith_AllExpenseFields() {
-        expenseCreatorService.createExpense(
-                new ExpenseDTO("description", new BigDecimal(24), Frequency.YEARLY));
-        Expense expected = new Expense("description", new BigDecimal(24), new PaymentSchedule(Frequency.YEARLY));
+        expenseCreatorService.createExpense(new ExpenseDTO("description", new BigDecimal(2.12), Frequency.YEARLY));
+        Expense firstExpense = new Expense("description", new BigDecimal(2.12), new PaymentSchedule(Frequency.YEARLY));
+
         List<Expense> expenses = expenseRepository.findAll();
         assertThat(expenses.size(), is(1));
         Expense actualExpense = expenses.get(0);
-        assertThat(actualExpense.equals(expected), is(true));
-        assertThat(actualExpense.getAmount(), is(new BigDecimal(24)));
-        assertThat(actualExpense.getDescription(), is("description"));
-        assertThat(actualExpense.getPaymentSchedule().getFrequency(), is(Frequency.YEARLY));
+        assertThat(actualExpense, is(firstExpense));
+    }
+
+    @Test
+    public void shouldThrowException_WhenExpenseHasScaleGreaterThanTwo() throws Exception {
+        expectedException.expect(ConstraintViolationException.class);
+        expenseCreatorService.createExpense(new ExpenseDTO("asdsa", new BigDecimal(1.12312312), Frequency.MONTHLY));
+
+    }
+
+    @Test
+    public void shouldThrowException_WhenDescriptionIsNotProvided() throws Exception {
+        expenseCreatorService.createExpense(new ExpenseDTO("", new BigDecimal(1.12), Frequency.MONTHLY));
     }
 
     @Test

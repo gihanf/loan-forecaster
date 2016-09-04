@@ -19,11 +19,11 @@ package com.gihan.controller;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.regex.Pattern;
-
-import javax.transaction.Transactional;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
@@ -32,7 +32,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
@@ -41,21 +40,9 @@ import org.springframework.web.context.WebApplicationContext;
 
 import com.gihan.application.LoanForecastApplication;
 
-/**
- * A Basic Spring MVC Test for the Sample Controller"
- *
- * @author Biju Kunjummen
- * @author Doo-Hwan, Kwak
- */
-@RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-
-// TODO: Does this need to be springApplicationConfiguration
+@RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = LoanForecastApplication.class)
-//@ContextConfiguration(classes = SampleWebUiApplication.class)
-//@ComponentScan(basePackages = "com.gihan.controller")
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
-@Transactional
 public class MessageControllerWebTests {
 
     @Autowired
@@ -83,6 +70,7 @@ public class MessageControllerWebTests {
     @Test
     public void testCreateValidation() throws Exception {
         this.mockMvc.perform(post("/").param("text", "").param("summary", ""))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("is required")));
     }
