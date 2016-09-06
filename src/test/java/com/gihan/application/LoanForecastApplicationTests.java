@@ -16,12 +16,18 @@
 
 package com.gihan.application;
 
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
 import java.net.URI;
+import java.util.List;
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,12 +42,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.gihan.model.Expense;
 import com.gihan.model.ExpenseDTO;
 import com.gihan.model.Frequency;
 import com.gihan.service.ExpenseCreatorService;
@@ -52,7 +61,7 @@ import com.gihan.service.ExpenseCreatorService;
 //@IntegrationTest("server.port:9999")
 //@TransactionConfiguration(defaultRollback = true, transactionManager = "transactionManager")
 //@DirtiesContext
-//@Transactional
+@Transactional
 //@TestExecutionListeners(listeners = TransactionalTestExecutionListener.class)
 public class LoanForecastApplicationTests {
 
@@ -78,9 +87,15 @@ public class LoanForecastApplicationTests {
     public void shouldReturnListOfExpenses() throws Exception {
         expenseCreator.createExpense(EXPENSE);
 
-        mvc.perform(MockMvcRequestBuilders.get("/"))
+        ResultActions resultActions = mvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(status().isOk())
                 .andDo(print());
+
+        Map<String, Object> model = resultActions.andReturn().getModelAndView().getModel();
+        List<Expense> expenses = (List<Expense>) model.get("expenses");
+        assertThat(expenses, notNullValue());
+        assertThat(expenses.size(), is(1));
+        assertThat(expenses.get(0).getAmount(), is(EXPENSE.getAmount()));
     }
 
     @Test

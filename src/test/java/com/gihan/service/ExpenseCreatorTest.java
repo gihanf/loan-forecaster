@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.joda.time.LocalDate;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,18 @@ public class ExpenseCreatorTest {
         assertThat(expenses.size(), is(1));
         Expense actualExpense = expenses.get(0);
         assertThat(actualExpense.getPaymentSchedule().getFirstPaymentDate(), is(expectedFirstPaymentDate));
+    }
+
+    @Test
+    public void shouldReturnAllExpenses() throws Exception {
+        LocalDate firstPaymentDate = new LocalDate(2016, 2, 26);
+        expenseCreatorService.createExpense(new ExpenseDTO("description", new BigDecimal(2.12), Frequency.YEARLY, firstPaymentDate));
+        List<ExpenseDTO> allExpenses = expenseCreatorService.getAllExpenses();
+        assertThat(allExpenses.size(), is(1));
+        assertThat(allExpenses.get(0).getAmount(), is(BigDecimal.valueOf(2.12)));
+        assertThat(allExpenses.get(0).getDescription(), is("description"));
+        assertThat(allExpenses.get(0).getFrequency(), is(Frequency.YEARLY));
+        assertThat(allExpenses.get(0).getFirstPaymentDate(), is(firstPaymentDate));
+
     }
 }

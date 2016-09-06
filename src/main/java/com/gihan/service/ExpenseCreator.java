@@ -1,5 +1,7 @@
 package com.gihan.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,5 +22,10 @@ public class ExpenseCreator implements ExpenseCreatorService {
     public long createExpense(ExpenseDTO dto) {
         Expense expense = new Expense(dto.getDescription(), dto.getAmount(), new PaymentSchedule(dto.getFrequency(), dto.getFirstPaymentDate()));
         return expenseRepository.save(expense).getId();
+    }
+
+    @Override
+    public List<ExpenseDTO> getAllExpenses() {
+        return null;
     }
 }
