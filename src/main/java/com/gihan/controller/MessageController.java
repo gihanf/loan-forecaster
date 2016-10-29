@@ -48,6 +48,7 @@ public class MessageController {
     @RequestMapping
     public ModelAndView list() {
         List<Expense> expenses = this.expenseRepository.findAll();
+        //TODO - This should really be converted to a DTO type before it's put into the model!!
 //        expenseCreatorService.getAllExpenses();
         return new ModelAndView("expenses/list", "expenses", expenses);
     }

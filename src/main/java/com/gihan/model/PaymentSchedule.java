@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 
 @Entity
 public class PaymentSchedule implements Serializable{
@@ -38,6 +40,11 @@ public class PaymentSchedule implements Serializable{
 
     public LocalDate getFirstPaymentDate() {
         return firstPaymentDate;
+    }
+
+    public String firstPaymentDateAsString() {
+        DateTimeFormatter format = DateTimeFormat.forPattern("dd-MM-yyyy");
+        return firstPaymentDate.toString(format);
     }
 
     public void setFirstPaymentDate(LocalDate firstPaymentDate) {

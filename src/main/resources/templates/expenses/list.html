@@ -43,7 +43,7 @@
 
             <!-- Next Payment Date -->
             <!--<td th:text="22-05-2016"></td>-->
-            <td th:text="${expense.getPaymentSchedule().getFirstPaymentDate()}"> </td>
+            <td th:text="${expense.getPaymentSchedule().firstPaymentDateAsString()}"> </td>
             <!--<td th:text="${expense.getPaymentSchedule().getFirstPaymentDate()} </td> + ${expense.getExpenseSchedule() == ONCE_OFF ? '' : ' ' + expense.getExpenseSchedule()}"></td>-->
         </tr>
         </tbody>

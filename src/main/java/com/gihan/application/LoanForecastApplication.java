@@ -23,14 +23,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.format.FormatterRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.gihan.convertor.LocalDateConverter;
 import com.gihan.model.Expense;
 import com.gihan.repository.ExpenseRepository;
 
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan(basePackages = "com.gihan")
-public class LoanForecastApplication {
+public class LoanForecastApplication extends WebMvcConfigurerAdapter {
 
     @Autowired
     private ExpenseRepository expenseRepository;
@@ -45,8 +48,12 @@ public class LoanForecastApplication {
         };
     }
 
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new LocalDateConverter("dd-MM-yyyy"));
+    }
+
     public static void main(String[] args) throws Exception {
         SpringApplication.run(LoanForecastApplication.class, args);
     }
-
 }

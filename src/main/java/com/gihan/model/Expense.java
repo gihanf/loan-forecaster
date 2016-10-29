@@ -26,6 +26,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Entity
 public class Expense implements Serializable{
 
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private int id;
 
     @NotEmpty(message = "Description is required.")
