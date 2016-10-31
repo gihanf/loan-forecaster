@@ -20,8 +20,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
@@ -50,10 +48,11 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.gihan.model.CandidateExpenseDTO;
 import com.gihan.model.Expense;
 import com.gihan.model.ExpenseDTO;
 import com.gihan.model.Frequency;
-import com.gihan.service.ExpenseCreatorService;
+import com.gihan.service.ExpenseService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = LoanForecastApplication.class)
@@ -65,7 +64,7 @@ import com.gihan.service.ExpenseCreatorService;
 //@TestExecutionListeners(listeners = TransactionalTestExecutionListener.class)
 public class LoanForecastApplicationTests {
 
-    private static final ExpenseDTO EXPENSE = new ExpenseDTO("Some description", BigDecimal.valueOf(13), Frequency.ONCE_OFF);
+    private static final CandidateExpenseDTO EXPENSE = new CandidateExpenseDTO("Some description", BigDecimal.valueOf(13), Frequency.ONCE_OFF);
     
     @Value("${server.port}")
     private int port;
@@ -74,7 +73,7 @@ public class LoanForecastApplicationTests {
     private WebApplicationContext context;
 
     @Autowired
-    private ExpenseCreatorService expenseCreator;
+    private ExpenseService expenseCreator;
 
     private MockMvc mvc;
 

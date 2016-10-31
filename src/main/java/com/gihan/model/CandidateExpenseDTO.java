@@ -9,14 +9,13 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
-public class ExpenseDTO {
+public class CandidateExpenseDTO {
 
     @NotEmpty(message = "Summary is required.")
     private String description;
 
     @Min(value = 0)
     @NotNull(message = "An amount must be entered")
-//    @Pattern(regexp = "(0|[1-9]{1}\\d{0,8})(\\.{1}\\d{1,2}){0,1}")
     @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
     private BigDecimal amount;
 
@@ -24,23 +23,23 @@ public class ExpenseDTO {
 
     private LocalDate firstPaymentDate;
 
-    public ExpenseDTO() {
+    public CandidateExpenseDTO() {
     }
 
-    public ExpenseDTO(String description, BigDecimal amount, Frequency frequency) {
+    public CandidateExpenseDTO(String description, BigDecimal amount, Frequency frequency) {
         this.description = description;
         this.amount = amount;
         this.frequency = frequency;
     }
 
-    public ExpenseDTO(String description, BigDecimal amount, Frequency frequency, LocalDate firstPaymentDate) {
+    public CandidateExpenseDTO(String description, BigDecimal amount, Frequency frequency, LocalDate firstPaymentDate) {
         this.description = description;
         this.amount = amount;
         this.frequency = frequency;
         this.firstPaymentDate = firstPaymentDate;
     }
 
-    public ExpenseDTO(String description, BigDecimal amount) {
+    public CandidateExpenseDTO(String description, BigDecimal amount) {
         this.description = description;
         this.amount = amount;
     }

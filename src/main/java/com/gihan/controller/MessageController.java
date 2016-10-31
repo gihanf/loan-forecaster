@@ -27,12 +27,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gihan.model.Expense;
-import com.gihan.model.ExpenseDTO;
-import com.gihan.model.Frequency;
-import com.gihan.model.PaymentScheduleOption;
+import com.gihan.model.*;
 import com.gihan.repository.ExpenseRepository;
-import com.gihan.service.ExpenseCreatorService;
+import com.gihan.service.ExpenseService;
 
 @Controller
 @RequestMapping("/")
@@ -43,13 +40,14 @@ public class MessageController {
     private ExpenseRepository expenseRepository;
 
     @Autowired
-    private ExpenseCreatorService expenseCreatorService;
+    private ExpenseService expenseService;
 
     @RequestMapping
     public ModelAndView list() {
         List<Expense> expenses = this.expenseRepository.findAll();
         //TODO - This should really be converted to a DTO type before it's put into the model!!
-//        expenseCreatorService.getAllExpenses();
+//        expenseService.getAllExpenses();
+//        List<ExpenseDTO> expenses = this.expenseService.getAllExpenses();
         return new ModelAndView("expenses/list", "expenses", expenses);
     }
 
@@ -69,18 +67,18 @@ public class MessageController {
     }
 
     @RequestMapping(params = "form", method = RequestMethod.GET)
-    public String createForm(@ModelAttribute ExpenseDTO expense) {
+    public String createForm(@ModelAttribute CandidateExpenseDTO expense) {
         return "expenses/form";
     }
 
     // TODO: Figure out how this should be transactional
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView create(@Valid ExpenseDTO expenseDTO, BindingResult result,
+    public ModelAndView create(@Valid CandidateExpenseDTO expenseDTO, BindingResult result,
                                RedirectAttributes redirect) {
         if (result.hasErrors()) {
             return new ModelAndView("expenses/form", "formErrors", result.getAllErrors());
         }
-        long id = expenseCreatorService.createExpense(expenseDTO);
+        long id = expenseService.createExpense(expenseDTO);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
         return new ModelAndView(String.format("redirect:/%s", id), "message.id", id);
     }
