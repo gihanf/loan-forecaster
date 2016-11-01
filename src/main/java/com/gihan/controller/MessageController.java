@@ -62,7 +62,7 @@ public class MessageController {
     }
 
     @RequestMapping("{id}")
-    public ModelAndView view(@PathVariable("id") Expense expense) {
+    public ModelAndView view(@PathVariable("id") ExpenseDTO expense) {
         return new ModelAndView("expenses/view", "expense", expense);
     }
 

@@ -20,7 +20,7 @@
       </div>
       <dl>
         <dt>ID</dt>
-          <dd id="id" th:text="${expense.id}">123</dd>
+          <dd id="id" th:text="${expense.expenseId}">123</dd>
         <!--<dt>Date</dt>-->
         <!--<dd id="created"-->
             <!--th:text="${#calendars.format(expense.created)}">-->
@@ -38,12 +38,12 @@
         </dd>
         <dt>Frequency</dt>
         <dd id="frequency"
-          th:text="${expense.paymentSchedule.frequency.toString()}">
+          th:text="${expense.frequency}">
           The frequency of the expense.
         </dd>
         <dt>First Payment Date</dt>
         <dd id="firstPaymentDate"
-          th:text="${expense.paymentSchedule.firstPaymentDate}">
+          th:text="${expense.firstPaymentDate}">
           The first payment date.
         </dd>
         <!--<dt>Payment Date Java 8</dt>-->
