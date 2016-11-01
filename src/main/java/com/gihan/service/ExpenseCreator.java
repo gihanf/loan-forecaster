@@ -32,6 +32,7 @@ public class ExpenseCreator implements ExpenseService {
         final List<ExpenseDTO> expenses = new ArrayList<>();
         exp.stream().forEach(e -> {
             ExpenseDTO dto = new ExpenseDTO(
+                    e.getId(),
                     e.getDescription(),
                     e.getAmount(),
                     e.getPaymentSchedule().getFrequency(),

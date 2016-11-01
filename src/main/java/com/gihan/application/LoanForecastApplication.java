@@ -26,7 +26,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import com.gihan.convertor.LocalDateConverter;
+import com.gihan.convertor.StringToLocalDateConverter;
 import com.gihan.model.Expense;
 import com.gihan.repository.ExpenseRepository;
 
@@ -50,7 +50,7 @@ public class LoanForecastApplication extends WebMvcConfigurerAdapter {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addFormatter(new LocalDateConverter("dd-MM-yyyy"));
+        registry.addConverter(new StringToLocalDateConverter("dd-MM-yyyy"));
     }
 
     public static void main(String[] args) throws Exception {

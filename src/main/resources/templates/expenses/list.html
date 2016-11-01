@@ -29,21 +29,22 @@
             </td>
         </tr>
         <tr th:each="expense : ${expenses}">
-            <td th:text="${expense.id}">1</td>
+            <td th:text="${expense.expenseId}">1</td>
             <td>
                 <a href="view.html"
-                   th:href="@{'/' + ${expense.id}}"
+                   th:href="@{'/' + ${expense.expenseId}}"
                    th:text="${expense.description}">
                     The description
                 </a>
             </td>
             <td th:text="${'$' + expense.amount}"></td>
 
-            <td th:text="${expense.getPaymentSchedule().getFrequency()}"></td>
+            <td th:text="${expense.getFrequency()}"></td>
 
             <!-- Next Payment Date -->
             <!--<td th:text="22-05-2016"></td>-->
-            <td th:text="${expense.getPaymentSchedule().firstPaymentDateAsString()}"> </td>
+            <td th:text="${#dates.format(expense.firstPaymentDate, 'dd MMM yyyy')}"> </td>
+
             <!--<td th:text="${expense.getPaymentSchedule().getFirstPaymentDate()} </td> + ${expense.getExpenseSchedule() == ONCE_OFF ? '' : ' ' + expense.getExpenseSchedule()}"></td>-->
         </tr>
         </tbody>
