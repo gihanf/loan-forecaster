@@ -6,6 +6,8 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.joda.time.LocalDate;
 
@@ -44,51 +46,12 @@ public class CandidateExpenseDTO {
         this.amount = amount;
     }
 
-//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-//    private LocalDate effectiveDate;
-
-//    private Calendar created = Calendar.getInstance();
-
-    //    @DateTimeFormat(pattern = "dd-MM-yyyy")
-//    private java.time.LocalDate newDate;
-//
-
-//    public Calendar getCreated() {
-//        return this.created;
-//    }
-//
-//    public void setCreated(Calendar created) {
-//        this.created = created;
-//    }
-
     public String getDescription() {
         return this.description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
     public Frequency getFrequency() {
         return frequency;
-    }
-
-    public void setFrequency(Frequency frequency) {
-        this.frequency = frequency;
-    }
-
-    @Override
-    public String toString() {
-        return "Expense{" +
-                ", description='" + description + '\'' +
-//                ", created=" + created + '\'' +
-                ", amount=" + amount + '\'' +
-//                ", expenseSchedule=" + expenseSchedule +
-                '}';
     }
 
     public BigDecimal getAmount() {
@@ -99,7 +62,8 @@ public class CandidateExpenseDTO {
         return firstPaymentDate;
     }
 
-    public void setFirstPaymentDate(LocalDate firstPaymentDate) {
-        this.firstPaymentDate = firstPaymentDate;
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

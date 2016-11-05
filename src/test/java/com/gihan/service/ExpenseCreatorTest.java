@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import org.joda.time.LocalDate;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gihan.application.LoanForecastApplication;
 import com.gihan.model.*;
 import com.gihan.repository.ExpenseRepository;
+import com.gihan.testHelper.CandidateExpenseDtoBuilder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = LoanForecastApplication.class)
@@ -29,26 +31,33 @@ public class ExpenseCreatorTest {
     @Autowired
     private ExpenseRepository expenseRepository;
 
-    @Test
-    public void shouldCreateExpenseWith_AllExpenseFields() {
-        expenseCreatorService.createExpense(new CandidateExpenseDTO("description", new BigDecimal(2.12), Frequency.YEARLY));
-        Expense firstExpense = new Expense("description", new BigDecimal(2.12), new PaymentSchedule(Frequency.YEARLY));
+    private CandidateExpenseDtoBuilder candidateExpenseDtoBuilder;
 
-        List<Expense> expenses = expenseRepository.findAll();
-        assertThat(expenses.size(), is(1));
-        Expense actualExpense = expenses.get(0);
-        assertThat(actualExpense, is(firstExpense));
+    @Before
+    public void setup() throws Exception {
+        candidateExpenseDtoBuilder = new CandidateExpenseDtoBuilder();
     }
 
     @Test
-    public void shouldCreateExpenseWith_FirstPaymentDate() {
-        LocalDate expectedFirstPaymentDate = new LocalDate(2016, 2, 26);
-        expenseCreatorService.createExpense(
-                new CandidateExpenseDTO("description", new BigDecimal(24), Frequency.YEARLY, expectedFirstPaymentDate));
+    public void shouldCreateExpenseWith_AllExpenseFields() {
+        LocalDate firstPaymentDate = new LocalDate(2016, 2, 26);
+        BigDecimal expenseAmount = new BigDecimal(2);
+        CandidateExpenseDTO dto = candidateExpenseDtoBuilder
+                .withDescription("description")
+                .withAmount(expenseAmount)
+                .withFrequency(Frequency.YEARLY)
+                .withFirstPaymentDate(firstPaymentDate)
+                .build();
+
+        expenseCreatorService.createExpense(dto);
+
         List<Expense> expenses = expenseRepository.findAll();
-        assertThat(expenses.size(), is(1));
-        Expense actualExpense = expenses.get(0);
-        assertThat(actualExpense.getPaymentSchedule().getFirstPaymentDate(), is(expectedFirstPaymentDate));
+//        assertThat(expenses.size(), is(1));
+        Expense createdExpense = expenses.get(0);
+        assertThat("descriptions did not match", createdExpense.getDescription(), is("description"));
+        assertThat("amounts did not match", createdExpense.getAmount(), is(expenseAmount));
+        assertThat("first payment dates did not match", createdExpense.getPaymentSchedule().getFirstPaymentDate(), is(true));
+        assertThat("payment frequencies did not match", createdExpense.getPaymentSchedule().getFrequency(), is(Frequency.YEARLY));
     }
 
     @Test
@@ -62,10 +71,4 @@ public class ExpenseCreatorTest {
         assertThat(allExpenses.get(0).getFrequency(), is(Frequency.YEARLY));
         assertThat(allExpenses.get(0).getFirstPaymentDate(), is(firstPaymentDate));
     }
-
-    /*@Test
-    public void shouldConvertExpenseModelObjectsToExpenseDtos() throws Exception {
-
-
-    }*/
 }

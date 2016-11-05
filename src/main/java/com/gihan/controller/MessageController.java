@@ -71,9 +71,9 @@ public class MessageController {
         return "expenses/form";
     }
 
-    // TODO: Figure out how this should be transactional
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView create(@Valid CandidateExpenseDTO candidateExpenseDTO, BindingResult result,
+    public ModelAndView create(@Valid CandidateExpenseDTO candidateExpenseDTO,
+                               BindingResult result,
                                RedirectAttributes redirect) {
         if (result.hasErrors()) {
             return new ModelAndView("expenses/form", "formErrors", result.getAllErrors());

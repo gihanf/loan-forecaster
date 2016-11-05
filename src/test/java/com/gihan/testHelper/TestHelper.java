@@ -1,12 +1,7 @@
 package com.gihan.testHelper;
 
-import java.math.BigDecimal;
-
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.gihan.model.ExpenseDTO;
-import com.gihan.model.Frequency;
 import com.gihan.service.ExpenseService;
 
 public class TestHelper {
