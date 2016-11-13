@@ -17,10 +17,10 @@ public final class StringToLocalDateConverter implements Converter<String, Local
 
     @Override
     public LocalDate convert(String dateString) {
-        LocalDate parsedDate;
         if (StringUtils.isNullOrEmpty(dateString)) {
             return null;
         }
+        LocalDate parsedDate;
         try {
             parsedDate = LocalDate.parse(dateString, formatter);
         } catch(RuntimeException e) {

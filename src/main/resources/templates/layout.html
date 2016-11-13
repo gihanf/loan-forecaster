@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
-  <head>
+<head>
     <title>Layout</title>
     <link rel="stylesheet"
-      th:href="@{/css/bootstrap.min.css}"
-      href="../../css/bootstrap.min.css"/>
+          th:href="@{external/bootstrap/css/bootstrap.min.css}"
+          href="../../external/bootstrap/css/bootstrap.min.css"/>
     <link rel="stylesheet"
-      th:href="@{/css/loan.css}"
-      href="../../css/loan.css"/>
-  </head>
-  <body>
-    <div class="container">
-      <div class="navbar">
+          th:href="@{/css/loan.css}"
+          href="../../css/loan.css"/>
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <script src="../../external/bootstrap/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="navbar">
         <div class="navbar-inner">
-          <a class="brand"
-              href="https://github.com/ultraq/thymeleaf-layout-dialect">
-              Thymeleaf - Layout
-          </a>
-          <ul class="nav">
-            <li>
-              <a th:href="@{/}" href="expenses.html">
-                Expenses
-              </a>
-            </li>
-          </ul>
+            <a class="brand"
+               href="https://github.com/ultraq/thymeleaf-layout-dialect">
+                Thymeleaf - Layout
+            </a>
+            <ul class="nav">
+                <li>
+                    <a th:href="@{/}" href="expenses.html">
+                        Expenses
+                    </a>
+                </li>
+            </ul>
         </div>
-      </div>
-      <h1 layout:fragment="header">Layout</h1>
-      <div layout:fragment="content">
-        Fake content
-      </div>
     </div>
-  </body>
+
+    <!--<ul class="nav nav-pills">-->
+        <!--<li role="presentation" class="active"><a href="#">Home</a></li>-->
+        <!--<li role="presentation"><a href="#">Profile</a></li>-->
+        <!--<li role="presentation"><a href="#">Messages</a></li>-->
+    <!--</ul>-->
+    <h1 layout:fragment="header">Layout</h1>
+
+    <div layout:fragment="content">
+        Fake content
+    </div>
+</div>
+</body>
 </html>
