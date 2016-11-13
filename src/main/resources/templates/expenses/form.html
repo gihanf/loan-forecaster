@@ -12,9 +12,9 @@
     <script src="/static/external/bootstrap/js/bootstrap.min.js"></script>
 
     <script>
-        $(function() {
-            $( "#datepicker" ).datepicker({
-                dateFormat: "dd-mm-yy"
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: "dd M yy"
             });
         });
 
@@ -60,7 +60,6 @@
                     th:text="${option.toString()}"></option>
         </select>
 
-        <!--<label for="incurredTime"></label>-->
 
         <div>
             <ul>
@@ -75,10 +74,8 @@
 
 
         <label for="datepicker">First Payment Date</label>
-        <input type="text" id="datepicker" th:field="*{firstPaymentDate}" />
+        <input type="text" id="datepicker" th:field="*{firstPaymentDate}"/>
 
-        <!--<label for="newDate">First Payment Java 8 Date</label>-->
-        <!--<input type="text" id="datepicker" th:field="*{newDate}" />-->
         <div class="form-actions">
             <input type="submit" value="Create"/>
         </div>

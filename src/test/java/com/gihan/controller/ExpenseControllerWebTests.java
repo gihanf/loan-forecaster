@@ -43,7 +43,7 @@ import com.gihan.application.LoanForecastApplication;
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = LoanForecastApplication.class)
-public class MessageControllerWebTests {
+public class ExpenseControllerWebTests {
 
     @Autowired
     private WebApplicationContext wac;

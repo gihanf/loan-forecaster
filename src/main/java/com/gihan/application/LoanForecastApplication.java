@@ -57,7 +57,7 @@ public class LoanForecastApplication extends WebMvcConfigurerAdapter {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new StringToLocalDateConverter("dd-MM-yyyy"));
+        registry.addConverter(new StringToLocalDateConverter("dd MMM yyyy"));
     }
 
     public static void main(String[] args) throws Exception {

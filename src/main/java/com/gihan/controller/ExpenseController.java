@@ -36,8 +36,8 @@ import com.gihan.service.ExpenseService;
 
 @Controller
 @RequestMapping("/")
-public class MessageController {
-    private static final Log LOG = LogFactory.getLog(MessageController.class);
+public class ExpenseController {
+    private static final Log LOG = LogFactory.getLog(ExpenseController.class);
 
     @Autowired
     private ExpenseRepository expenseRepository;

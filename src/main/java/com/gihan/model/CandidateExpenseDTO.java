@@ -18,7 +18,7 @@ public class CandidateExpenseDTO {
 
     @Min(value = 0)
     @NotNull(message = "An amount must be entered")
-    @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
+    @Digits(message = "Amount should be numbers only. Up to two decimal places", integer = 3, fraction = 2)
     private BigDecimal amount;
 
     private Frequency frequency;

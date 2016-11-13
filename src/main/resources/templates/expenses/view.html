@@ -1,57 +1,53 @@
 <html xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-  layout:decorator="layout">
-  <head>
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
     <title>Expenses : View</title>
-  </head>
-  <body>
-    <h1 layout:fragment="header">Expenses : Create</h1>
-    <div layout:fragment="content"
-        class="container">
-      <div class="alert alert-success"
-          th:if="${globalMessage}"
-          th:text="${globalMessage}">
+</head>
+<body>
+<h1 layout:fragment="header">Expenses : Create</h1>
+
+<div layout:fragment="content"
+     class="container">
+    <div class="alert alert-success"
+         th:if="${globalMessage}"
+         th:text="${globalMessage}">
         Some Success expense
-      </div>
-      <div class="pull-right">
+    </div>
+    <div class="pull-right">
         <a th:href="@{/}" href="list.html">
-          Expenses
+            Expenses
         </a>
-      </div>
-      <dl>
+    </div>
+    <dl>
         <dt>ID</dt>
-          <dd id="id" th:text="${expense.expenseId}">123</dd>
-        <!--<dt>Date</dt>-->
-        <!--<dd id="created"-->
-            <!--th:text="${#calendars.format(expense.created)}">-->
-          <!--July 11, 2012 2:17:16 PM CDT-->
-        <!--</dd>-->
+        <dd id="id" th:text="${expense.expenseId}">123</dd>
         <dt>Summary</dt>
+
         <dd id="description"
-          th:text="${expense.description}">
-          A short description...
+            th:text="${expense.description}">
+            A short description...
         </dd>
+
         <dt>Amount</dt>
         <dd id="amount"
-          th:text="${'$' + #numbers.formatDecimal(expense.amount, 0, 'COMMA', 2, 'POINT')}">
-          An amount for the expense.
+            th:text="${'$' + #numbers.formatDecimal(expense.amount, 0, 'COMMA', 2, 'POINT')}">
+            An amount for the expense.
         </dd>
+
         <dt>Frequency</dt>
         <dd id="frequency"
-          th:text="${expense.frequency}">
-          The frequency of the expense.
+            th:text="${expense.frequency}">
+            The frequency of the expense.
         </dd>
+
         <dt>First Payment Date</dt>
         <dd id="firstPaymentDate"
-          th:text="${expense.firstPaymentDate}">
-          The first payment date.
+            th:text="${#dates.format(expense.firstPaymentDate, 'dd MMM yyyy')}">
+            The first payment date.
         </dd>
-        <!--<dt>Payment Date Java 8</dt>-->
-        <!--<dd id="newDate"-->
-          <!--th:text="${expense.expenseSchedule.toString()}">-->
-          <!--The first payment date Java 8.-->
-        <!--</dd>-->
-      </dl>
-    </div>
-  </body>
+
+    </dl>
+</div>
+</body>
 </html>
