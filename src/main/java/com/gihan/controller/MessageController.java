@@ -76,6 +76,8 @@ public class MessageController {
                                BindingResult result,
                                RedirectAttributes redirect) {
         if (result.hasErrors()) {
+            LOG.info("hey there were some errors " + result.getFieldError("description"));
+            LOG.info("hey there were some errors " + result.getFieldError("amount"));
             return new ModelAndView("expenses/form", "formErrors", result.getAllErrors());
         }
         long id = expenseService.createExpense(candidateExpenseDTO);

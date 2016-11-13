@@ -26,7 +26,9 @@ import java.math.BigDecimal;
 import java.net.URI;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,7 +51,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.gihan.model.CandidateExpenseDTO;
-import com.gihan.model.Expense;
 import com.gihan.model.ExpenseDTO;
 import com.gihan.model.Frequency;
 import com.gihan.service.ExpenseService;
@@ -64,7 +65,7 @@ import com.gihan.service.ExpenseService;
 //@TestExecutionListeners(listeners = TransactionalTestExecutionListener.class)
 public class LoanForecastApplicationTests {
 
-    private static final CandidateExpenseDTO EXPENSE = new CandidateExpenseDTO("Some description", BigDecimal.valueOf(13), Frequency.ONCE_OFF);
+    private static final CandidateExpenseDTO EXPENSE = new CandidateExpenseDTO("Some description", BigDecimal.valueOf(13), Frequency.ONCE_OFF, new LocalDate(2016,1,15));
     
     @Value("${server.port}")
     private int port;
@@ -91,10 +92,14 @@ public class LoanForecastApplicationTests {
                 .andDo(print());
 
         Map<String, Object> model = resultActions.andReturn().getModelAndView().getModel();
-        List<Expense> expenses = (List<Expense>) model.get("expenses");
+        List<ExpenseDTO> expenses = (List<ExpenseDTO>) model.get("expenses");
         assertThat(expenses, notNullValue());
-        assertThat(expenses.size(), is(1));
-        assertThat(expenses.get(0).getAmount(), is(EXPENSE.getAmount()));
+        // Can only do this assertion once test db is separate from live database
+//        assertThat(expenses.size(), is(1));
+        List<ExpenseDTO> matchingExpenses = expenses.stream().filter(e -> e.getAmount().equals(EXPENSE.getAmount()) &&
+                e.getDescription().equals(EXPENSE.getDescription()) &&
+                e.getFirstPaymentDate() == EXPENSE.getFirstPaymentDate()).collect(Collectors.toList());
+        assertThat(matchingExpenses.size(), is(1));
     }
 
     @Test

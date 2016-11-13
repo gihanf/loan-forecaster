@@ -21,6 +21,9 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
@@ -82,13 +85,7 @@ public class Expense implements Serializable{
 
     @Override
     public String toString() {
-        return "Expense{" +
-                "id=" + id +
-                ", description='" + description + '\'' +
-//                ", created=" + created + '\'' +
-                ", amount=" + amount + '\'' +
-//                ", expenseSchedule=" + expenseSchedule +
-                '}';
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 
     @Override
@@ -96,10 +93,7 @@ public class Expense implements Serializable{
         if (!(obj instanceof Expense)) {
             return false;
         }
-        Expense expense = (Expense) obj;
-        return expense.getDescription().equals(this.description)
-                && expense.getAmount().equals(this.getAmount())
-                && expense.getPaymentSchedule().equals(this.getPaymentSchedule());
+        return EqualsBuilder.reflectionEquals(obj, this, "id");
     }
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "expense")

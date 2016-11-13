@@ -41,7 +41,7 @@ public class ExpenseCreatorTest {
     @Test
     public void shouldCreateExpenseWith_AllExpenseFields() {
         LocalDate firstPaymentDate = new LocalDate(2016, 2, 26);
-        BigDecimal expenseAmount = new BigDecimal(2);
+        BigDecimal expenseAmount = new BigDecimal(2.12).setScale(2, BigDecimal.ROUND_DOWN);
         CandidateExpenseDTO dto = candidateExpenseDtoBuilder
                 .withDescription("description")
                 .withAmount(expenseAmount)
@@ -56,7 +56,7 @@ public class ExpenseCreatorTest {
         Expense createdExpense = expenses.get(0);
         assertThat("descriptions did not match", createdExpense.getDescription(), is("description"));
         assertThat("amounts did not match", createdExpense.getAmount(), is(expenseAmount));
-        assertThat("first payment dates did not match", createdExpense.getPaymentSchedule().getFirstPaymentDate(), is(true));
+        assertThat("first payment dates did not match", createdExpense.getPaymentSchedule().getFirstPaymentDate(), is(firstPaymentDate));
         assertThat("payment frequencies did not match", createdExpense.getPaymentSchedule().getFrequency(), is(Frequency.YEARLY));
     }
 

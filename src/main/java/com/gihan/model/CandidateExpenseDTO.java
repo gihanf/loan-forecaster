@@ -28,22 +28,11 @@ public class CandidateExpenseDTO {
     public CandidateExpenseDTO() {
     }
 
-    public CandidateExpenseDTO(String description, BigDecimal amount, Frequency frequency) {
-        this.description = description;
-        this.amount = amount;
-        this.frequency = frequency;
-    }
-
     public CandidateExpenseDTO(String description, BigDecimal amount, Frequency frequency, LocalDate firstPaymentDate) {
         this.description = description;
         this.amount = amount;
         this.frequency = frequency;
         this.firstPaymentDate = firstPaymentDate;
-    }
-
-    public CandidateExpenseDTO(String description, BigDecimal amount) {
-        this.description = description;
-        this.amount = amount;
     }
 
     public String getDescription() {
@@ -60,6 +49,22 @@ public class CandidateExpenseDTO {
 
     public LocalDate getFirstPaymentDate() {
         return firstPaymentDate;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public void setFrequency(Frequency frequency) {
+        this.frequency = frequency;
+    }
+
+    public void setFirstPaymentDate(LocalDate firstPaymentDate) {
+        this.firstPaymentDate = firstPaymentDate;
     }
 
     @Override
