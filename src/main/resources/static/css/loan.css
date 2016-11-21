@@ -1,4 +1,26 @@
+body {
+    padding-bottom: 40px;
+    color: #5a5a5a;
+}
+
 ul {
     list-style: none;
     /*list-style-type: none;*/
+}
+
+.navbar-wrapper {
+    margin-top: 20px;
+}
+
+.form-control {
+    width: 25%;
+}
+
+.header {
+    color: #003580;
+    padding-bottom: 20px;
+}
+
+.container {
+    padding-left: 1px;
 }
