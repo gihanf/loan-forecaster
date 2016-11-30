@@ -29,3 +29,11 @@ ul {
 .expenseTableButton {
     float: right;
 }
+
+.navbar-wrapper > .container {
+    width: 62%;
+}
+
+.left-bar {
+    width: 19%;
+}

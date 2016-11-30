@@ -30,7 +30,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gihan.model.*;
+import com.gihan.model.CandidateExpenseDTO;
+import com.gihan.model.ExpenseDTO;
+import com.gihan.model.Frequency;
+import com.gihan.model.PaymentScheduleOption;
 import com.gihan.repository.ExpenseRepository;
 import com.gihan.service.ExpenseService;
 
@@ -71,7 +74,7 @@ public class ExpenseController {
         return "expenses/form";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "expense", method = RequestMethod.POST)
     public ModelAndView create(@Valid CandidateExpenseDTO candidateExpenseDTO,
                                BindingResult result,
                                RedirectAttributes redirect) {
