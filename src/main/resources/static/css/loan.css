@@ -16,11 +16,16 @@ ul {
     width: 25%;
 }
 
-.header {
+.contentHeading {
     color: #003580;
     padding-bottom: 20px;
+    padding-top: 80px;
 }
 
 .container {
     padding-left: 1px;
+}
+
+.expenseTableButton {
+    float: right;
 }

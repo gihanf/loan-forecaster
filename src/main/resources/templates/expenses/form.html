@@ -17,7 +17,7 @@
     </script>
 </head>
 <body>
-<h1 layout:fragment="header">Expenses : Create</h1>
+<h1 layout:fragment="content-heading">Expenses : Create</h1>
 
 <div layout:fragment="content" class="container">
     <form id="messageForm" th:action="@{/(form)}" th:object="${candidateExpenseDTO}"
@@ -29,9 +29,6 @@
                th:text="${error}">
                 Validation error
             </p>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-primary" th:href="@{/}" href="expenses.html">Expenses</a>
         </div>
 
         <div class="form-group">

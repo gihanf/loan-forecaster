@@ -6,22 +6,21 @@
     <title>Expenses : View all</title>
 </head>
 <body>
-<h1 layout:fragment="header">Expenses : View all</h1>
+<h1 layout:fragment="content-heading">Expenses : View all</h1>
 
 <div layout:fragment="content" class="container">
-    <div class="pull-right">
+    <div class="expenseTableButton">
         <a class="btn btn-primary" href="form.html" th:href="@{/(form)}">Create Expense</a>
     </div>
-    <div class="panel-heading">Panel heading</div>
     <table class="table table-bordered table-striped">
         <thead>
-        <tr>
-            <td>ID</td>
-            <td>Description</td>
-            <td>Amount</td>
-            <td>Frequency</td>
-            <td>Payment Date</td>
-        </tr>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Frequency</th>
+                <th>Payment Date</th>
+            </tr>
         </thead>
         <tbody>
         <tr th:if="${expenses.empty}">
@@ -39,14 +38,8 @@
                 </a>
             </td>
             <td th:text="${'$' + expense.amount}"></td>
-
             <td th:text="${expense.getFrequency()}"></td>
-
-            <!-- Next Payment Date -->
-            <!--<td th:text="22-05-2016"></td>-->
             <td th:text="${#dates.format(expense.firstPaymentDate, 'dd MMM yyyy')}"> </td>
-
-            <!--<td th:text="${expense.getPaymentSchedule().getFirstPaymentDate()} </td> + ${expense.getExpenseSchedule() == ONCE_OFF ? '' : ' ' + expense.getExpenseSchedule()}"></td>-->
         </tr>
         </tbody>
     </table>
