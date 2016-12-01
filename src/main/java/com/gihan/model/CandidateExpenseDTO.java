@@ -23,6 +23,7 @@ public class CandidateExpenseDTO {
 
     private Frequency frequency;
 
+    @NotNull
     private LocalDate firstPaymentDate;
 
     public CandidateExpenseDTO() {

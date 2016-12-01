@@ -37,3 +37,8 @@ ul {
 .left-bar {
     width: 19%;
 }
+
+.form-label {
+    font-weight: bold
+;
+}

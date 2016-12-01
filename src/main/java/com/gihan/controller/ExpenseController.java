@@ -74,7 +74,7 @@ public class ExpenseController {
         return "expenses/form";
     }
 
-    @RequestMapping(value = "expense", method = RequestMethod.POST)
+    @RequestMapping(value = "expense", method = RequestMethod.POST, params = "action=Create")
     public ModelAndView create(@Valid CandidateExpenseDTO candidateExpenseDTO,
                                BindingResult result,
                                RedirectAttributes redirect) {
