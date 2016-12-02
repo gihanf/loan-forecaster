@@ -8,6 +8,10 @@ ul {
     /*list-style-type: none;*/
 }
 
+.navbar > .navbar-brand {
+    color: #e99012;
+}
+
 .navbar-wrapper {
     margin-top: 20px;
 }
