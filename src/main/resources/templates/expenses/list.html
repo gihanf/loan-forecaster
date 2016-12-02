@@ -10,7 +10,7 @@
 
 <div layout:fragment="content" class="container">
     <div class="expenseTableButton">
-        <a class="btn btn-primary" href="form.html" th:href="@{/(form)}">Create Expense</a>
+        <a class="btn btn-primary" href="form.html" th:href="@{/expense/form}">Create Expense</a>
     </div>
     <table class="table table-bordered table-hover">
         <thead>
@@ -32,7 +32,7 @@
             <td th:text="${expense.expenseId}">1</td>
             <td>
                 <a href="view.html"
-                   th:href="@{'/' + ${expense.expenseId}}"
+                   th:href="@{'expense/' + ${expense.expenseId}}"
                    th:text="${expense.description}">
                     The description
                 </a>

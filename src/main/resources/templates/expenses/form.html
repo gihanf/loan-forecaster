@@ -16,7 +16,7 @@
 <h1 layout:fragment="content-heading">Expenses : Create</h1>
 
 <div layout:fragment="content" class="container">
-    <form id="messageForm" th:action="@{/expense(action=Create)}" th:object="${candidateExpenseDTO}"
+    <form id="messageForm" th:action="@{/expense/(action=Create)}" th:object="${candidateExpenseDTO}"
       action="#"
       method="post">
 

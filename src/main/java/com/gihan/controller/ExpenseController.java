@@ -38,7 +38,7 @@ import com.gihan.repository.ExpenseRepository;
 import com.gihan.service.ExpenseService;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/expense")
 public class ExpenseController {
     private static final Log LOG = LogFactory.getLog(ExpenseController.class);
 
@@ -64,17 +64,17 @@ public class ExpenseController {
         return new ModelAndView("expenses/list", "expenses", expenses);
     }
 
-    @RequestMapping("{id}")
+    @RequestMapping("/{id}")
     public ModelAndView view(@PathVariable("id") ExpenseDTO expense) {
         return new ModelAndView("expenses/view", "expense", expense);
     }
 
-    @RequestMapping(params = "form", method = RequestMethod.GET)
+    @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String createForm(@ModelAttribute CandidateExpenseDTO expense) {
         return "expenses/form";
     }
 
-    @RequestMapping(value = "expense", method = RequestMethod.POST, params = "action=Create")
+    @RequestMapping(method = RequestMethod.POST, params = "action=Create")
     public ModelAndView create(@Valid CandidateExpenseDTO candidateExpenseDTO,
                                BindingResult result,
                                RedirectAttributes redirect) {
@@ -85,7 +85,7 @@ public class ExpenseController {
         }
         long id = expenseService.createExpense(candidateExpenseDTO);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
-        return new ModelAndView(String.format("redirect:/%s", id), "message.id", id);
+        return new ModelAndView(String.format("redirect:/expense/%s", id), "message.id", id);
     }
 
 }
