@@ -4,10 +4,6 @@
       layout:decorator="layout">
 <head>
     <title>Expenses : Create</title>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css"/>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script src="../../../external/bootstrap/js/bootstrap.min.js"></script>
     <script>
         $(function () {
             $("#datepicker").datepicker({
@@ -30,36 +26,31 @@
             </p>
         </div>
 
-        <div class="form-group">
-            <label class="form-label" for="description">Description</label>
-            <input id="description" class="form-control" type="text"
-                   th:field="*{description}"
-                   th:classappend="${#fields.hasErrors('description')} ? 'field-error'"/>
+        <div class="form-group" th:classappend="${#fields.hasErrors('description')} ? 'has-danger'">
+            <label class="form-control-label" for="description">Description</label>
+            <input id="description" class="form-control" type="text" th:field="*{description}"/>
         </div>
-        <div class="form-group">
-            <label class="form-label" for="amount">Amount</label>
-            <input id="amount" class="form-control" type="text"
-                   th:field="*{amount}"
-                   th:classappend="${#fields.hasErrors('amount')} ? 'field-error'"/>
+        <div class="form-group" th:classappend="${#fields.hasErrors('amount')} ? 'has-danger'">
+            <label class="form-control-label" for="amount">Amount</label>
+            <input id="amount" class="form-control" type="text" th:field="*{amount}"/>
         </div>
-        <div class="form-group">
-            <label class="form-label" for="frequency">Frequency</label>
+        <div class="form-group" th:classappend="${#fields.hasErrors('frequency')} ? 'has-danger'">
+            <label class="form-control-label" for="frequency">Frequency</label>
             <select id="frequency" class="form-control" th:field="*{frequency}">
                 <option th:each="option : ${allFrequencies}"
                         th:value="${option.name()}"
                         th:text="${option.toString()}"></option>
             </select>
         </div>
-        <div class="form-group">
-            <label class="form-label" for="datepicker">First Payment Date</label>
-            <input type="text" id="datepicker" class="form-control"
-                   th:field="*{firstPaymentDate}"/>
+        <div class="form-group" th:classappend="${#fields.hasErrors('firstPaymentDate')} ? 'has-danger'">
+            <label class="form-control-label" for="datepicker">First Payment Date</label>
+            <input type="text" id="datepicker" class="form-control" th:field="*{firstPaymentDate}"/>
         </div>
-
         <div class="form-actions">
             <input class="btn btn-primary" type="submit" th:value="Create" name="create"/>
             <input class="btn btn-default" type="submit" th:value="Cancel" name="action"/>
         </div>
+
     </form>
 </div>
 </body>

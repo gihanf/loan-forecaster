@@ -38,7 +38,6 @@ ul {
     width: 19%;
 }
 
-.form-label {
-    font-weight: bold
-;
+.form-control-label {
+    font-weight: bold;
 }
