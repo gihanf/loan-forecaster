@@ -13,17 +13,17 @@ import org.joda.time.LocalDate;
 
 public class CandidateExpenseDTO {
 
-    @NotEmpty(message = "Summary is required.")
+    @NotEmpty(message = "Description must be entered")
     private String description;
 
     @Min(value = 0)
-    @NotNull(message = "An amount must be entered")
+    @NotNull(message = "Amount must be entered")
     @Digits(message = "Amount should be numbers only. Up to two decimal places", integer = 3, fraction = 2)
     private BigDecimal amount;
 
     private Frequency frequency;
 
-    @NotNull
+    @NotNull (message = "First payment date must be entered")
     private LocalDate firstPaymentDate;
 
     public CandidateExpenseDTO() {
