@@ -5,8 +5,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.joda.time.LocalDate;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,7 +25,7 @@ import com.gihan.testHelper.CandidateExpenseDtoBuilder;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = LoanForecastApplication.class)
 @Transactional
-public class ExpenseCreatorTest {
+public class ExpenseServiceTest {
 
     @Autowired
     private ExpenseService expenseCreatorService;
@@ -70,5 +72,25 @@ public class ExpenseCreatorTest {
         assertThat(allExpenses.get(0).getDescription(), is("description"));
         assertThat(allExpenses.get(0).getFrequency(), is(Frequency.YEARLY));
         assertThat(allExpenses.get(0).getFirstPaymentDate(), is(firstPaymentDate));
+    }
+
+    @Test
+    public void shouldReturnExpensesOrderedDescendingByFirstPaymentDate() throws Exception {
+        LocalDate firstPaymentDate = new LocalDate(2016, 2, 26);
+        final String testDescription = "testDescription";
+        CandidateExpenseDTO expenseToday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate);
+        CandidateExpenseDTO expenseYesterday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate.minusDays(1));
+        CandidateExpenseDTO expenseTomorrow = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate.plusDays(1));
+        expenseCreatorService.createExpense(expenseToday);
+        expenseCreatorService.createExpense(expenseYesterday);
+        expenseCreatorService.createExpense(expenseTomorrow);
+
+        List<ExpenseDTO> testExpenses = expenseCreatorService.getAllExpenses().stream()
+                .filter(expense -> expense.getDescription().equals(testDescription)).collect(Collectors.toList());
+
+        assertThat(testExpenses.size(), is(3));
+        assertThat(testExpenses.get(0).getFirstPaymentDate(), is(firstPaymentDate.plusDays(1)));
+        assertThat(testExpenses.get(1).getFirstPaymentDate(), is(firstPaymentDate));
+        assertThat(testExpenses.get(2).getFirstPaymentDate(), is(firstPaymentDate.minusDays(1)));
     }
 }
