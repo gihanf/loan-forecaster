@@ -2,9 +2,7 @@ package com.gihan.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +27,19 @@ public class ExpenseCreator implements ExpenseService {
     }
 
     @Override
+    public void modify(ExpenseDTO modifiedDto) {
+        Expense originalExpense = expenseRepository.findOne(modifiedDto.getExpenseId());
+        originalExpense.setAmount(modifiedDto.getAmount());
+        originalExpense.setDescription(modifiedDto.getDescription());
+
+        PaymentSchedule paymentSchedule = originalExpense.getPaymentSchedule();
+        paymentSchedule.setFirstPaymentDate(modifiedDto.getFirstPaymentDate());
+        paymentSchedule.setFrequency(modifiedDto.getFrequency());
+
+        expenseRepository.saveAndFlush(originalExpense);
+    }
+
+    @Override
     public List<ExpenseDTO> getAllExpenses() {
         List<Expense> exp = expenseRepository.findAll();
         final List<ExpenseDTO> expenses = new ArrayList<>();
@@ -41,9 +52,9 @@ public class ExpenseCreator implements ExpenseService {
                             e.getAmount(),
                             e.getPaymentSchedule().getFrequency(),
                             e.getPaymentSchedule().getFirstPaymentDate()
-            );
-            expenses.add(dto);
-        });
+                    );
+                    expenses.add(dto);
+                });
         return expenses;
     }
 }

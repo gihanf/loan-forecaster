@@ -5,10 +5,10 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.joda.time.LocalDate;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gihan.application.LoanForecastApplication;
-import com.gihan.model.*;
+import com.gihan.model.CandidateExpenseDTO;
+import com.gihan.model.Expense;
+import com.gihan.model.ExpenseDTO;
+import com.gihan.model.Frequency;
 import com.gihan.repository.ExpenseRepository;
 import com.gihan.testHelper.CandidateExpenseDtoBuilder;
 
@@ -92,5 +95,36 @@ public class ExpenseServiceTest {
         assertThat(testExpenses.get(0).getFirstPaymentDate(), is(firstPaymentDate.plusDays(1)));
         assertThat(testExpenses.get(1).getFirstPaymentDate(), is(firstPaymentDate));
         assertThat(testExpenses.get(2).getFirstPaymentDate(), is(firstPaymentDate.minusDays(1)));
+    }
+
+    @Test
+    public void shouldBeAbleToEditAnExistingExpense() throws Exception {
+        LocalDate firstPaymentDate = new LocalDate(2016, 2, 26);
+        final String testDescription = "testDescription";
+        CandidateExpenseDTO expenseToday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate);
+
+        expenseCreatorService.createExpense(expenseToday);
+        ExpenseDTO dto = expenseCreatorService.getAllExpenses().stream()
+                .filter(expense -> expense.getDescription().equals(testDescription)).findFirst().get();
+
+        ExpenseDTO.ExpenseDTOBuilder builder = new ExpenseDTO.ExpenseDTOBuilder();
+        ExpenseDTO modifiedDto = builder
+                .withId(dto.getExpenseId())
+                .withDescription("modifiedTestDescription")
+                .withAmount(new BigDecimal(4))
+                .withFrequency(Frequency.MONTHLY)
+                .withFirstPaymentDate(firstPaymentDate.plusDays(1))
+                .build();
+        expenseCreatorService.modify(modifiedDto);
+
+        Optional<ExpenseDTO> oldDto = expenseCreatorService.getAllExpenses().stream()
+                .filter(expense -> expense.getDescription().equals(testDescription)).findAny();
+        Optional<ExpenseDTO> newDto = expenseCreatorService.getAllExpenses().stream()
+                .filter(expense -> expense.getDescription().equals("modifiedTestDescription")).findAny();
+        assertThat(oldDto.isPresent(), is(false));
+        assertThat(newDto.isPresent(), is(true));
+
+        ExpenseDTO savedDto = newDto.get();
+        assertThat("The retrieved dto did not match what we intended to save", savedDto.equals(modifiedDto), is(true));
     }
 }

@@ -6,6 +6,8 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -62,5 +64,58 @@ public class ExpenseDTO {
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return EqualsBuilder.reflectionEquals(this, other);
+    }
+
+    @Override
+    public int hashCode() {
+        return HashCodeBuilder.reflectionHashCode(this);
+    }
+
+    public static class ExpenseDTOBuilder {
+        public int id;
+        public String description;
+        public BigDecimal amount;
+        public Frequency frequency;
+        public LocalDate firstPaymentDate;
+
+        public ExpenseDTOBuilder withId(int id) {
+            this.id = id;
+            return this;
+        }
+
+        public ExpenseDTOBuilder withDescription(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public ExpenseDTOBuilder withAmount(BigDecimal amount) {
+            this.amount = amount;
+            return this;
+        }
+
+        public ExpenseDTOBuilder withFrequency(Frequency frequency) {
+            this.frequency = frequency;
+            return this;
+        }
+
+        public ExpenseDTOBuilder withFirstPaymentDate(LocalDate firstPaymentDate) {
+            this.firstPaymentDate = firstPaymentDate;
+            return this;
+        }
+
+        public ExpenseDTO build() {
+            return new ExpenseDTO(
+                    this.id,
+                    this.description,
+                    this.amount,
+                    this.frequency,
+                    this.firstPaymentDate
+            );
+        }
     }
 }

@@ -10,4 +10,6 @@ public interface ExpenseService {
     long createExpense(CandidateExpenseDTO dto);
 
     List<ExpenseDTO> getAllExpenses();
+
+    void modify(ExpenseDTO modifiedDto);
 }
