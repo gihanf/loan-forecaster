@@ -17,7 +17,7 @@ ul {
 }
 
 .form-control {
-    width: 75%;
+    /*width: 75%;*/
 }
 
 .contentHeading {
@@ -44,6 +44,10 @@ ul {
 
 .form-control-label {
     font-weight: bold;
+}
+
+.input-group-addon {
+    width: auto;
 }
 
 .col-form-label {

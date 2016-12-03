@@ -13,58 +13,88 @@
     </script>
 </head>
 <body>
-<h1 layout:fragment="content-heading">Expenses : Create</h1>
+<h1 layout:fragment="content-heading">Create expense</h1>
 
 <div layout:fragment="content" class="container">
     <form id="messageForm" th:action="@{/expense/(action=Create)}" th:object="${candidateExpenseDTO}"
       action="#"
       method="post">
 
-        <!--<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">-->
-            <!--<p th:each="error : ${#fields.errors('*')}" th:text="${error}">-->
-                <!--Validation error-->
-            <!--</p>-->
+        <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
+            <p th:each="error : ${#fields.errors('*')}" th:text="${error}">
+                Validation error
+            </p>
+        </div>
+        <!--<div class="newFormGroup">-->
+            <!--<div class="form-group row">-->
+                <!--<label for="example-text-input" class="col-sm-2 col-form-label">Description</label>-->
+                <!--<div class="col-xs-8">-->
+                    <!--<input class="form-control" type="text" placeholder="Enter a description" id="example-text-input" th:field="*{description}"/>-->
+                    <!--<small class="form-text text-muted">Example help text that remains unchanged.</small>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group row">-->
+                <!--<label for="exampleInputAmount" class="col-sm-2 col-form-label">Amount</label>-->
+                <!--<div class="input-group col-sm-4">-->
+                    <!--<div class="input-group-addon">$</div>-->
+                    <!--<input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount" th:field="*{amount}"/>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group row">-->
+                <!--<label for="frequency" class="col-sm-2 col-form-label">Frequency</label>-->
+                <!--<div class="input-group col-sm-4">-->
+                    <!--<select id="frequency" class="form-control" th:field="*{frequency}">-->
+                        <!--<option th:each="option : ${allFrequencies}"-->
+                                <!--th:value="${option.name()}"-->
+                                <!--th:text="${option.toString()}"></option>-->
+                    <!--</select>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--<div class="form-group row" th:classappend="${#fields.hasErrors('firstPaymentDate')} ? 'has-danger'">-->
+                <!--<label class="col-sm-2 col-form-label" for="datepicker">First Payment Date</label>-->
+                <!--<div class="input-group col-sm-4">-->
+                    <!--<input type="text" id="datepicker" class="form-control" th:field="*{firstPaymentDate}" placeholder="Please select a date"/>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<div class="form-group row">&ndash;&gt;-->
+                <!--&lt;!&ndash;<label for="example-date-input" class="col-xs-2 col-form-label">First Payment Date</label>&ndash;&gt;-->
+                <!--&lt;!&ndash;<div class="col-xs-10">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<input class="form-control" type="date" value="2011-08-19" id="example-date-input" th:field="*{firstPaymentDate}"/>&ndash;&gt;-->
+                <!--&lt;!&ndash;</div>&ndash;&gt;-->
+            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
         <!--</div>-->
-        <div class="newFormGroup">
-        <div class="form-group row">
-            <label for="example-text-input" class="col-sm-2 col-form-label">Description</label>
-            <div class="col-xs-8">
-                <input class="form-control" type="text" placeholder="Enter a description" id="example-text-input"/>
+
+        <div class="row form-group" th:classappend="${#fields.hasErrors('description')} ? 'has-danger'">
+            <div class="col-sm-4">
+                <label class="form-control-label" for="description">Description</label>
+                <input id="description" class="form-control" type="text" th:field="*{description}"/>
+                <div class="form-control-feedback" th:hidden="!${#fields.hasErrors('description')}">Please enter a description</div>
                 <small class="form-text text-muted">Example help text that remains unchanged.</small>
             </div>
         </div>
-        <div class="form-group row">
-            <label for="example-text-input" class="col-sm-2 col-form-label">Amount</label>
-            <div class="input-group col-sm-4">
-                <div class="input-group-addon">$</div>
-                <input type="text" class="form-control" id="exampleInputAmount" placeholder="Amount"/>
+        <div class="row form-group" th:classappend="${#fields.hasErrors('amount')} ? 'has-danger'">
+            <div class="col-sm-2">
+                <label class="form-control-label" for="amount">Amount</label>
+                <input id="amount" class="form-control" type="text" th:field="*{amount}"/>
+                <div class="form-control-feedback" th:hidden="!${#fields.hasErrors('amount')}">An amount must be provided</div>
             </div>
         </div>
+        <div class="row form-group" th:classappend="${#fields.hasErrors('frequency')} ? 'has-danger'">
+            <div class="col-sm-2">
+                <label class="form-control-label" for="frequency">Frequency</label>
+                <select id="frequency" class="form-control" th:field="*{frequency}">
+                    <option th:each="option : ${allFrequencies}"
+                            th:value="${option.name()}"
+                            th:text="${option.toString()}"></option>
+                </select>
+            </div>
         </div>
-
-
-        <div class="form-group" th:classappend="${#fields.hasErrors('description')} ? 'has-danger'">
-            <label class="form-control-label" for="description">Description</label>
-            <input id="description" class="form-control" type="text" th:field="*{description}"/>
-            <div class="form-control-feedback" th:hidden="!${#fields.hasErrors('description')}">Please enter a description</div>
-            <small class="form-text text-muted">Example help text that remains unchanged.</small>
-        </div>
-        <div class="form-group" th:classappend="${#fields.hasErrors('amount')} ? 'has-danger'">
-            <label class="form-control-label" for="amount">Amount</label>
-            <input id="amount" class="form-control" type="text" th:field="*{amount}"/>
-            <div class="form-control-feedback" th:hidden="!${#fields.hasErrors('amount')}">An amount must be provided</div>
-        </div>
-        <div class="form-group" th:classappend="${#fields.hasErrors('frequency')} ? 'has-danger'">
-            <label class="form-control-label" for="frequency">Frequency</label>
-            <select id="frequency" class="form-control" th:field="*{frequency}">
-                <option th:each="option : ${allFrequencies}"
-                        th:value="${option.name()}"
-                        th:text="${option.toString()}"></option>
-            </select>
-        </div>
-        <div class="form-group" th:classappend="${#fields.hasErrors('firstPaymentDate')} ? 'has-danger'">
-            <label class="form-control-label" for="datepicker">First Payment Date</label>
-            <input type="text" id="datepicker" class="form-control" th:field="*{firstPaymentDate}"/>
+        <div class="row form-group" th:classappend="${#fields.hasErrors('firstPaymentDate')} ? 'has-danger'">
+            <div class="col-sm-2">
+                <label class="form-control-label" for="datepicker">First Payment Date</label>
+                <input type="text" id="datepicker" class="form-control" th:field="*{firstPaymentDate}"/>
+            </div>
         </div>
         <div class="form-actions">
             <input class="btn btn-primary" type="submit" th:value="Create" name="create"/>
