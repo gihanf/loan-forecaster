@@ -88,4 +88,11 @@ public class ExpenseController {
         return new ModelAndView(String.format("redirect:/expense/%s", id), "message.id", id);
     }
 
+    @RequestMapping(value = "/{id}/delete")
+    public ModelAndView deleteExpense(@PathVariable("id") int expenseId, RedirectAttributes redirect) {
+        expenseService.delete(expenseId);
+        redirect.addFlashAttribute("globalMessage", "Successfully deleted expense");
+        return new ModelAndView("redirect:/expense/");
+    }
+
 }

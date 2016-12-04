@@ -48,6 +48,10 @@
         </dd>
 
     </dl>
+
+    <div class="deleteButton">
+        <a class="btn btn-danger" th:href="@{/expense/{expenseId}/delete(expenseId=${expense.expenseId})}">Delete Expense</a>
+    </div>
 </div>
 </body>
 </html>

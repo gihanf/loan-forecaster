@@ -9,6 +9,12 @@
 <h1 layout:fragment="content-heading">Expenses : View all</h1>
 
 <div layout:fragment="content" class="container">
+    <div class="alert alert-success"
+         th:if="${globalMessage}"
+         th:text="${globalMessage}">
+        Some Success expense
+    </div>
+
     <div class="expenseTableButton">
         <a class="btn btn-primary" href="form.html" th:href="@{/expense/form}">Create Expense</a>
     </div>
