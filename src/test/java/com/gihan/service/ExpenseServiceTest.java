@@ -127,4 +127,22 @@ public class ExpenseServiceTest {
         ExpenseDTO savedDto = newDto.get();
         assertThat("The retrieved dto did not match what we intended to save", savedDto.equals(modifiedDto), is(true));
     }
+
+    @Test
+    public void shouldDeleteAnExpense() throws Exception {
+        LocalDate firstPaymentDate = new LocalDate(2016, 2, 26);
+        final String testDescription = "testDescription";
+        CandidateExpenseDTO expenseToday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate);
+
+        expenseCreatorService.createExpense(expenseToday);
+        ExpenseDTO dto = expenseCreatorService.getAllExpenses().stream()
+                .filter(expense -> expense.getDescription().equals(testDescription)).findFirst().get();
+
+        expenseCreatorService.delete(dto.getExpenseId());
+
+        Optional<ExpenseDTO> deletedExpense = expenseCreatorService.getAllExpenses().stream()
+                .filter(expense -> expense.getDescription().equals(testDescription)).findFirst();
+
+        assertThat(deletedExpense.isPresent(), is(false));
+    }
 }

@@ -40,6 +40,11 @@ public class ExpenseCreator implements ExpenseService {
     }
 
     @Override
+    public void delete(int expenseId) {
+        expenseRepository.delete(expenseId);
+    }
+
+    @Override
     public List<ExpenseDTO> getAllExpenses() {
         List<Expense> exp = expenseRepository.findAll();
         final List<ExpenseDTO> expenses = new ArrayList<>();
