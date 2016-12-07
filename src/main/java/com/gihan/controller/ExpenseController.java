@@ -22,6 +22,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,16 +35,12 @@ import com.gihan.model.CandidateExpenseDTO;
 import com.gihan.model.ExpenseDTO;
 import com.gihan.model.Frequency;
 import com.gihan.model.PaymentScheduleOption;
-import com.gihan.repository.ExpenseRepository;
 import com.gihan.service.ExpenseService;
 
 @Controller
 @RequestMapping("/expense")
 public class ExpenseController {
     private static final Log LOG = LogFactory.getLog(ExpenseController.class);
-
-    @Autowired
-    private ExpenseRepository expenseRepository;
 
     @Autowired
     private ExpenseService expenseService;
@@ -75,17 +72,17 @@ public class ExpenseController {
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "action=Create")
-    public ModelAndView create(@Valid CandidateExpenseDTO candidateExpenseDTO,
-                               BindingResult result,
-                               RedirectAttributes redirect) {
+    public String create(@Valid CandidateExpenseDTO candidateExpenseDTO,
+                         BindingResult result,
+                         RedirectAttributes redirect,
+                         Model model) {
         if (result.hasErrors()) {
-            LOG.info("hey there were some errors " + result.getFieldError("description"));
-            LOG.info("hey there were some errors " + result.getFieldError("amount"));
-            return new ModelAndView("expenses/form", "formErrors", result.getAllErrors());
+            model.addAttribute("formErrors", result.getAllErrors());
+            return "/expenses/form";
         }
-        long id = expenseService.createExpense(candidateExpenseDTO);
+        expenseService.createExpense(candidateExpenseDTO);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
-        return new ModelAndView(String.format("redirect:/expense/%s", id), "message.id", id);
+        return "redirect:/expense/";
     }
 
     @RequestMapping(method = RequestMethod.POST, params = "action=Cancel")
