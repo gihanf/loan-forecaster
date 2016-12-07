@@ -38,7 +38,7 @@
             <td th:text="${expense.expenseId}">1</td>
             <td>
                 <a href="view.html"
-                   th:href="@{'expense/' + ${expense.expenseId}}"
+                   th:href="@{'/expense/' + ${expense.expenseId}}"
                    th:text="${expense.description}">
                     The description
                 </a>

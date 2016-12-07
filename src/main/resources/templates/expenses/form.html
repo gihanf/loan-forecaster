@@ -16,8 +16,7 @@
 <h1 layout:fragment="content-heading">Create expense</h1>
 
 <div layout:fragment="content" class="container">
-    <form id="messageForm" th:action="@{/expense/(action=Create)}" th:object="${candidateExpenseDTO}"
-      action="#"
+    <form id="messageForm" th:action="@{/expense}" th:object="${candidateExpenseDTO}"
       method="post">
 
         <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" role="alert">
@@ -97,8 +96,8 @@
             </div>
         </div>
         <div class="form-actions">
-            <input class="btn btn-primary" type="submit" th:value="Create" name="create"/>
-            <input class="btn btn-default" type="submit" th:value="Cancel" name="action"/>
+            <input class="btn btn-primary" type="submit" value="Create" name="action"/>
+            <input class="btn btn-default" type="submit" value="Cancel" name="action"/>
         </div>
 
     </form>

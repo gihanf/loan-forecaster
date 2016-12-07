@@ -70,7 +70,7 @@ public class ExpenseController {
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.GET)
-    public String createForm(@ModelAttribute CandidateExpenseDTO expense) {
+    public String create(@ModelAttribute CandidateExpenseDTO expense) {
         return "expenses/form";
     }
 
@@ -86,6 +86,11 @@ public class ExpenseController {
         long id = expenseService.createExpense(candidateExpenseDTO);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
         return new ModelAndView(String.format("redirect:/expense/%s", id), "message.id", id);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, params = "action=Cancel")
+    public String cancel() {
+        return "redirect:/expense/";
     }
 
     @RequestMapping(value = "/{id}/delete")
