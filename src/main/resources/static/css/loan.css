@@ -55,7 +55,11 @@ ul {
 }
 
 .form-group > .row {
-    padding-bottom: 2em;
+    /*padding-bottom: 2em;*/
+}
+
+.form-group {
+    padding-bottom: 0.3em;
 }
 
 .newFormGroup {
