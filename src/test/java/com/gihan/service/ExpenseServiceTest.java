@@ -9,6 +9,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.joda.time.LocalDate;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,10 +38,12 @@ public class ExpenseServiceTest {
     private ExpenseRepository expenseRepository;
 
     private CandidateExpenseDtoBuilder candidateExpenseDtoBuilder;
+    private ExpenseDTO.ExpenseDTOBuilder expenseDtoBuilder;
 
     @Before
     public void setup() throws Exception {
         candidateExpenseDtoBuilder = new CandidateExpenseDtoBuilder();
+        expenseDtoBuilder = new ExpenseDTO.ExpenseDTOBuilder();
     }
 
     @Test
@@ -144,5 +147,36 @@ public class ExpenseServiceTest {
                 .filter(expense -> expense.getDescription().equals(testDescription)).findFirst();
 
         assertThat(deletedExpense.isPresent(), is(false));
+    }
+
+    @Test
+    public void shouldEditAnExpense() throws Exception {
+        LocalDate firstPaymentDate = new LocalDate(2016, 2, 26);
+        final String testDescription = "testDescription";
+        CandidateExpenseDTO expenseToday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate);
+
+        expenseCreatorService.createExpense(expenseToday);
+
+        ExpenseDTO originalDto = expenseCreatorService.getAllExpenses().stream()
+                .filter(expense -> expense.getDescription().equals(testDescription)).findFirst().get();
+
+        ExpenseDTO.ExpenseDTOBuilder expenseDTOBuilder = new ExpenseDTO.ExpenseDTOBuilder();
+
+        ExpenseDTO modifiedDto = expenseDTOBuilder
+                .withAmount(BigDecimal.TEN)
+                .withDescription("modifiedTestDescription")
+                .withFirstPaymentDate(firstPaymentDate.plusDays(1))
+                .withFrequency(Frequency.WEEKLY)
+                .withId(originalDto.getExpenseId())
+                .build();
+        expenseCreatorService.edit(modifiedDto);
+
+        Optional<ExpenseDTO> editedExpense = expenseCreatorService.getAllExpenses().stream()
+                .filter(expense -> expense.getDescription().equals("modifiedTestDescription")).findFirst();
+
+        assertThat(editedExpense.isPresent(), is(true));
+        ExpenseDTO dto = editedExpense.get();
+        assertThat(dto.getExpenseId(), is(originalDto.getExpenseId()));
+        assertThat(dto, is(modifiedDto));
     }
 }

@@ -45,6 +45,18 @@ public class ExpenseCreator implements ExpenseService {
     }
 
     @Override
+    public void edit(ExpenseDTO modifiedExpense) {
+
+        Expense expense = expenseRepository.findById(modifiedExpense.getExpenseId());
+        expense.setAmount(modifiedExpense.getAmount());
+        expense.setDescription(modifiedExpense.getDescription());
+        expense.getPaymentSchedule().setFirstPaymentDate(modifiedExpense.getFirstPaymentDate());
+        expense.getPaymentSchedule().setFrequency(modifiedExpense.getFrequency());
+
+        expenseRepository.save(expense);
+    }
+
+    @Override
     public List<ExpenseDTO> getAllExpenses() {
         List<Expense> exp = expenseRepository.findAll();
         final List<ExpenseDTO> expenses = new ArrayList<>();

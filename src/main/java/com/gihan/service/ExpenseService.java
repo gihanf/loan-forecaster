@@ -14,4 +14,6 @@ public interface ExpenseService {
     void modify(ExpenseDTO modifiedDto);
 
     void delete(int expenseId);
+
+    void edit(ExpenseDTO expenseId);
 }

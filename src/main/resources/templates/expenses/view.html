@@ -46,11 +46,11 @@
             th:text="${#dates.format(expense.firstPaymentDate, 'dd MMM yyyy')}">
             The first payment date.
         </dd>
-
     </dl>
 
     <div class="deleteButton">
-        <a class="btn btn-danger" th:href="@{/expense/{expenseId}/delete(expenseId=${expense.expenseId})}">Delete Expense</a>
+        <a class="btn btn-primary" th:href="@{/expense/{expenseId}/edit(expenseId=${expense.expenseId})}">Edit Expense</a>
+        <a class="btn btn-warning" th:href="@{/expense/{expenseId}/delete(expenseId=${expense.expenseId})}">Delete Expense</a>
     </div>
 </div>
 </body>
