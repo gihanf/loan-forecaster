@@ -6,7 +6,6 @@ public enum Frequency {
     MONTHLY ("Monthly"),
     YEARLY ("Yearly");
 
-    // TODO: Ability to add description for last business day of month? / first Sunday of month etc
     private final String name;
 
     private Frequency(String s) {

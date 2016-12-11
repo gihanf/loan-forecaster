@@ -2,17 +2,17 @@
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorator="layout">
 <head>
-    <title>Expenses : View</title>
+    <title>View expenses</title>
     <script>
         $(function () {
             $("#datepicker").datepicker({
-                dateFormat: "d/m/y"
+                dateFormat: "dd/mm/y"
             });
         });
     </script>
 </head>
 <body>
-<h1 layout:fragment="content-heading">Expenses : View</h1>
+<h1 layout:fragment="content-heading">Expense details</h1>
 
 <div layout:fragment="content"
      class="container">
