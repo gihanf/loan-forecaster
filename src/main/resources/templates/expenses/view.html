@@ -3,55 +3,82 @@
       layout:decorator="layout">
 <head>
     <title>Expenses : View</title>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: "d/m/y"
+            });
+        });
+    </script>
 </head>
 <body>
 <h1 layout:fragment="content-heading">Expenses : View</h1>
 
 <div layout:fragment="content"
      class="container">
-    <div class="alert alert-success"
-         th:if="${globalMessage}"
-         th:text="${globalMessage}">
-        Some Success expense
-    </div>
-    <!--<div class="pull-right">-->
-        <!--<a th:href="@{/}" href="list.html">-->
-            <!--Expenses-->
-        <!--</a>-->
-    <!--</div>-->
-    <dl>
-        <dt>ID</dt>
-        <dd id="id" th:text="${expense.expenseId}">123</dd>
-        <dt>Summary</dt>
 
-        <dd id="description"
-            th:text="${expense.description}">
-            A short description...
-        </dd>
+    <form id="editForm" th:action="@{/expense}" th:object="${expense}"
+          method="post">
 
-        <dt>Amount</dt>
-        <dd id="amount"
-            th:text="${'$' + #numbers.formatDecimal(expense.amount, 0, 'COMMA', 2, 'POINT')}">
-            An amount for the expense.
-        </dd>
+        <input id="expenseId" class="form-control" type="text" th:field="*{expenseId}" hidden="hidden"/>
 
-        <dt>Frequency</dt>
-        <dd id="frequency"
-            th:text="${expense.frequency}">
-            The frequency of the expense.
-        </dd>
+        <div class="form-group" th:classappend="${#fields.hasErrors('description')} ? 'has-danger'">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="form-control-label" for="description">Description</label>
+                    <input id="description" class="form-control" type="text" th:field="*{description}"/>
+                </div>
+            </div>
+            <div class="row" th:hidden="!${#fields.hasErrors('description')}">
+                <div class="col-sm-6">
+                    <small class="form-control-feedback">Please enter a description</small>
+                </div>
+            </div>
+        </div>
 
-        <dt>First Payment Date</dt>
-        <dd id="firstPaymentDate"
-            th:text="${#dates.format(expense.firstPaymentDate, 'dd MMM yyyy')}">
-            The first payment date.
-        </dd>
-    </dl>
+        <div class="form-group" th:classappend="${#fields.hasErrors('amount')} ? 'has-danger'">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="form-control-label" for="amount">Amount</label>
+                    <input id="amount" class="form-control" type="text" th:field="*{amount}"/>
+                </div>
+            </div>
+            <div class="row" th:hidden="!${#fields.hasErrors('amount')}">
+                <div class="col-sm-8">
+                    <small class="form-control-feedback">An amount must be provided</small>
+                </div>
+            </div>
+        </div>
 
-    <div class="deleteButton">
-        <a class="btn btn-primary" th:href="@{/expense/{expenseId}/edit(expenseId=${expense.expenseId})}">Edit Expense</a>
-        <a class="btn btn-warning" th:href="@{/expense/{expenseId}/delete(expenseId=${expense.expenseId})}">Delete Expense</a>
-    </div>
+        <div class="row form-group" th:classappend="${#fields.hasErrors('frequency')} ? 'has-danger'">
+            <div class="col-sm-2">
+                <label class="form-control-label" for="frequency">Frequency</label>
+                <select id="frequency" class="form-control" th:field="*{frequency}">
+                    <option th:each="option : ${allFrequencies}"
+                            th:value="${option.name()}"
+                            th:text="${option.toString()}"></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('firstPaymentDate')} ? 'has-danger'">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="form-control-label" for="datepicker">First Payment Date</label>
+                    <input type="text" id="datepicker" class="form-control" th:field="*{firstPaymentDate}"/>
+                </div>
+            </div>
+            <div class="row" th:hidden="!${#fields.hasErrors('firstPaymentDate')}">
+                <div class="col-sm-6">
+                    <small class="form-control-feedback">A first payment date must be selected</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <input class="btn btn-primary" type="submit" value="Edit" name="action"/>
+            <a class="btn btn-warning" th:href="@{/expense/{expenseId}/delete(expenseId=${expense.expenseId})}">Delete Expense</a>
+        </div>
+    </form>
 </div>
 </body>
 </html>

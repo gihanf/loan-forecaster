@@ -61,6 +61,26 @@ public class ExpenseDTO {
         return firstPaymentDate;
     }
 
+    public void setExpenseId(int expenseId) {
+        this.expenseId = expenseId;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public void setFrequency(Frequency frequency) {
+        this.frequency = frequency;
+    }
+
+    public void setFirstPaymentDate(LocalDate firstPaymentDate) {
+        this.firstPaymentDate = firstPaymentDate;
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);

@@ -62,8 +62,23 @@ public class ExpenseController {
     }
 
     @RequestMapping("/{id}")
-    public ModelAndView view(@PathVariable("id") ExpenseDTO expense) {
-        return new ModelAndView("expenses/view", "expense", expense);
+    public String view(@PathVariable("id") @ModelAttribute ExpenseDTO expenseDTO, Model model) {
+        model.addAttribute("expense", expenseDTO);
+        return "expenses/view";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, params = "action=Edit")
+    public String edit(ExpenseDTO expenseDTO,
+                       BindingResult result,
+                       RedirectAttributes redirect,
+                       Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("formErrors", result.getAllErrors());
+            redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
+            return "redirect:/expense/";
+        }
+        expenseService.edit(expenseDTO);
+        return "redirect:/expense/";
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.GET)

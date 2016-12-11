@@ -27,6 +27,7 @@ public class ExpenseCreator implements ExpenseService {
     }
 
     @Override
+    @Transactional
     public void modify(ExpenseDTO modifiedDto) {
         Expense originalExpense = expenseRepository.findOne(modifiedDto.getExpenseId());
         originalExpense.setAmount(modifiedDto.getAmount());
