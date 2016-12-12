@@ -12,41 +12,37 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class LoanDTO {
-
-    private int loanId;
+public class CandidateLoanDTO {
 
     @NotEmpty(message = "Summary is required.")
     private String description;
 
     @Min(value = 0)
     @NotNull(message = "An amount must be entered")
-    @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
+    @Digits(message = "principal amount should be numbers only", integer = 3, fraction = 2)
     private BigDecimal principalAmount;
 
     @Min(value = 0)
     @NotNull(message = "An amount must be entered")
-    @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
+    @Digits(message = "balance should be numbers only", integer = 3, fraction = 2)
     private BigDecimal balance;
 
+    @Min(value = 0)
+    @NotNull(message = "An amount must be entered")
+    @Digits(message = "interest rate should be numbers only", integer = 3, fraction = 2)
     private BigDecimal interestRate;
 
     private int term;
 
-    public LoanDTO() {
+    public CandidateLoanDTO() {
     }
 
-    public LoanDTO(int loanId, String description, BigDecimal principalAmount, BigDecimal balance, BigDecimal interestRate, int term){
-        this.loanId = loanId;
+    public CandidateLoanDTO(String description, BigDecimal principalAmount, BigDecimal balance, BigDecimal interestRate, int term){
         this.description = description;
         this.principalAmount = principalAmount;
         this.balance = balance;
         this.interestRate = interestRate;
         this.term = term;
-    }
-
-    public int getLoanId() {
-        return loanId;
     }
 
     public String getDescription() {
@@ -69,10 +65,6 @@ public class LoanDTO {
         return term;
     }
 
-    public void setLoanId(int loanId) {
-        this.loanId = loanId;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
@@ -81,8 +73,8 @@ public class LoanDTO {
         this.principalAmount = principalAmount;
     }
 
-    public void setBalance(BigDecimal principalAmount) {
-        this.principalAmount = principalAmount;
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
     public void setInterestRate(BigDecimal interestRate) {
@@ -106,55 +98,5 @@ public class LoanDTO {
     @Override
     public int hashCode() {
         return HashCodeBuilder.reflectionHashCode(this);
-    }
-
-    public static class LoanDTOBuilder {
-        public int id;
-        public String description;
-        public BigDecimal principalAmount;
-        public BigDecimal balance;
-        public BigDecimal interestRate;
-        public int term;
-
-        public LoanDTOBuilder withId(int id) {
-            this.id = id;
-            return this;
-        }
-
-        public LoanDTOBuilder withDescription(String description) {
-            this.description = description;
-            return this;
-        }
-
-        public LoanDTOBuilder withPrincipalAmount(BigDecimal principalAmount) {
-            this.principalAmount = principalAmount;
-            return this;
-        }
-
-        public LoanDTOBuilder withBalance(BigDecimal balance) {
-            this.balance = balance;
-            return this;
-        }
-
-        public LoanDTOBuilder withInterestRate(BigDecimal interestRate) {
-            this.interestRate = interestRate;
-            return this;
-        }
-
-        public LoanDTOBuilder withTerm(int term) {
-            this.term = term;
-            return this;
-        }
-
-        public LoanDTO build() {
-            return new LoanDTO(
-                    this.id,
-                    this.description,
-                    this.principalAmount,
-                    this.balance,
-                    this.interestRate,
-                    this.term
-            );
-        }
     }
 }

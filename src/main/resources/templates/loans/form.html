@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Loans : Create</title>
+</head>
+<body>
+
+<h1 layout:fragment="content-heading">Create loan</h1>
+
+<div layout:fragment="content" class="container">
+    <form id="messageForm" th:action="@{/loan}" th:object="${candidateLoanDTO}" method="post">
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('description')} ? 'has-danger'">
+            <div class="row">
+                <div class="col-sm-4">
+                    <label class="form-control-label" for="description">Description</label>
+                    <input id="description" class="form-control" type="text" th:field="*{description}"/>
+                </div>
+            </div>
+            <div class="row" th:hidden="!${#fields.hasErrors('description')}">
+                <div class="col-sm-6">
+                    <small class="form-control-feedback">Please enter a description</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('principalAmount')} ? 'has-danger'">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="form-control-label" for="principalAmount">Principal Amount</label>
+                    <input id="principalAmount" class="form-control" type="text" th:field="*{principalAmount}"/>
+                </div>
+            </div>
+            <div class="row" th:hidden="!${#fields.hasErrors('principalAmount')}">
+                <div class="col-sm-8">
+                    <small class="form-control-feedback">An amount must be provided</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('balance')} ? 'has-danger'">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="form-control-label" for="balance">Balance</label>
+                    <input id="balance" class="form-control" type="text" th:field="*{balance}"/>
+                </div>
+            </div>
+            <div class="row" th:hidden="!${#fields.hasErrors('balance')}">
+                <div class="col-sm-8">
+                    <small class="form-control-feedback">An amount must be provided</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('interestRate')} ? 'has-danger'">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="form-control-label" for="interestRate">Interest Rate</label>
+                    <input id="interestRate" class="form-control" type="text" th:field="*{interestRate}"/>
+                </div>
+            </div>
+            <div class="row" th:hidden="!${#fields.hasErrors('interestRate')}">
+                <div class="col-sm-8">
+                    <small class="form-control-feedback">An interest rate must be provided</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('term')} ? 'has-danger'">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="form-control-label" for="term">Term</label>
+                    <input id="term" class="form-control" type="text" th:field="*{term}"/>
+                </div>
+            </div>
+            <div class="row" th:hidden="!${#fields.hasErrors('term')}">
+                <div class="col-sm-8">
+                    <small class="form-control-feedback">An amount must be provided</small>
+                </div>
+            </div>
+        </div>
+        <div class="form-actions">
+            <input class="btn btn-primary" type="submit" value="Create" name="action"/>
+            <!--<input class="btn btn-default" type="submit" value="Cancel" name="action"/>-->
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

@@ -46,7 +46,7 @@ public class Loan implements Serializable {
 
     public Loan() {}
 
-    public Loan(String description, BigDecimal interestRate, BigDecimal principalAmount, BigDecimal currentBalance, int term) {
+    public Loan(String description, BigDecimal principalAmount, BigDecimal currentBalance, BigDecimal interestRate, int term) {
         this.description = description;
         this.interestRate = interestRate;
         this.principalAmount = principalAmount;

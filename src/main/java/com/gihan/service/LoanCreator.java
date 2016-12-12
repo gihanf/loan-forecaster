@@ -6,8 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.gihan.model.Loan;
-import com.gihan.model.LoanDTO;
+import com.gihan.model.*;
 import com.gihan.repository.LoanRepository;
 
 @Component
@@ -15,6 +14,14 @@ public class LoanCreator implements LoanService {
 
     @Autowired
     private LoanRepository loanRepository;
+
+    @Override
+    public long createLoan(CandidateLoanDTO dto) {
+        Loan loan = new Loan(dto.getDescription(),
+                dto.getPrincipalAmount(), dto.getBalance(), dto.getInterestRate(),
+                dto.getTerm());
+        return loanRepository.save(loan).getId();
+    }
 
     @Override
     public List<LoanDTO> getAllLoans() {
