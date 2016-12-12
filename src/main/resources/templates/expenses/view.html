@@ -14,8 +14,7 @@
 <body>
 <h1 layout:fragment="content-heading">Expense details</h1>
 
-<div layout:fragment="content"
-     class="container">
+<div layout:fragment="content" class="container">
 
     <form id="editForm" th:action="@{/expense}" th:object="${expense}"
           method="post">
