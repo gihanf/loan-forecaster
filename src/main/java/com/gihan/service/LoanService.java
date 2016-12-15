@@ -11,6 +11,8 @@ public interface LoanService {
 
     List<LoanDTO> getAllLoans();
 
+    void delete(int loanId);
+
 //    void modify(ExpenseDTO modifiedDto);
 //
 //    void delete(int expenseId);

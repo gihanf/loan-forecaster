@@ -41,4 +41,9 @@ public class LoanCreator implements LoanService {
                 });
         return loans;
     }
+
+    @Override
+    public void delete(int loanId) {
+        loanRepository.delete(loanId);
+    }
 }

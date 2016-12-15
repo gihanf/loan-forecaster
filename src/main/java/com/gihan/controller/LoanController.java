@@ -99,17 +99,17 @@ public class LoanController {
         redirect.addFlashAttribute("globalMessage", "Successfully created a new loan");
         return "redirect:/loan/";
     }
-//
-//    @RequestMapping(method = RequestMethod.POST, params = "action=Cancel")
-//    public String cancel() {
-//        return "redirect:/expense/";
-//    }
-//
-//    @RequestMapping(value = "/{id}/delete")
-//    public ModelAndView deleteExpense(@PathVariable("id") int expenseId, RedirectAttributes redirect) {
-//        expenseService.delete(expenseId);
-//        redirect.addFlashAttribute("globalMessage", "Successfully deleted expense");
-//        return new ModelAndView("redirect:/expense/");
-//    }
+
+    @RequestMapping(method = RequestMethod.POST, params = "action=Cancel")
+    public String cancel() {
+        return "redirect:/loan/";
+    }
+
+    @RequestMapping(value = "/{id}/delete")
+    public ModelAndView deleteLoan(@PathVariable("id") int loanId, RedirectAttributes redirect) {
+        loanService.delete(loanId);
+        redirect.addFlashAttribute("globalMessage", "Successfully deleted loan");
+        return new ModelAndView("redirect:/loan/");
+    }
 
 }
