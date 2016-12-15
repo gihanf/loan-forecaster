@@ -16,8 +16,7 @@
 
 <div layout:fragment="content" class="container">
 
-    <form id="editForm" th:action="@{/loan}" th:object="${loan}"
-          method="post">
+    <form id="editForm" th:action="@{/loan}" th:object="${loan}" method="post">
 
         <input id="loanId" class="form-control" type="text" th:field="*{loanId}" hidden="hidden"/>
 
@@ -49,14 +48,14 @@
             </div>
         </div>
 
-        <div class="form-group" th:classappend="${#fields.hasErrors('balance')} ? 'has-danger'">
+        <div class="form-group" th:classappend="${#fields.hasErrors('currentBalance')} ? 'has-danger'">
             <div class="row">
                 <div class="col-sm-2">
                     <label class="form-control-label" for="currentBalance">Current Balance</label>
-                    <input id="currentBalance" class="form-control" type="text" th:field="*{balance}"/>
+                    <input id="currentBalance" class="form-control" type="text" th:field="*{currentBalance}"/>
                 </div>
             </div>
-            <div class="row" th:hidden="!${#fields.hasErrors('balance')}">
+            <div class="row" th:hidden="!${#fields.hasErrors('currentBalance')}">
                 <div class="col-sm-8">
                     <small class="form-control-feedback">A loan balance amount must be provided</small>
                 </div>

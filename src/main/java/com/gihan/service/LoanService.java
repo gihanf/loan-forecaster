@@ -13,9 +13,6 @@ public interface LoanService {
 
     void delete(int loanId);
 
-//    void modify(ExpenseDTO modifiedDto);
-//
-//    void delete(int expenseId);
-//
-//    void edit(ExpenseDTO expenseId);
+    void edit(LoanDTO loanDTO);
+
 }

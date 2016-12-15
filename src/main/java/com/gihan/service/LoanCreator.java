@@ -46,4 +46,15 @@ public class LoanCreator implements LoanService {
     public void delete(int loanId) {
         loanRepository.delete(loanId);
     }
+
+    @Override
+    public void edit(LoanDTO modifiedLoan) {
+        Loan loan = loanRepository.findById(modifiedLoan.getLoanId());
+        loan.setDescription(modifiedLoan.getDescription());
+        loan.setPrincipalAmount(modifiedLoan.getPrincipalAmount());
+        loan.setCurrentBalance(modifiedLoan.getCurrentBalance());
+        loan.setInterestRate(modifiedLoan.getInterestRate());
+        loan.setTerm(modifiedLoan.getTerm());
+        loanRepository.save(loan);
+    }
 }

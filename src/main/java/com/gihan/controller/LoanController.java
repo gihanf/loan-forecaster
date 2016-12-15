@@ -67,20 +67,19 @@ public class LoanController {
         return "loans/view";
     }
 
-//    @RequestMapping(method = RequestMethod.POST, params = "action=Edit")
-//    public String edit(ExpenseDTO expenseDTO,
-//                       BindingResult result,
-//                       RedirectAttributes redirect,
-//                       Model model) {
-//        if (result.hasErrors()) {
-//            model.addAttribute("formErrors", result.getAllErrors());
-//            redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
-//            return "redirect:/expense/";
-//        }
-//        expenseService.edit(expenseDTO);
-//        return "redirect:/expense/";
-//    }
-//
+    @RequestMapping(method = RequestMethod.POST, params = "action=Edit")
+    public String editLoan(LoanDTO loanDTO,
+                       BindingResult result,
+                       RedirectAttributes redirect,
+                       Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("formErrors", result.getAllErrors());
+            return "redirect:/loan/";
+        }
+        loanService.edit(loanDTO);
+        return "redirect:/loan/";
+    }
+
     @RequestMapping(value = "/form", method = RequestMethod.GET)
     public String create(@ModelAttribute CandidateLoanDTO expense) {
         return "loans/form";

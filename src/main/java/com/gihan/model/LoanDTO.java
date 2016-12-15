@@ -27,7 +27,7 @@ public class LoanDTO {
     @Min(value = 0)
     @NotNull(message = "An amount must be entered")
     @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
-    private BigDecimal balance;
+    private BigDecimal currentBalance;
 
     private BigDecimal interestRate;
 
@@ -36,11 +36,11 @@ public class LoanDTO {
     public LoanDTO() {
     }
 
-    public LoanDTO(int loanId, String description, BigDecimal principalAmount, BigDecimal balance, BigDecimal interestRate, int term){
+    public LoanDTO(int loanId, String description, BigDecimal principalAmount, BigDecimal currentBalance, BigDecimal interestRate, int term){
         this.loanId = loanId;
         this.description = description;
         this.principalAmount = principalAmount;
-        this.balance = balance;
+        this.currentBalance = currentBalance;
         this.interestRate = interestRate;
         this.term = term;
     }
@@ -57,8 +57,8 @@ public class LoanDTO {
         return principalAmount;
     }
 
-    public BigDecimal getBalance() {
-        return balance;
+    public BigDecimal getCurrentBalance() {
+        return currentBalance;
     }
 
     public BigDecimal getInterestRate() {
@@ -81,8 +81,8 @@ public class LoanDTO {
         this.principalAmount = principalAmount;
     }
 
-    public void setBalance(BigDecimal principalAmount) {
-        this.principalAmount = principalAmount;
+    public void setCurrentBalance(BigDecimal currentBalance) {
+        this.currentBalance= currentBalance;
     }
 
     public void setInterestRate(BigDecimal interestRate) {
