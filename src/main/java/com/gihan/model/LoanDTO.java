@@ -21,12 +21,12 @@ public class LoanDTO {
 
     @Min(value = 0)
     @NotNull(message = "An amount must be entered")
-    @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
+    @Digits(message = "Amount should be numbers only", integer = 9, fraction = 2)
     private BigDecimal principalAmount;
 
     @Min(value = 0)
     @NotNull(message = "An amount must be entered")
-    @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
+    @Digits(message = "Amount should be numbers only", integer = 9, fraction = 2)
     private BigDecimal currentBalance;
 
     private BigDecimal interestRate;

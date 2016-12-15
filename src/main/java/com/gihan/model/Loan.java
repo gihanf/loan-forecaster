@@ -28,12 +28,12 @@ public class Loan implements Serializable {
 
     @Min(value = 0)
     @NotNull(message = "A principal amount must be entered")
-    @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
+    @Digits(message = "Amount should be numbers only", integer = 9, fraction = 2)
     private BigDecimal principalAmount;
 
     @Min(value = 0)
     @NotNull(message = "A balance must be entered")
-    @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
+    @Digits(message = "Amount should be numbers only", integer = 9, fraction = 2)
     private BigDecimal currentBalance;
 
     @Min(value = 0)
