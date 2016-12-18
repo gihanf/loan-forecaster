@@ -22,8 +22,7 @@ public class ExpenseDTO {
 
     @Min(value = 0)
     @NotNull(message = "An amount must be entered")
-//    @Pattern(regexp = "(0|[1-9]{1}\\d{0,8})(\\.{1}\\d{1,2}){0,1}")
-    @Digits(message = "Amount should be numbers only", integer = 3, fraction = 2)
+    @Digits(message = "Amount should be numbers only", integer = 9, fraction = 2)
     private BigDecimal amount;
 
     private Frequency frequency;
