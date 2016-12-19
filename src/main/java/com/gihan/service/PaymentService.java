@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.gihan.model.CandidateExpenseDTO;
 import com.gihan.model.ExpenseDTO;
+import com.gihan.model.IncomeDTO;
 
 public interface PaymentService {
 
@@ -16,4 +17,6 @@ public interface PaymentService {
     void delete(int expenseId);
 
     void edit(ExpenseDTO expenseId);
+
+    List<IncomeDTO> getAllIncomes();
 }

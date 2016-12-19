@@ -55,6 +55,25 @@ public class PaymentCreator implements PaymentService {
     }
 
     @Override
+    public List<IncomeDTO> getAllIncomes() {
+        List<Payment> exp = expenseRepository.findByPaymentDirection(PaymentDirection.INCOMING);
+        final List<IncomeDTO> incomes = new ArrayList<>();
+        exp.stream()
+                .sorted((a, b) -> a.getPaymentSchedule().getFirstPaymentDate().isBefore(b.getPaymentSchedule().getFirstPaymentDate()) ? 1 : -1)
+                .forEach(e -> {
+                    IncomeDTO dto = new IncomeDTO(
+                            e.getId(),
+                            e.getDescription(),
+                            e.getAmount(),
+                            e.getPaymentSchedule().getFrequency(),
+                            e.getPaymentSchedule().getFirstPaymentDate()
+                    );
+                    incomes.add(dto);
+                });
+        return incomes;
+    }
+
+    @Override
     public List<ExpenseDTO> getAllExpenses() {
         List<Payment> exp = expenseRepository.findAll();
         final List<ExpenseDTO> expenses = new ArrayList<>();

@@ -42,11 +42,6 @@ public class PaymentSchedule implements Serializable{
         return firstPaymentDate;
     }
 
-    public String firstPaymentDateAsString() {
-        DateTimeFormatter format = DateTimeFormat.forPattern("dd-MM-yyyy");
-        return firstPaymentDate.toString(format);
-    }
-
     public void setFirstPaymentDate(LocalDate firstPaymentDate) {
         this.firstPaymentDate = firstPaymentDate;
     }

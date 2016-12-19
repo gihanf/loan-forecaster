@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+<head>
+    <title>Income : View all</title>
+</head>
+<body>
+<h1 layout:fragment="content-heading">View income</h1>
+
+<div layout:fragment="content" class="container">
+    <div class="alert alert-success"
+         th:if="${globalMessage}"
+         th:text="${globalMessage}">
+        Some Success message
+    </div>
+
+    <div class="incomeTableButton">
+        <a class="btn btn-primary" href="form.html" th:href="@{/income/form}">Create Income</a>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Amount</th>
+                <th>Frequency</th>
+                <th>Payment Date</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${incomes.empty}">
+            <td colspan="7">
+                No income
+            </td>
+        </tr>
+        <tr th:each="income : ${incomes}">
+            <td th:text="${income.incomeId}">1</td>
+            <td>
+                <a href="view.html"
+                   th:href="@{'/income/' + ${income.incomeId}}"
+                   th:text="${income.description}">
+                    The description
+                </a>
+            </td>
+            <td th:text="${'$' + #numbers.formatDecimal(income.amount, 0, 'COMMA', 2, 'POINT')}"></td>
+            <td th:text="${income.getFrequency()}"></td>
+            <td th:text="${#dates.format(income.firstPaymentDate, 'dd MMM yyyy')}"> </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
