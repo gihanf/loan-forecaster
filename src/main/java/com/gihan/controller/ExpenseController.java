@@ -35,7 +35,7 @@ import com.gihan.model.CandidateExpenseDTO;
 import com.gihan.model.ExpenseDTO;
 import com.gihan.model.Frequency;
 import com.gihan.model.PaymentScheduleOption;
-import com.gihan.service.ExpenseService;
+import com.gihan.service.PaymentService;
 
 @Controller
 @RequestMapping("/expense")
@@ -43,7 +43,7 @@ public class ExpenseController {
     private static final Log LOG = LogFactory.getLog(ExpenseController.class);
 
     @Autowired
-    private ExpenseService expenseService;
+    private PaymentService paymentService;
 
     @ModelAttribute("allFrequencies")
     public List<Frequency> populateTypes() {
@@ -57,7 +57,7 @@ public class ExpenseController {
 
     @RequestMapping
     public ModelAndView list() {
-        List<ExpenseDTO> expenses = this.expenseService.getAllExpenses();
+        List<ExpenseDTO> expenses = this.paymentService.getAllExpenses();
         return new ModelAndView("expenses/list", "expenses", expenses);
     }
 
@@ -77,7 +77,7 @@ public class ExpenseController {
             redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
             return "redirect:/expense/";
         }
-        expenseService.edit(expenseDTO);
+        paymentService.edit(expenseDTO);
         return "redirect:/expense/";
     }
 
@@ -95,7 +95,7 @@ public class ExpenseController {
             model.addAttribute("formErrors", result.getAllErrors());
             return "/expenses/form";
         }
-        expenseService.createExpense(candidateExpenseDTO);
+        paymentService.createExpense(candidateExpenseDTO);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
         return "redirect:/expense/";
     }
@@ -107,7 +107,7 @@ public class ExpenseController {
 
     @RequestMapping(value = "/{id}/delete")
     public ModelAndView deleteExpense(@PathVariable("id") int expenseId, RedirectAttributes redirect) {
-        expenseService.delete(expenseId);
+        paymentService.delete(expenseId);
         redirect.addFlashAttribute("globalMessage", "Successfully deleted expense");
         return new ModelAndView("redirect:/expense/");
     }

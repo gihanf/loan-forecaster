@@ -11,7 +11,7 @@ import com.gihan.model.*;
 import com.gihan.repository.ExpenseRepository;
 
 @Component
-public class ExpenseCreator implements ExpenseService {
+public class PaymentCreator implements PaymentService {
 
     @Autowired
     private ExpenseRepository expenseRepository;

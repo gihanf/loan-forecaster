@@ -54,7 +54,7 @@ import com.gihan.model.CandidateExpenseDTO;
 import com.gihan.model.ExpenseDTO;
 import com.gihan.model.Frequency;
 import com.gihan.model.PaymentDirection;
-import com.gihan.service.ExpenseService;
+import com.gihan.service.PaymentService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = LoanForecastApplication.class)
@@ -75,7 +75,7 @@ public class LoanForecastApplicationTests {
     private WebApplicationContext context;
 
     @Autowired
-    private ExpenseService expenseCreator;
+    private PaymentService expenseCreator;
 
     private MockMvc mvc;
 

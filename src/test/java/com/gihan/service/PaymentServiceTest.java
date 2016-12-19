@@ -29,7 +29,7 @@ import com.gihan.testHelper.CandidateExpenseDtoBuilder;
 public class PaymentServiceTest {
 
     @Autowired
-    private ExpenseService expenseCreatorService;
+    private PaymentService expenseCreatorService;
 
     @Autowired
     private ExpenseRepository expenseRepository;

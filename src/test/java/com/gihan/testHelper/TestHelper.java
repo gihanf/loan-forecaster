@@ -2,7 +2,7 @@ package com.gihan.testHelper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.gihan.service.ExpenseService;
+import com.gihan.service.PaymentService;
 
 public class TestHelper {
 
@@ -10,7 +10,7 @@ public class TestHelper {
     //
 
     @Autowired
-    private static ExpenseService expenseCreatorService;
+    private static PaymentService expenseCreatorService;
 
     /*public static ExpenseDTO createRandomExpense() {
         ExpenseDTO expenseDTO = new ExpenseDTO(RandomStringUtils.randomAlphanumeric(30), new BigDecimal(2.2), Frequency.MONTHLY);

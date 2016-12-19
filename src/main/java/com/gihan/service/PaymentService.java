@@ -5,7 +5,7 @@ import java.util.List;
 import com.gihan.model.CandidateExpenseDTO;
 import com.gihan.model.ExpenseDTO;
 
-public interface ExpenseService {
+public interface PaymentService {
 
     long createExpense(CandidateExpenseDTO dto);
 
