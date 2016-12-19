@@ -74,6 +74,12 @@ public class PaymentCreator implements PaymentService {
     }
 
     @Override
+    public long createIncome(CandidateExpenseDTO dto) {
+        Payment payment = new Payment(dto.getDescription(), dto.getAmount(), PaymentDirection.INCOMING, new PaymentSchedule(dto.getFrequency(), dto.getFirstPaymentDate()));
+        return expenseRepository.save(payment).getId();
+    }
+
+    @Override
     public List<ExpenseDTO> getAllExpenses() {
         List<Payment> exp = expenseRepository.findAll();
         final List<ExpenseDTO> expenses = new ArrayList<>();

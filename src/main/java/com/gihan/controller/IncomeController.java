@@ -1,13 +1,22 @@
 package com.gihan.controller;
 
+import java.util.Arrays;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.gihan.model.ExpenseDTO;
+import com.gihan.model.CandidateExpenseDTO;
+import com.gihan.model.Frequency;
 import com.gihan.model.IncomeDTO;
 import com.gihan.service.PaymentService;
 
@@ -18,10 +27,34 @@ public class IncomeController {
     @Autowired
     private PaymentService paymentService;
 
+    @ModelAttribute("allFrequencies")
+    public List<Frequency> populateTypes() {
+        return Arrays.asList(Frequency.values());
+    }
+
     @RequestMapping
     public ModelAndView list() {
         List<IncomeDTO> incomes = this.paymentService.getAllIncomes();
         return new ModelAndView("incomes/list", "incomes", incomes);
+    }
+
+    @RequestMapping(value = "/form", method = RequestMethod.GET)
+    public String create(@ModelAttribute CandidateExpenseDTO expense) {
+        return "incomes/form";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, params = "action=Create")
+    public String create(@Valid CandidateExpenseDTO candidateExpenseDTO,
+                         BindingResult result,
+                         RedirectAttributes redirect,
+                         Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("formErrors", result.getAllErrors());
+            return "/incomes/form";
+        }
+        paymentService.createIncome(candidateExpenseDTO);
+        redirect.addFlashAttribute("globalMessage", "Successfully created a new income");
+        return "redirect:/income/";
     }
 
 

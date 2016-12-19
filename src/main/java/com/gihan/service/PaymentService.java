@@ -19,4 +19,6 @@ public interface PaymentService {
     void edit(ExpenseDTO expenseId);
 
     List<IncomeDTO> getAllIncomes();
+
+    long createIncome(CandidateExpenseDTO dto);
 }

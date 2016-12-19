@@ -40,7 +40,7 @@ public class IncomeDTO {
         this.firstPaymentDate = firstPaymentDate;
     }
 
-    public int getExpenseId() {
+    public int getIncomeId() {
         return incomeId;
     }
 
@@ -60,7 +60,7 @@ public class IncomeDTO {
         return firstPaymentDate;
     }
 
-    public void setExpenseId(int incomeId) {
+    public void setIncomeId(int incomeId) {
         this.incomeId = incomeId;
     }
 
