@@ -21,7 +21,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gihan.model.CandidateExpenseDTO;
 import com.gihan.model.ExpenseDTO;
 import com.gihan.model.Frequency;
-import com.gihan.model.PaymentScheduleOption;
 import com.gihan.service.PaymentService;
 
 @Controller
@@ -35,11 +34,6 @@ public class ExpenseController {
     @ModelAttribute("allFrequencies")
     public List<Frequency> populateTypes() {
         return Arrays.asList(Frequency.values());
-    }
-
-    @ModelAttribute("paymentScheduleOptions")
-    public List<PaymentScheduleOption> populateIncurredOptions() {
-        return Arrays.asList(PaymentScheduleOption.values());
     }
 
     @RequestMapping

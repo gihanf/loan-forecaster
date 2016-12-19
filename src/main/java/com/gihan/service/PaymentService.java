@@ -23,4 +23,6 @@ public interface PaymentService {
     List<IncomeDTO> getAllIncomes();
 
     long createIncome(CandidateExpenseDTO dto);
+
+    void deleteIncome(int incomeId);
 }

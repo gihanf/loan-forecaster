@@ -91,6 +91,11 @@ public class PaymentCreator implements PaymentService {
     }
 
     @Override
+    public void deleteIncome(int incomeId) {
+        expenseRepository.delete(incomeId);
+    }
+
+    @Override
     public List<ExpenseDTO> getAllExpenses() {
         List<Payment> exp = expenseRepository.findAll();
         final List<ExpenseDTO> expenses = new ArrayList<>();

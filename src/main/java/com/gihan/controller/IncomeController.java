@@ -77,4 +77,16 @@ public class IncomeController {
         paymentService.edit(incomeDTO);
         return "redirect:/income/";
     }
+
+    @RequestMapping(method = RequestMethod.POST, params = "action=Cancel")
+    public String cancel() {
+        return "redirect:/income/";
+    }
+
+    @RequestMapping(value = "/{id}/delete")
+    public ModelAndView deleteIncome(@PathVariable("id") int incomeId, RedirectAttributes redirect) {
+        paymentService.deleteIncome(incomeId);
+        redirect.addFlashAttribute("globalMessage", "Successfully deleted income");
+        return new ModelAndView("redirect:/income/");
+    }
 }

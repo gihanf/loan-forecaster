@@ -34,7 +34,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.gihan.model.CandidateLoanDTO;
 import com.gihan.model.Frequency;
 import com.gihan.model.LoanDTO;
-import com.gihan.model.PaymentScheduleOption;
 import com.gihan.service.LoanService;
 
 @Controller
@@ -48,11 +47,6 @@ public class LoanController {
     @ModelAttribute("allFrequencies")
     public List<Frequency> populateTypes() {
         return Arrays.asList(Frequency.values());
-    }
-
-    @ModelAttribute("paymentScheduleOptions")
-    public List<PaymentScheduleOption> populateIncurredOptions() {
-        return Arrays.asList(PaymentScheduleOption.values());
     }
 
     @RequestMapping
