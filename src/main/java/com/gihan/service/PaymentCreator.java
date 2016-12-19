@@ -55,6 +55,17 @@ public class PaymentCreator implements PaymentService {
     }
 
     @Override
+    public void edit(IncomeDTO modifiedIncome) {
+        Payment payment = expenseRepository.findById(modifiedIncome.getIncomeId());
+        payment.setAmount(modifiedIncome.getAmount());
+        payment.setDescription(modifiedIncome.getDescription());
+        payment.getPaymentSchedule().setFirstPaymentDate(modifiedIncome.getFirstPaymentDate());
+        payment.getPaymentSchedule().setFrequency(modifiedIncome.getFrequency());
+
+        expenseRepository.save(payment);
+    }
+
+    @Override
     public List<IncomeDTO> getAllIncomes() {
         List<Payment> exp = expenseRepository.findByPaymentDirection(PaymentDirection.INCOMING);
         final List<IncomeDTO> incomes = new ArrayList<>();

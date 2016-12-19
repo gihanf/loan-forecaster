@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -57,5 +58,23 @@ public class IncomeController {
         return "redirect:/income/";
     }
 
+    @RequestMapping("/{id}")
+    public String view(@PathVariable("id") @ModelAttribute IncomeDTO incomeDTO, Model model) {
+        model.addAttribute("income", incomeDTO);
+        return "incomes/view";
+    }
 
+    @RequestMapping(method = RequestMethod.POST, params = "action=Edit")
+    public String edit(IncomeDTO incomeDTO,
+                       BindingResult result,
+                       RedirectAttributes redirect,
+                       Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("formErrors", result.getAllErrors());
+            redirect.addFlashAttribute("globalMessage", "Successfully created a new income source");
+            return "redirect:/income/";
+        }
+        paymentService.edit(incomeDTO);
+        return "redirect:/income/";
+    }
 }

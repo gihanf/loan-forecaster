@@ -27,10 +27,7 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.gihan.convertor.StringToLocalDateConverter;
-import com.gihan.model.Payment;
-import com.gihan.model.ExpenseDTO;
-import com.gihan.model.Loan;
-import com.gihan.model.LoanDTO;
+import com.gihan.model.*;
 import com.gihan.repository.ExpenseRepository;
 import com.gihan.repository.LoanRepository;
 
@@ -74,6 +71,22 @@ public class LoanForecastApplication extends WebMvcConfigurerAdapter {
                         loan.getCurrentBalance(),
                         loan.getInterestRate(),
                         loan.getTerm());
+            }
+        };
+    }
+
+    @Bean
+    public Converter<String, IncomeDTO> incomeConverter() {
+        return new Converter<String, IncomeDTO>() {
+            @Override
+            public IncomeDTO convert(String id) {
+                Payment payment = expenseRepository.findOne(Integer.valueOf(id));
+                return new IncomeDTO(
+                        payment.getId(),
+                        payment.getDescription(),
+                        payment.getAmount(),
+                        payment.getPaymentSchedule().getFrequency(),
+                        payment.getPaymentSchedule().getFirstPaymentDate());
             }
         };
     }
