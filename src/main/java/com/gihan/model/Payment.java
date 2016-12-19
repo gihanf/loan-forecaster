@@ -46,6 +46,8 @@ public class Payment implements Serializable{
 
     private PaymentSchedule paymentSchedule;
 
+    //TODO : Percentage of payment to apply / consider
+
     public Payment() {}
 
     public Payment(String description, BigDecimal amount, PaymentDirection paymentDirection, PaymentSchedule schedule) {
