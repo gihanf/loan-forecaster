@@ -17,7 +17,7 @@ public class PaymentSchedule implements Serializable{
     @Column
     private LocalDate firstPaymentDate;
 
-    private Expense expense;
+    private Payment payment;
 
     public PaymentSchedule() {}
 
@@ -75,12 +75,12 @@ public class PaymentSchedule implements Serializable{
 
     @Id
     @OneToOne
-    @JoinColumn(name = "expense_id")
-    public Expense getExpense() {
-        return expense;
+    @JoinColumn(name = "payment_id")
+    public Payment getPayment() {
+        return payment;
     }
 
-    public void setExpense(Expense expense) {
-        this.expense = expense;
+    public void setPayment(Payment payment) {
+        this.payment = payment;
     }
 }

@@ -3,13 +3,13 @@ package com.gihan.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gihan.model.Expense;
+import com.gihan.model.Payment;
 
 @Transactional
-public interface ExpenseRepository extends JpaRepository<Expense, Integer> {
+public interface ExpenseRepository extends JpaRepository<Payment, Integer> {
 
-    Expense findByDescription(String description);
+    Payment findByDescription(String description);
 
-    Expense findById(int id);
+    Payment findById(int id);
 
 }

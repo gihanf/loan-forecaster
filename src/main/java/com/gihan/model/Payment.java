@@ -27,7 +27,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
-public class Expense implements Serializable{
+public class Payment implements Serializable{
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -46,14 +46,14 @@ public class Expense implements Serializable{
 
     private PaymentSchedule paymentSchedule;
 
-    public Expense() {}
+    public Payment() {}
 
-    public Expense(String description, BigDecimal amount, PaymentDirection paymentDirection, PaymentSchedule schedule) {
+    public Payment(String description, BigDecimal amount, PaymentDirection paymentDirection, PaymentSchedule schedule) {
         this.description = description;
         this.amount = amount;
         this.paymentDirection = paymentDirection;
         this.paymentSchedule = schedule;
-        this.paymentSchedule.setExpense(this);
+        this.paymentSchedule.setPayment(this);
     }
 
     @Id
@@ -101,13 +101,13 @@ public class Expense implements Serializable{
 
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof Expense)) {
+        if (!(obj instanceof Payment)) {
             return false;
         }
         return EqualsBuilder.reflectionEquals(obj, this, "id");
     }
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "expense")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "payment")
     public PaymentSchedule getPaymentSchedule() {
         return paymentSchedule;
     }

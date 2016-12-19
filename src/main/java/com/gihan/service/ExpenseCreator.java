@@ -19,22 +19,22 @@ public class ExpenseCreator implements ExpenseService {
     @Override
     @Transactional
     public long createExpense(CandidateExpenseDTO dto) {
-        Expense expense = new Expense(dto.getDescription(), dto.getAmount(), PaymentDirection.OUTGOING, new PaymentSchedule(dto.getFrequency(), dto.getFirstPaymentDate()));
-        return expenseRepository.save(expense).getId();
+        Payment payment = new Payment(dto.getDescription(), dto.getAmount(), PaymentDirection.OUTGOING, new PaymentSchedule(dto.getFrequency(), dto.getFirstPaymentDate()));
+        return expenseRepository.save(payment).getId();
     }
 
     @Override
     @Transactional
     public void modify(ExpenseDTO modifiedDto) {
-        Expense originalExpense = expenseRepository.findOne(modifiedDto.getExpenseId());
-        originalExpense.setAmount(modifiedDto.getAmount());
-        originalExpense.setDescription(modifiedDto.getDescription());
+        Payment originalPayment = expenseRepository.findOne(modifiedDto.getExpenseId());
+        originalPayment.setAmount(modifiedDto.getAmount());
+        originalPayment.setDescription(modifiedDto.getDescription());
 
-        PaymentSchedule paymentSchedule = originalExpense.getPaymentSchedule();
+        PaymentSchedule paymentSchedule = originalPayment.getPaymentSchedule();
         paymentSchedule.setFirstPaymentDate(modifiedDto.getFirstPaymentDate());
         paymentSchedule.setFrequency(modifiedDto.getFrequency());
 
-        expenseRepository.saveAndFlush(originalExpense);
+        expenseRepository.saveAndFlush(originalPayment);
     }
 
     @Override
@@ -45,18 +45,18 @@ public class ExpenseCreator implements ExpenseService {
     @Override
     public void edit(ExpenseDTO modifiedExpense) {
 
-        Expense expense = expenseRepository.findById(modifiedExpense.getExpenseId());
-        expense.setAmount(modifiedExpense.getAmount());
-        expense.setDescription(modifiedExpense.getDescription());
-        expense.getPaymentSchedule().setFirstPaymentDate(modifiedExpense.getFirstPaymentDate());
-        expense.getPaymentSchedule().setFrequency(modifiedExpense.getFrequency());
+        Payment payment = expenseRepository.findById(modifiedExpense.getExpenseId());
+        payment.setAmount(modifiedExpense.getAmount());
+        payment.setDescription(modifiedExpense.getDescription());
+        payment.getPaymentSchedule().setFirstPaymentDate(modifiedExpense.getFirstPaymentDate());
+        payment.getPaymentSchedule().setFrequency(modifiedExpense.getFrequency());
 
-        expenseRepository.save(expense);
+        expenseRepository.save(payment);
     }
 
     @Override
     public List<ExpenseDTO> getAllExpenses() {
-        List<Expense> exp = expenseRepository.findAll();
+        List<Payment> exp = expenseRepository.findAll();
         final List<ExpenseDTO> expenses = new ArrayList<>();
         exp.stream()
                 .sorted((a, b) -> a.getPaymentSchedule().getFirstPaymentDate().isBefore(b.getPaymentSchedule().getFirstPaymentDate()) ? 1 : -1)

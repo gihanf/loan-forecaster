@@ -27,7 +27,7 @@ import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import com.gihan.convertor.StringToLocalDateConverter;
-import com.gihan.model.Expense;
+import com.gihan.model.Payment;
 import com.gihan.model.ExpenseDTO;
 import com.gihan.model.Loan;
 import com.gihan.model.LoanDTO;
@@ -50,13 +50,13 @@ public class LoanForecastApplication extends WebMvcConfigurerAdapter {
         return new Converter<String, ExpenseDTO>() {
             @Override
             public ExpenseDTO convert(String id) {
-                Expense expense = expenseRepository.findOne(Integer.valueOf(id));
+                Payment payment = expenseRepository.findOne(Integer.valueOf(id));
                 return new ExpenseDTO(
-                        expense.getId(),
-                        expense.getDescription(),
-                        expense.getAmount(),
-                        expense.getPaymentSchedule().getFrequency(),
-                        expense.getPaymentSchedule().getFirstPaymentDate());
+                        payment.getId(),
+                        payment.getDescription(),
+                        payment.getAmount(),
+                        payment.getPaymentSchedule().getFrequency(),
+                        payment.getPaymentSchedule().getFirstPaymentDate());
             }
         };
     }

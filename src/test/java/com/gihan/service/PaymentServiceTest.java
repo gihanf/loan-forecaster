@@ -26,7 +26,7 @@ import com.gihan.testHelper.CandidateExpenseDtoBuilder;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = LoanForecastApplication.class)
 @Transactional
-public class ExpenseServiceTest {
+public class PaymentServiceTest {
 
     @Autowired
     private ExpenseService expenseCreatorService;
@@ -56,13 +56,13 @@ public class ExpenseServiceTest {
 
         expenseCreatorService.createExpense(dto);
 
-        List<Expense> expenses = expenseRepository.findAll();
+        List<Payment> payments = expenseRepository.findAll();
 //        assertThat(expenses.size(), is(1));
-        Expense createdExpense = expenses.get(0);
-        assertThat("descriptions did not match", createdExpense.getDescription(), is("description"));
-        assertThat("amounts did not match", createdExpense.getAmount(), is(expenseAmount));
-        assertThat("first payment dates did not match", createdExpense.getPaymentSchedule().getFirstPaymentDate(), is(firstPaymentDate));
-        assertThat("payment frequencies did not match", createdExpense.getPaymentSchedule().getFrequency(), is(Frequency.YEARLY));
+        Payment createdPayment = payments.get(0);
+        assertThat("descriptions did not match", createdPayment.getDescription(), is("description"));
+        assertThat("amounts did not match", createdPayment.getAmount(), is(expenseAmount));
+        assertThat("first payment dates did not match", createdPayment.getPaymentSchedule().getFirstPaymentDate(), is(firstPaymentDate));
+        assertThat("payment frequencies did not match", createdPayment.getPaymentSchedule().getFrequency(), is(Frequency.YEARLY));
     }
 
     @Test
