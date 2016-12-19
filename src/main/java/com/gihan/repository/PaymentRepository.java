@@ -9,9 +9,7 @@ import com.gihan.model.Payment;
 import com.gihan.model.PaymentDirection;
 
 @Transactional
-public interface ExpenseRepository extends JpaRepository<Payment, Integer> {
-
-    Payment findByDescription(String description);
+public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 
     Payment findById(int id);
 

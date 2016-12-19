@@ -28,7 +28,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import com.gihan.convertor.StringToLocalDateConverter;
 import com.gihan.model.*;
-import com.gihan.repository.ExpenseRepository;
+import com.gihan.repository.PaymentRepository;
 import com.gihan.repository.LoanRepository;
 
 @Configuration
@@ -37,7 +37,7 @@ import com.gihan.repository.LoanRepository;
 public class LoanForecastApplication extends WebMvcConfigurerAdapter {
 
     @Autowired
-    private ExpenseRepository expenseRepository;
+    private PaymentRepository paymentRepository;
 
     @Autowired
     private LoanRepository loanRepository;
@@ -47,7 +47,7 @@ public class LoanForecastApplication extends WebMvcConfigurerAdapter {
         return new Converter<String, ExpenseDTO>() {
             @Override
             public ExpenseDTO convert(String id) {
-                Payment payment = expenseRepository.findOne(Integer.valueOf(id));
+                Payment payment = paymentRepository.findOne(Integer.valueOf(id));
                 return new ExpenseDTO(
                         payment.getId(),
                         payment.getDescription(),
@@ -80,7 +80,7 @@ public class LoanForecastApplication extends WebMvcConfigurerAdapter {
         return new Converter<String, IncomeDTO>() {
             @Override
             public IncomeDTO convert(String id) {
-                Payment payment = expenseRepository.findOne(Integer.valueOf(id));
+                Payment payment = paymentRepository.findOne(Integer.valueOf(id));
                 return new IncomeDTO(
                         payment.getId(),
                         payment.getDescription(),

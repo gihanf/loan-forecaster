@@ -28,7 +28,6 @@ public class LoanCreator implements LoanService {
         List<Loan> exp = loanRepository.findAll();
         final List<LoanDTO> loans = new ArrayList<>();
         exp.stream()
-//                .sorted((a, b) -> a.getPaymentSchedule().getFirstPaymentDate().isBefore(b.getPaymentSchedule().getFirstPaymentDate()) ? 1 : -1)
                 .forEach(loan -> {
                     LoanDTO dto = new LoanDTO(
                             loan.getId(),

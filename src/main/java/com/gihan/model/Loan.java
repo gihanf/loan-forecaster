@@ -116,13 +116,4 @@ public class Loan implements Serializable {
         }
         return EqualsBuilder.reflectionEquals(obj, this, "id");
     }
-
-//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "expense")
-//    public PaymentSchedule getPaymentSchedule() {
-//        return paymentSchedule;
-//    }
-//
-//    public void setPaymentSchedule(PaymentSchedule paymentSchedule) {
-//        this.paymentSchedule = paymentSchedule;
-//    }
 }

@@ -5,8 +5,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +24,6 @@ import com.gihan.service.PaymentService;
 @Controller
 @RequestMapping("/expense")
 public class ExpenseController {
-    private static final Log LOG = LogFactory.getLog(ExpenseController.class);
 
     @Autowired
     private PaymentService paymentService;
@@ -40,26 +37,6 @@ public class ExpenseController {
     public ModelAndView list() {
         List<ExpenseDTO> expenses = this.paymentService.getAllExpenses();
         return new ModelAndView("expenses/list", "expenses", expenses);
-    }
-
-    @RequestMapping("/{id}")
-    public String view(@PathVariable("id") @ModelAttribute ExpenseDTO expenseDTO, Model model) {
-        model.addAttribute("expense", expenseDTO);
-        return "expenses/view";
-    }
-
-    @RequestMapping(method = RequestMethod.POST, params = "action=Edit")
-    public String edit(ExpenseDTO expenseDTO,
-                       BindingResult result,
-                       RedirectAttributes redirect,
-                       Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("formErrors", result.getAllErrors());
-            redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
-            return "redirect:/expense/";
-        }
-        paymentService.edit(expenseDTO);
-        return "redirect:/expense/";
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.GET)
@@ -81,8 +58,28 @@ public class ExpenseController {
         return "redirect:/expense/";
     }
 
+    @RequestMapping("/{id}")
+    public String view(@PathVariable("id") @ModelAttribute ExpenseDTO expenseDTO, Model model) {
+        model.addAttribute("expense", expenseDTO);
+        return "expenses/view";
+    }
+
     @RequestMapping(method = RequestMethod.POST, params = "action=Cancel")
     public String cancel() {
+        return "redirect:/expense/";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, params = "action=Edit")
+    public String edit(ExpenseDTO expenseDTO,
+                       BindingResult result,
+                       RedirectAttributes redirect,
+                       Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("formErrors", result.getAllErrors());
+            redirect.addFlashAttribute("globalMessage", "Successfully created a new expense");
+            return "redirect:/expense/";
+        }
+        paymentService.edit(expenseDTO);
         return "redirect:/expense/";
     }
 

@@ -18,8 +18,6 @@ import java.util.List;
 
 import javax.validation.Valid;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +37,6 @@ import com.gihan.service.LoanService;
 @Controller
 @RequestMapping("/loan")
 public class LoanController {
-    private static final Log LOG = LogFactory.getLog(LoanController.class);
 
     @Autowired
     private LoanService loanService;
@@ -53,25 +50,6 @@ public class LoanController {
     public ModelAndView list() {
         List<LoanDTO> loans = loanService.getAllLoans();
         return new ModelAndView("loans/list", "loans", loans);
-    }
-
-    @RequestMapping("/{id}")
-    public String view(@PathVariable("id") @ModelAttribute LoanDTO loanDTO, Model model) {
-        model.addAttribute("loan", loanDTO);
-        return "loans/view";
-    }
-
-    @RequestMapping(method = RequestMethod.POST, params = "action=Edit")
-    public String editLoan(LoanDTO loanDTO,
-                       BindingResult result,
-                       RedirectAttributes redirect,
-                       Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("formErrors", result.getAllErrors());
-            return "redirect:/loan/";
-        }
-        loanService.edit(loanDTO);
-        return "redirect:/loan/";
     }
 
     @RequestMapping(value = "/form", method = RequestMethod.GET)
@@ -90,6 +68,25 @@ public class LoanController {
         }
         loanService.createLoan(candidateLoanDTO);
         redirect.addFlashAttribute("globalMessage", "Successfully created a new loan");
+        return "redirect:/loan/";
+    }
+
+    @RequestMapping("/{id}")
+    public String view(@PathVariable("id") @ModelAttribute LoanDTO loanDTO, Model model) {
+        model.addAttribute("loan", loanDTO);
+        return "loans/view";
+    }
+
+    @RequestMapping(method = RequestMethod.POST, params = "action=Edit")
+    public String editLoan(LoanDTO loanDTO,
+                       BindingResult result,
+                       RedirectAttributes redirect,
+                       Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("formErrors", result.getAllErrors());
+            return "redirect:/loan/";
+        }
+        loanService.edit(loanDTO);
         return "redirect:/loan/";
     }
 

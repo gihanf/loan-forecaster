@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;

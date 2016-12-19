@@ -20,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gihan.application.LoanForecastApplication;
 import com.gihan.model.*;
-import com.gihan.repository.ExpenseRepository;
+import com.gihan.repository.PaymentRepository;
 import com.gihan.testHelper.CandidateExpenseDtoBuilder;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -32,7 +32,7 @@ public class PaymentServiceTest {
     private PaymentService expenseCreatorService;
 
     @Autowired
-    private ExpenseRepository expenseRepository;
+    private PaymentRepository paymentRepository;
 
     private CandidateExpenseDtoBuilder candidateExpenseDtoBuilder;
     private ExpenseDTO.ExpenseDTOBuilder expenseDtoBuilder;
@@ -56,7 +56,7 @@ public class PaymentServiceTest {
 
         expenseCreatorService.createExpense(dto);
 
-        List<Payment> payments = expenseRepository.findAll();
+        List<Payment> payments = paymentRepository.findAll();
 //        assertThat(expenses.size(), is(1));
         Payment createdPayment = payments.get(0);
         assertThat("descriptions did not match", createdPayment.getDescription(), is("description"));
