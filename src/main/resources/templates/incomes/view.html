@@ -74,8 +74,13 @@
             </div>
         </div>
         <div class="form-actions">
-            <input class="btn btn-primary" type="submit" value="Edit" name="action"/>
-            <a class="btn btn-warning" th:href="@{/income/{incomeId}/delete(incomeId=${income.incomeId})}">Delete Income</a>
+            <div class="row" role="group">
+                <div class="col-sm-12">
+                    <input class="col-sm-1 btn btn-primary" type="submit" value="Edit" name="action"/>
+                    <input class="col-sm-1 btn btn-warning" type="submit" value="Cancel" name="cancel"/>
+                    <a class="col-sm-1 btn btn-danger" th:href="@{/income/{incomeId}/delete(incomeId=${income.incomeId})}">Delete</a>
+                </div>
+            </div>
         </div>
     </form>
 </div>

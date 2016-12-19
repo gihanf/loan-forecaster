@@ -97,7 +97,7 @@ public class PaymentCreator implements PaymentService {
 
     @Override
     public List<ExpenseDTO> getAllExpenses() {
-        List<Payment> exp = expenseRepository.findAll();
+        List<Payment> exp = expenseRepository.findByPaymentDirection(PaymentDirection.OUTGOING);
         final List<ExpenseDTO> expenses = new ArrayList<>();
         exp.stream()
                 .sorted((a, b) -> a.getPaymentSchedule().getFirstPaymentDate().isBefore(b.getPaymentSchedule().getFirstPaymentDate()) ? 1 : -1)

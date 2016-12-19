@@ -91,8 +91,13 @@
         </div>
 
         <div class="form-actions">
-            <input class="btn btn-primary" type="submit" value="Edit" name="action"/>
-            <a class="btn btn-warning" th:href="@{/loan/{loanId}/delete(loanId=${loan.loanId})}">Delete Loan</a>
+            <div class="row" role="group">
+                <div class="col-sm-12">
+                    <input class="col-sm-1 btn btn-primary" type="submit" value="Edit" name="action"/>
+                    <input class="col-sm-1 btn btn-warning" type="submit" value="Cancel" name="cancel"/>
+                    <a class="col-sm-1 btn btn-danger" th:href="@{/loan/{loanId}/delete(loanId=${loan.loanId})}">Delete</a>
+                </div>
+            </div>
         </div>
     </form>
 </div>
