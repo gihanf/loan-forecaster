@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.gihan.model.CandidateExpenseDTO;
-import com.gihan.model.Expense;
-import com.gihan.model.ExpenseDTO;
-import com.gihan.model.PaymentSchedule;
+import com.gihan.model.*;
 import com.gihan.repository.ExpenseRepository;
 
 @Component
@@ -22,7 +19,7 @@ public class ExpenseCreator implements ExpenseService {
     @Override
     @Transactional
     public long createExpense(CandidateExpenseDTO dto) {
-        Expense expense = new Expense(dto.getDescription(), dto.getAmount(), new PaymentSchedule(dto.getFrequency(), dto.getFirstPaymentDate()));
+        Expense expense = new Expense(dto.getDescription(), dto.getAmount(), PaymentDirection.OUTGOING, new PaymentSchedule(dto.getFrequency(), dto.getFirstPaymentDate()));
         return expenseRepository.save(expense).getId();
     }
 

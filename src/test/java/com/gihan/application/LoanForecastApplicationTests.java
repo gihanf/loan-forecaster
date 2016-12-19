@@ -53,6 +53,7 @@ import org.springframework.web.context.WebApplicationContext;
 import com.gihan.model.CandidateExpenseDTO;
 import com.gihan.model.ExpenseDTO;
 import com.gihan.model.Frequency;
+import com.gihan.model.PaymentDirection;
 import com.gihan.service.ExpenseService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -65,7 +66,7 @@ import com.gihan.service.ExpenseService;
 //@TestExecutionListeners(listeners = TransactionalTestExecutionListener.class)
 public class LoanForecastApplicationTests {
 
-    private static final CandidateExpenseDTO EXPENSE = new CandidateExpenseDTO("Some description", BigDecimal.valueOf(13), Frequency.ONCE_OFF, new LocalDate(2016,1,15));
+    private static final CandidateExpenseDTO EXPENSE = new CandidateExpenseDTO("Some description", BigDecimal.valueOf(13), Frequency.ONCE_OFF, new LocalDate(2016,1,15), PaymentDirection.OUTGOING);
     
     @Value("${server.port}")
     private int port;

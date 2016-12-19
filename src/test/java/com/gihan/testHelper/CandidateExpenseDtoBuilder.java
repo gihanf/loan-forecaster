@@ -6,12 +6,14 @@ import org.joda.time.LocalDate;
 
 import com.gihan.model.CandidateExpenseDTO;
 import com.gihan.model.Frequency;
+import com.gihan.model.PaymentDirection;
 
 public class CandidateExpenseDtoBuilder {
     private String description;
     private BigDecimal amount;
     private Frequency frequency;
     private LocalDate firstPaymentDate;
+    private PaymentDirection paymentDirection;
 
     public CandidateExpenseDtoBuilder withDescription(String description) {
         this.description = description;
@@ -33,12 +35,18 @@ public class CandidateExpenseDtoBuilder {
         return this;
     }
 
+    public CandidateExpenseDtoBuilder withPaymentDirection(PaymentDirection paymentDirection) {
+        this.paymentDirection = paymentDirection;
+        return this;
+    }
+
     public CandidateExpenseDTO build() {
         return new CandidateExpenseDTO(
                 this.description,
                 this.amount,
                 this.frequency,
-                this.firstPaymentDate
+                this.firstPaymentDate,
+                this.paymentDirection
         );
     }
 }

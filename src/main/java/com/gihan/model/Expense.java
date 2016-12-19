@@ -41,18 +41,17 @@ public class Expense implements Serializable{
     @Digits(message = "Amount should be numbers only", integer = 9, fraction = 2)
     private BigDecimal amount;
 
+    @Enumerated(EnumType.STRING)
+    private PaymentDirection paymentDirection;
+
     private PaymentSchedule paymentSchedule;
 
     public Expense() {}
 
-    public Expense(String description, BigDecimal amount) {
+    public Expense(String description, BigDecimal amount, PaymentDirection paymentDirection, PaymentSchedule schedule) {
         this.description = description;
         this.amount = amount;
-    }
-
-    public Expense(String description, BigDecimal amount, PaymentSchedule schedule) {
-        this.description = description;
-        this.amount = amount;
+        this.paymentDirection = paymentDirection;
         this.paymentSchedule = schedule;
         this.paymentSchedule.setExpense(this);
     }
@@ -83,6 +82,18 @@ public class Expense implements Serializable{
         this.amount = amount;
     }
 
+    public PaymentDirection getPaymentDirection() {
+        return paymentDirection;
+    }
+
+    public void setPaymentDirection(PaymentDirection paymentDirection) {
+        this.paymentDirection = paymentDirection;
+    }
+
+    public void setPaymentSchedule(PaymentSchedule paymentSchedule) {
+        this.paymentSchedule = paymentSchedule;
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
@@ -99,9 +110,5 @@ public class Expense implements Serializable{
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "expense")
     public PaymentSchedule getPaymentSchedule() {
         return paymentSchedule;
-    }
-
-    public void setPaymentSchedule(PaymentSchedule paymentSchedule) {
-        this.paymentSchedule = paymentSchedule;
     }
 }

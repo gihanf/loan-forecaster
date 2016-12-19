@@ -23,17 +23,20 @@ public class CandidateExpenseDTO {
 
     private Frequency frequency;
 
+    private PaymentDirection paymentDirection;
+
     @NotNull (message = "First payment date must be entered")
     private LocalDate firstPaymentDate;
 
     public CandidateExpenseDTO() {
     }
 
-    public CandidateExpenseDTO(String description, BigDecimal amount, Frequency frequency, LocalDate firstPaymentDate) {
+    public CandidateExpenseDTO(String description, BigDecimal amount, Frequency frequency, LocalDate firstPaymentDate, PaymentDirection paymentDirection) {
         this.description = description;
         this.amount = amount;
         this.frequency = frequency;
         this.firstPaymentDate = firstPaymentDate;
+        this.paymentDirection = paymentDirection;
     }
 
     public String getDescription() {
@@ -66,6 +69,14 @@ public class CandidateExpenseDTO {
 
     public void setFirstPaymentDate(LocalDate firstPaymentDate) {
         this.firstPaymentDate = firstPaymentDate;
+    }
+
+    public PaymentDirection getPaymentDirection() {
+        return paymentDirection;
+    }
+
+    public void setPaymentDirection(PaymentDirection paymentDirection) {
+        this.paymentDirection = paymentDirection;
     }
 
     @Override

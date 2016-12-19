@@ -1,5 +1,6 @@
 package com.gihan.service;
 
+import static com.gihan.model.PaymentDirection.*;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -9,7 +10,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.joda.time.LocalDate;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,10 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gihan.application.LoanForecastApplication;
-import com.gihan.model.CandidateExpenseDTO;
-import com.gihan.model.Expense;
-import com.gihan.model.ExpenseDTO;
-import com.gihan.model.Frequency;
+import com.gihan.model.*;
 import com.gihan.repository.ExpenseRepository;
 import com.gihan.testHelper.CandidateExpenseDtoBuilder;
 
@@ -71,7 +68,7 @@ public class ExpenseServiceTest {
     @Test
     public void shouldReturnAllExpenses() throws Exception {
         LocalDate firstPaymentDate = new LocalDate(2016, 2, 26);
-        expenseCreatorService.createExpense(new CandidateExpenseDTO("description", new BigDecimal(2), Frequency.YEARLY, firstPaymentDate));
+        expenseCreatorService.createExpense(new CandidateExpenseDTO("description", new BigDecimal(2), Frequency.YEARLY, firstPaymentDate, OUTGOING));
         List<ExpenseDTO> allExpenses = expenseCreatorService.getAllExpenses();
         assertThat("Incorrect number of expenses were retrieved from db, check db's original state", allExpenses.size(), is(1));
         assertThat(allExpenses.get(0).getAmount(), is(BigDecimal.valueOf(2)));
@@ -84,9 +81,9 @@ public class ExpenseServiceTest {
     public void shouldReturnExpensesOrderedDescendingByFirstPaymentDate() throws Exception {
         LocalDate firstPaymentDate = new LocalDate(2016, 2, 26);
         final String testDescription = "testDescription";
-        CandidateExpenseDTO expenseToday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate);
-        CandidateExpenseDTO expenseYesterday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate.minusDays(1));
-        CandidateExpenseDTO expenseTomorrow = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate.plusDays(1));
+        CandidateExpenseDTO expenseToday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate, OUTGOING);
+        CandidateExpenseDTO expenseYesterday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate.minusDays(1), OUTGOING);
+        CandidateExpenseDTO expenseTomorrow = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate.plusDays(1), OUTGOING);
         expenseCreatorService.createExpense(expenseToday);
         expenseCreatorService.createExpense(expenseYesterday);
         expenseCreatorService.createExpense(expenseTomorrow);
@@ -104,7 +101,7 @@ public class ExpenseServiceTest {
     public void shouldBeAbleToEditAnExistingExpense() throws Exception {
         LocalDate firstPaymentDate = new LocalDate(2016, 2, 26);
         final String testDescription = "testDescription";
-        CandidateExpenseDTO expenseToday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate);
+        CandidateExpenseDTO expenseToday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate, OUTGOING);
 
         expenseCreatorService.createExpense(expenseToday);
         ExpenseDTO dto = expenseCreatorService.getAllExpenses().stream()
@@ -135,7 +132,7 @@ public class ExpenseServiceTest {
     public void shouldDeleteAnExpense() throws Exception {
         LocalDate firstPaymentDate = new LocalDate(2016, 2, 26);
         final String testDescription = "testDescription";
-        CandidateExpenseDTO expenseToday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate);
+        CandidateExpenseDTO expenseToday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate, OUTGOING);
 
         expenseCreatorService.createExpense(expenseToday);
         ExpenseDTO dto = expenseCreatorService.getAllExpenses().stream()
@@ -153,7 +150,7 @@ public class ExpenseServiceTest {
     public void shouldEditAnExpense() throws Exception {
         LocalDate firstPaymentDate = new LocalDate(2016, 2, 26);
         final String testDescription = "testDescription";
-        CandidateExpenseDTO expenseToday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate);
+        CandidateExpenseDTO expenseToday = new CandidateExpenseDTO(testDescription, new BigDecimal(2), Frequency.YEARLY, firstPaymentDate, OUTGOING);
 
         expenseCreatorService.createExpense(expenseToday);
 
