@@ -1,0 +1,17 @@
+{
+  "name": "loan-forecaster-web-utilities",
+  "homepage": "https://github.com/gihanf/loan-forecaster",
+  "authors": [
+    "gihanf <gihan.fernando@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
