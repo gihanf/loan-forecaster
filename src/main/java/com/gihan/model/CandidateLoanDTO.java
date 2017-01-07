@@ -11,6 +11,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.LocalDate;
 
 public class CandidateLoanDTO {
 
@@ -34,15 +35,19 @@ public class CandidateLoanDTO {
 
     private int term;
 
+    @NotNull (message = "First payment date must be entered")
+    private LocalDate startDate;
+
     public CandidateLoanDTO() {
     }
 
-    public CandidateLoanDTO(String description, BigDecimal principalAmount, BigDecimal balance, BigDecimal interestRate, int term){
+    public CandidateLoanDTO(String description, BigDecimal principalAmount, BigDecimal balance, BigDecimal interestRate, int term, LocalDate startDate){
         this.description = description;
         this.principalAmount = principalAmount;
         this.balance = balance;
         this.interestRate = interestRate;
         this.term = term;
+        this.startDate = startDate;
     }
 
     public String getDescription() {
@@ -65,6 +70,10 @@ public class CandidateLoanDTO {
         return term;
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -83,6 +92,10 @@ public class CandidateLoanDTO {
 
     public void setTerm(int term) {
         this.term = term;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     @Override

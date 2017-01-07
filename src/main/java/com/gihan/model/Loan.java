@@ -3,10 +3,7 @@ package com.gihan.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -15,6 +12,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.LocalDate;
 
 @Entity
 public class Loan implements Serializable {
@@ -44,14 +42,18 @@ public class Loan implements Serializable {
     @NotNull(message = "A term must entered")
     private int term;
 
+    @Column
+    private LocalDate startDate;
+
     public Loan() {}
 
-    public Loan(String description, BigDecimal principalAmount, BigDecimal currentBalance, BigDecimal interestRate, int term) {
+    public Loan(String description, BigDecimal principalAmount, BigDecimal currentBalance, BigDecimal interestRate, int term, LocalDate startDate) {
         this.description = description;
         this.interestRate = interestRate;
         this.principalAmount = principalAmount;
         this.currentBalance = currentBalance;
         this.term = term;
+        this.startDate = startDate;
     }
 
     @Id
@@ -102,6 +104,14 @@ public class Loan implements Serializable {
 
     public void setCurrentBalance(BigDecimal currentBalance) {
         this.currentBalance = currentBalance;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
     @Override

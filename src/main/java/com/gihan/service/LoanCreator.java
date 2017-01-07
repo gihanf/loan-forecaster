@@ -19,7 +19,7 @@ public class LoanCreator implements LoanService {
     public long createLoan(CandidateLoanDTO dto) {
         Loan loan = new Loan(dto.getDescription(),
                 dto.getPrincipalAmount(), dto.getBalance(), dto.getInterestRate(),
-                dto.getTerm());
+                dto.getTerm(), dto.getStartDate());
         return loanRepository.save(loan).getId();
     }
 
@@ -35,7 +35,8 @@ public class LoanCreator implements LoanService {
                             loan.getPrincipalAmount(),
                             loan.getCurrentBalance(),
                             loan.getInterestRate(),
-                            loan.getTerm());
+                            loan.getTerm(),
+                            loan.getStartDate());
                     loans.add(dto);
                 });
         return loans;

@@ -11,6 +11,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.joda.time.LocalDate;
 
 public class LoanDTO {
 
@@ -33,16 +34,19 @@ public class LoanDTO {
 
     private int term;
 
+    private LocalDate startDate;
+
     public LoanDTO() {
     }
 
-    public LoanDTO(int loanId, String description, BigDecimal principalAmount, BigDecimal currentBalance, BigDecimal interestRate, int term){
+    public LoanDTO(int loanId, String description, BigDecimal principalAmount, BigDecimal currentBalance, BigDecimal interestRate, int term, LocalDate startDate){
         this.loanId = loanId;
         this.description = description;
         this.principalAmount = principalAmount;
         this.currentBalance = currentBalance;
         this.interestRate = interestRate;
         this.term = term;
+        this.startDate = startDate;
     }
 
     public int getLoanId() {
@@ -69,6 +73,10 @@ public class LoanDTO {
         return term;
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
     public void setLoanId(int loanId) {
         this.loanId = loanId;
     }
@@ -93,6 +101,10 @@ public class LoanDTO {
         this.term = term;
     }
 
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
+    }
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
@@ -115,6 +127,7 @@ public class LoanDTO {
         public BigDecimal balance;
         public BigDecimal interestRate;
         public int term;
+        public LocalDate startDate;
 
         public LoanDTOBuilder withId(int id) {
             this.id = id;
@@ -146,6 +159,11 @@ public class LoanDTO {
             return this;
         }
 
+        public LoanDTOBuilder withStartDate(int starDate) {
+            this.term = starDate;
+            return this;
+        }
+
         public LoanDTO build() {
             return new LoanDTO(
                     this.id,
@@ -153,7 +171,8 @@ public class LoanDTO {
                     this.principalAmount,
                     this.balance,
                     this.interestRate,
-                    this.term
+                    this.term,
+                    this.startDate
             );
         }
     }

@@ -27,11 +27,12 @@
             <th>Current Balance</th>
             <th>Interest Rate</th>
             <th>Term</th>
+            <th>Start Date</th>
         </tr>
         </thead>
         <tbody>
         <tr th:if="${loans.empty}">
-            <td colspan="6">
+            <td colspan="7">
                 No loans
             </td>
         </tr>
@@ -48,6 +49,7 @@
             <td th:text="${'$' + #numbers.formatDecimal(loan.currentBalance, 0, 'COMMA', 2, 'POINT')}"></td>
             <td th:text="${loan.interestRate + ' %'}"></td>
             <td th:text="${loan.term}"></td>
+            <td th:text="${#dates.format(loan.startDate, 'dd MMM yyyy')}"> </td>
         </tr>
         </tbody>
     </table>

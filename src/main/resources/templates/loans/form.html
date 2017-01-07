@@ -4,6 +4,13 @@
       layout:decorator="layout">
 <head>
     <title>Loans : Create</title>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                dateFormat: "dd/mm/y"
+            });
+        });
+    </script>
 </head>
 <body>
 
@@ -90,6 +97,21 @@
                 </div>
             </div>
         </div>
+
+        <div class="form-group" th:classappend="${#fields.hasErrors('startDate')} ? 'has-danger'">
+            <div class="row">
+                <div class="col-sm-2">
+                    <label class="form-control-label" for="datepicker">Loan Start Date</label>
+                    <input type="text" id="datepicker" class="form-control" th:field="*{startDate}"/>
+                </div>
+            </div>
+            <div class="row" th:hidden="!${#fields.hasErrors('startDate')}">
+                <div class="col-sm-6">
+                    <small class="form-control-feedback">A loan start date must be selected</small>
+                </div>
+            </div>
+        </div>
+
         <div class="form-actions">
             <input class="btn btn-primary" type="submit" value="Create" name="action"/>
             <input class="btn btn-default" type="submit" value="Cancel" name="action"/>

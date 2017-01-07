@@ -70,7 +70,8 @@ public class LoanForecastApplication extends WebMvcConfigurerAdapter {
                         loan.getPrincipalAmount(),
                         loan.getCurrentBalance(),
                         loan.getInterestRate(),
-                        loan.getTerm());
+                        loan.getTerm(),
+                        loan.getStartDate());
             }
         };
     }
