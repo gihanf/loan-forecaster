@@ -159,8 +159,8 @@ public class LoanDTO {
             return this;
         }
 
-        public LoanDTOBuilder withStartDate(int starDate) {
-            this.term = starDate;
+        public LoanDTOBuilder withStartDate(LocalDate startDate) {
+            this.startDate = startDate;
             return this;
         }
 
